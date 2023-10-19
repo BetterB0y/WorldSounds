@@ -1,7 +1,17 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
-plugins {
-    alias(libs.plugins.com.android.application) apply false
-    alias(libs.plugins.org.jetbrains.kotlin.android) apply false
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url = uri("https://maven.fabric.io/public")
+        }
+    }
 }
-true // Needed to make the Suppress annotation work for the plugins block
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.kotlin) apply false
+}
+
+tasks.withType<Delete> {
+    delete(rootProject.buildDir)
+}
