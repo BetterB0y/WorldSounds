@@ -1,12 +1,14 @@
 [versions]
 activityCompose = "1.8.0"
 compose = "1.5.4"
+composeDestinations = "1.9.54"
 composeMaterial3 = "1.1.2"
 composeCompiler = "1.5.3"
 gradlePlugin = "8.1.2"
 java = "17"
 junit = "5.10.0"
 kotlin = "1.9.10"
+kotlinKsp = "1.9.10-1.0.13"
 
 [libraries]
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -16,6 +18,8 @@ compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
+compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "composeDestinations" }
+compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "composeDestinations" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 
@@ -25,3 +29,4 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
