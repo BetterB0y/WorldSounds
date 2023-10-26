@@ -3,41 +3,37 @@ package pl.polsl.worldsounds
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import pl.polsl.worldsounds.ui.theme.WorldSoundsTheme
+import androidx.navigation.compose.rememberNavController
+import com.ramcosta.composedestinations.DestinationsNavHost
+import pl.polsl.worldsounds.screen.NavGraphs
+import pl.polsl.worldsounds.screen.appCurrentDestinationAsState
+import pl.polsl.worldsounds.screen.destinations.Destination
+import pl.polsl.worldsounds.screen.startAppDestination
+import pl.polsl.worldsounds.ui.resources.WorldSoundsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             WorldSoundsTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                val navController = rememberNavController()
+                val currentDestination: Destination =
+                    navController.appCurrentDestinationAsState().value
+                        ?: NavGraphs.root.startAppDestination
+
+                Scaffold { innerPadding ->
+                    Box(modifier = Modifier.padding(innerPadding)) {
+                        DestinationsNavHost(
+                            navGraph = NavGraphs.root,
+                            navController = navController,
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WorldSoundsTheme {
-        Greeting("Android")
     }
 }

@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 interface ImplementationScope {
     fun JUnit()
+    fun navigation()
 }
 
 internal open class ImplementationScopeImpl(
@@ -21,12 +22,21 @@ internal open class ImplementationScopeImpl(
         "implementation"(libs.findLibrary(dependency).get().get())
     }
 
+    private fun DependencyHandlerScope.ksp(dependency: String) {
+        "ksp"(libs.findLibrary(dependency).get().get())
+    }
+
     private fun DependencyHandlerScope.testPlatformImplementation(dependency: String) {
         "testImplementation"(platform(libs.findLibrary(dependency).get().get()))
     }
 
     private fun DependencyHandlerScope.testImplementation(dependency: String) {
         "testImplementation"(libs.findLibrary(dependency).get().get())
+    }
+
+    override fun navigation() = dependencyHandlerScope.run {
+        implementation("compose.destinations.core")
+        ksp("compose.destinations.ksp")
     }
 
     override fun JUnit(): Unit = dependencyHandlerScope.run {

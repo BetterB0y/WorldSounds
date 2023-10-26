@@ -1,4 +1,4 @@
-package pl.polsl.worldsounds.ui.theme
+package pl.polsl.worldsounds.ui.resources
 
 import android.app.Activity
 import android.os.Build
