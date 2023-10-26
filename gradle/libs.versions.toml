@@ -1,5 +1,6 @@
 [versions]
 activityCompose = "1.8.0"
+appCompat = "1.6.1"
 compose = "1.5.4"
 composeDestinations = "1.9.54"
 composeMaterial3 = "1.1.2"
@@ -7,11 +8,15 @@ composeCompiler = "1.5.3"
 gradlePlugin = "8.1.2"
 java = "17"
 junit = "5.10.0"
+hilt = "2.48.1"
+hiltNavigationCompose = "1.0.0"
 kotlin = "1.9.10"
 kotlinKsp = "1.9.10-1.0.13"
+timber = "5.0.1"
 
 [libraries]
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
 compose-material = { group = "androidx.compose.material3", name = "material3", version.ref = "composeMaterial3" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
 compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "compose" }
@@ -22,6 +27,10 @@ compose-destinations-core = { group = "io.github.raamcosta.compose-destinations"
 compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "composeDestinations" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -30,3 +39,5 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
+kotlin-kapt = { id = "kotlin-kapt", version.ref = "kotlin" }
+hilt-gradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
