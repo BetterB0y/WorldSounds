@@ -12,6 +12,7 @@ internal fun Project.configureAndroidCompose(
     commonExtension.apply {
         buildFeatures {
             compose = true
+            buildConfig = true
         }
 
         composeOptions {
@@ -46,6 +47,10 @@ internal fun Project.configureAndroidCompose(
             addProvider(
                 "implementation",
                 provider { libs.findLibrary("compose.material.icons.extended").get().get() }
+            )
+            addProvider(
+                "implementation",
+                provider { libs.findLibrary("appcompat").get().get() }
             )
         }
     }

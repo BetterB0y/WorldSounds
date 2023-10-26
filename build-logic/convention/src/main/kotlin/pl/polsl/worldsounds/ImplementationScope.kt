@@ -8,6 +8,8 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 interface ImplementationScope {
     fun JUnit()
     fun navigation()
+    fun timber()
+    fun hilt()
 }
 
 internal open class ImplementationScopeImpl(
@@ -26,6 +28,14 @@ internal open class ImplementationScopeImpl(
         "ksp"(libs.findLibrary(dependency).get().get())
     }
 
+    private fun DependencyHandlerScope.kapt(dependency: String) {
+        "kapt"(libs.findLibrary(dependency).get().get())
+    }
+
+    private fun DependencyHandlerScope.kaptTest(dependency: String) {
+        "kaptTest"(libs.findLibrary(dependency).get().get())
+    }
+
     private fun DependencyHandlerScope.testPlatformImplementation(dependency: String) {
         "testImplementation"(platform(libs.findLibrary(dependency).get().get()))
     }
@@ -37,6 +47,17 @@ internal open class ImplementationScopeImpl(
     override fun navigation() = dependencyHandlerScope.run {
         implementation("compose.destinations.core")
         ksp("compose.destinations.ksp")
+        implementation("hilt.navigation.compose")
+    }
+
+    override fun hilt(): Unit = dependencyHandlerScope.run {
+        implementation("hilt.android")
+        kapt("hilt.compiler")
+        kaptTest("hilt.compiler")
+    }
+
+    override fun timber(): Unit = dependencyHandlerScope.run {
+        implementation("timber")
     }
 
     override fun JUnit(): Unit = dependencyHandlerScope.run {

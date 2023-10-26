@@ -8,6 +8,7 @@ android {
     namespace = "pl.polsl.worldsounds"
     defaultConfig {
         applicationId = "pl.polsl.worldsounds"
+        resourceConfigurations += listOf("en", "pl")
     }
 
     buildTypes.getByName("release").proguardFiles(
@@ -21,6 +22,15 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+hilt {
+    enableAggregatingTask = true
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
@@ -28,4 +38,6 @@ tasks.withType<Test> {
 dependencyImplementation {
     JUnit()
     navigation()
+    timber()
+    hilt()
 }
