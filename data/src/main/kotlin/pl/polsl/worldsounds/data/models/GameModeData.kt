@@ -1,3 +1,6 @@
 package pl.polsl.worldsounds.data.models
 
-class GameModeData
+enum class GameModeData {
+    SoundToImage,
+    ImageToSound,
+}

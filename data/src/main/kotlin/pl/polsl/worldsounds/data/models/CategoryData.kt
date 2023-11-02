@@ -1,3 +1,7 @@
 package pl.polsl.worldsounds.data.models
 
-class CategoryData
+data class CategoryData(
+    val id: Int,
+    val name: String,
+    val categoryImagePath: String
+)

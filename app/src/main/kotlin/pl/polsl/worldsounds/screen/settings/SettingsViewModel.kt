@@ -12,15 +12,15 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     coroutineDispatcher: CoroutineDispatcher
-) : BaseViewModel<SettingsPageState>(coroutineDispatcher) {
-    override val initialState: SettingsPageState = SettingsPageState.InitialState
-    override val _state: MutableStateFlow<SettingsPageState> = MutableStateFlow(initialState)
+) : BaseViewModel<SettingsScreenState>(coroutineDispatcher) {
+    override val initialState: SettingsScreenState = SettingsScreenState.InitialState
+    override val _state: MutableStateFlow<SettingsScreenState> = MutableStateFlow(initialState)
 
     fun changeLanguage(locale: String) {
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }
 }
 
-sealed class SettingsPageState {
-    data object InitialState : SettingsPageState()
+sealed class SettingsScreenState {
+    data object InitialState : SettingsScreenState()
 }

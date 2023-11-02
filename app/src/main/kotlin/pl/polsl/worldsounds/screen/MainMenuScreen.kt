@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.polsl.worldsounds.screen.destinations.GameModeScreenDestination
 import pl.polsl.worldsounds.screen.destinations.SettingsScreenDestination
 import pl.polsl.worldsounds.ui.components.MainButton
 
@@ -21,9 +22,11 @@ fun MainMenuScreen(navigator: DestinationsNavigator) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        MainButton(text = "Graj", onClick = {})
-        MainButton(text = "Ustawienia", onClick = {
+        MainButton(text = "Graj") {
+            navigator.navigate(direction = GameModeScreenDestination())
+        }
+        MainButton(text = "Ustawienia") {
             navigator.navigate(direction = SettingsScreenDestination())
-        })
+        }
     }
 }
