@@ -11,6 +11,7 @@ interface ImplementationScope {
     fun timber()
     fun hilt()
     fun datastore()
+    fun room()
 }
 
 internal open class ImplementationScopeImpl(
@@ -68,5 +69,11 @@ internal open class ImplementationScopeImpl(
 
     override fun datastore(): Unit = dependencyHandlerScope.run {
         implementation("datastore-preferences")
+    }
+
+    override fun room(): Unit = dependencyHandlerScope.run {
+        implementation("room.ktx")
+        kapt("room.compiler")
+        implementation("room.runtime")
     }
 }
