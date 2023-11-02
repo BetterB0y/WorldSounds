@@ -1,20 +1,19 @@
 package pl.polsl.worldsounds.base
 
-import android.content.Context
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<out STATE>(private val defaultDispatcher: CoroutineDispatcher) :
+abstract class BaseViewModel<out STATE>(protected val defaultDispatcher: CoroutineDispatcher) :
     ViewModel() {
     private val jobs = mutableListOf<Job>()
     abstract val initialState: STATE
@@ -27,8 +26,8 @@ abstract class BaseViewModel<out STATE>(private val defaultDispatcher: Coroutine
         )
     }
 
-    protected val _events = MutableSharedFlow<Event>()
-    val events: Flow<Event> = _events
+    private val _events = Channel<Event>()
+    val events: Flow<Event> = _events.receiveAsFlow().distinctForDuration(4000L)
 
     protected fun launch(
         dispatcher: CoroutineDispatcher = defaultDispatcher,
@@ -48,6 +47,10 @@ abstract class BaseViewModel<out STATE>(private val defaultDispatcher: Coroutine
         job.join()
     }
 
+    protected suspend fun sendEvent(event: Event) {
+        _events.send(event)
+    }
+
     protected operator fun MutableList<Job>.plusAssign(job: Job) {
         this.add(job)
     }
@@ -56,11 +59,5 @@ abstract class BaseViewModel<out STATE>(private val defaultDispatcher: Coroutine
         jobs.forEach { it.cancel() }
         jobs.clear()
         super.onCleared()
-    }
-
-    open class Event {
-        data class Message(@StringRes private val textId: Int) : Event() {
-            fun text(context: Context): String = context.getString(textId)
-        }
     }
 }

@@ -41,3 +41,8 @@ dependencyImplementation {
     timber()
     hilt()
 }
+
+dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
+}

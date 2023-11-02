@@ -17,4 +17,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "WorldSounds"
-include(":app")
+include(
+    ":app",
+    ":data",
+    ":domain"
+)
