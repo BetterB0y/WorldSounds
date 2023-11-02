@@ -11,14 +11,14 @@ android {
 
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
-        /* javaCompileOptions {
-             annotationProcessorOptions {
-                 arguments += mapOf(
-                     "room.schemaLocation" to "$projectDir/schemas",
-                     "room.incremental" to "true"
-                 )
-             }
-         }*/
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true"
+                )
+            }
+        }
     }
 
     buildTypes.getByName("release").proguardFiles(
@@ -35,6 +35,7 @@ kapt {
 dependencyImplementation {
     datastore()
     hilt()
+    room()
 }
 
 dependencies {
