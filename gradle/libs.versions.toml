@@ -5,11 +5,12 @@ compose = "1.5.4"
 composeDestinations = "1.9.54"
 composeMaterial3 = "1.1.2"
 composeCompiler = "1.5.3"
+datastore = "1.0.0"
 gradlePlugin = "8.1.2"
 java = "17"
 junit = "5.10.0"
 hilt = "2.48.1"
-hiltNavigationCompose = "1.0.0"
+hiltNavigationCompose = "1.1.0"
 kotlin = "1.9.10"
 kotlinKsp = "1.9.10-1.0.13"
 timber = "5.0.1"
@@ -25,6 +26,7 @@ compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", versi
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "composeDestinations" }
 compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "composeDestinations" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -37,6 +39,7 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "gradlePlugin" }
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
 kotlin-kapt = { id = "kotlin-kapt", version.ref = "kotlin" }

@@ -10,6 +10,7 @@ interface ImplementationScope {
     fun navigation()
     fun timber()
     fun hilt()
+    fun datastore()
 }
 
 internal open class ImplementationScopeImpl(
@@ -65,4 +66,7 @@ internal open class ImplementationScopeImpl(
         testImplementation("junit.jupiter")
     }
 
+    override fun datastore(): Unit = dependencyHandlerScope.run {
+        implementation("datastore-preferences")
+    }
 }

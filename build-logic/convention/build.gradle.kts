@@ -41,5 +41,13 @@ gradlePlugin {
             id = "worldsounds.dependencies"
             implementationClass = "DependencyConventionPlugin"
         }
+        register("androidLibrary") {
+            id = "worldsounds.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("kotlinLibrary") {
+            id = "worldsounds.kotlin.library"
+            implementationClass = "KotlinLibraryConventionPlugin"
+        }
     }
 }
