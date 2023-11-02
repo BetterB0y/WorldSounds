@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class AudioEntity(
+internal data class AudioEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,

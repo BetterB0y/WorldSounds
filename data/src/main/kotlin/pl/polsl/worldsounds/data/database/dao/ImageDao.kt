@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import pl.polsl.worldsounds.data.database.models.ImageEntity
 
 @Dao
-interface ImageDao {
+internal interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(image: ImageEntity): Long
 }
