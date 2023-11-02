@@ -36,3 +36,7 @@ dependencyImplementation {
     datastore()
     hilt()
 }
+
+dependencies {
+    implementation(project(":domain"))
+}
