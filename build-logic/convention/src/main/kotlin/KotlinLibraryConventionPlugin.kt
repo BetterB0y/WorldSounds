@@ -5,6 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.configure
+import pl.polsl.worldsounds.libs
 
 class KotlinLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -14,9 +15,10 @@ class KotlinLibraryConventionPlugin : Plugin<Project> {
                 apply("org.jetbrains.kotlin.jvm")
             }
 
+            val javaVersion = JavaVersion.toVersion(libs.findVersion("java").get().toString())
             extensions.configure<JavaPluginExtension> {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = javaVersion
+                targetCompatibility = javaVersion
             }
         }
     }
