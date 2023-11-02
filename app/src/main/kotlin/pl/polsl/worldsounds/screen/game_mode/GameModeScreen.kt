@@ -20,13 +20,11 @@ fun GameModeScreen(
     viewModel: GameModeViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
-
     viewModel.events.observeEvents {
         when (it) {
             is Event.Navigation -> it.navigate(navigator)
         }
     }
-
 
     GameModeScreen(
         saveAndNavigate = viewModel::saveAndNavigate
