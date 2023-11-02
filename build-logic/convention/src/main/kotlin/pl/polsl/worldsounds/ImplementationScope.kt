@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 interface ImplementationScope {
+    fun accompanist()
     fun JUnit()
     fun navigation()
     fun timber()
@@ -44,6 +45,10 @@ internal open class ImplementationScopeImpl(
 
     private fun DependencyHandlerScope.testImplementation(dependency: String) {
         "testImplementation"(libs.findLibrary(dependency).get().get())
+    }
+
+    override fun accompanist(): Unit = dependencyHandlerScope.run {
+        implementation("accompanist.permissions")
     }
 
     override fun navigation() = dependencyHandlerScope.run {

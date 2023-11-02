@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-internal data class ScoreEntity(
+data class ScoreEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "player_name")

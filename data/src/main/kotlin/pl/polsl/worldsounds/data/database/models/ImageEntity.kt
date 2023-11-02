@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-internal data class ImageEntity(
+data class ImageEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,

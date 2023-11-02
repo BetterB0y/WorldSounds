@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WorldSounds</string>
+    <string name="addPermissions">Grant permissions</string>
+    <string name="storagePermission">Access to the storage is needed for the correct operation of this application. Please grant the necessary permissions.</string>
+    <string name="storageRationale">Access to the storage is needed to add Your own categories. Give the necessary permissions.</string>
+
 </resources>

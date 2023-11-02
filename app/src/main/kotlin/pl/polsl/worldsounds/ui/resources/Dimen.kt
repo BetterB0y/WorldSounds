@@ -9,5 +9,6 @@ object D {
         val paddingMedium = 8.dp
         val paddingBig = 10.dp
         val paddingDoubleBig = 20.dp
+        val permissionPadding = 16.dp
     }
 }

@@ -27,13 +27,15 @@ fun GameModeScreen(
     }
 
     GameModeScreen(
-        saveAndNavigate = viewModel::saveAndNavigate
+        saveAndNavigate = viewModel::saveAndNavigate,
+        scanWorldSounds = viewModel::scanWorldSounds
     )
 }
 
 @Composable
 private fun GameModeScreen(
     saveAndNavigate: (GameModeUi) -> Unit,
+    scanWorldSounds: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -42,5 +44,6 @@ private fun GameModeScreen(
     ) {
         MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeUi.ImageToSound) })
         MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeUi.SoundToImage) })
+        MainButton(text = "Test", onClick = { scanWorldSounds() })
     }
 }

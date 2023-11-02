@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import pl.polsl.worldsounds.data.database.models.CategoryEntity
 
 @Dao
-internal interface CategoryDao {
+interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(category: CategoryEntity): Long
 
