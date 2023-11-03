@@ -36,6 +36,7 @@ dependencyImplementation {
     datastore()
     hilt()
     room()
+    timber()
 }
 
 dependencies {

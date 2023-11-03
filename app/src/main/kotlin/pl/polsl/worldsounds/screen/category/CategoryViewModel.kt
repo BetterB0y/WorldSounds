@@ -4,7 +4,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import pl.polsl.worldsounds.base.BaseViewModel
-import pl.polsl.worldsounds.domain.usecase.GetGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
 import timber.log.Timber
 import javax.inject.Inject
 

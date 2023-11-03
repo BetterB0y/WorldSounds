@@ -8,8 +8,14 @@ import androidx.room.PrimaryKey
     tableName = "categories",
     indices = [Index(value = ["name"], unique = true)]
 )
-data class CategoryEntity(
+internal data class CategoryEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
-)
+) {
+    companion object {
+        fun new(
+            name: String,
+        ) = CategoryEntity(0, name)
+    }
+}

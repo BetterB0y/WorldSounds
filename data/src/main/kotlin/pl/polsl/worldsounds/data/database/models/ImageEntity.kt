@@ -21,10 +21,17 @@ import androidx.room.PrimaryKey
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class ImageEntity(
+internal data class ImageEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
     @ColumnInfo(name = "category_id")
     val categoryId: Long
-)
+) {
+    companion object {
+        fun new(
+            name: String,
+            categoryId: Long,
+        ) = ImageEntity(0, name, categoryId)
+    }
+}

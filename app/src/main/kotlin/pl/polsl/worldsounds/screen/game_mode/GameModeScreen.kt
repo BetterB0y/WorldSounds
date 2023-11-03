@@ -35,7 +35,6 @@ fun GameModeScreen(
 
     GameModeScreen(
         saveAndNavigate = viewModel::saveAndNavigate,
-        scanWorldSounds = viewModel::scanWorldSounds,
         playAudio = viewModel::playAudio,
     )
 }
@@ -43,7 +42,6 @@ fun GameModeScreen(
 @Composable
 private fun GameModeScreen(
     saveAndNavigate: (GameModeUi) -> Unit,
-    scanWorldSounds: () -> Unit,
     playAudio: (Context, String) -> Unit,
 ) {
 
@@ -59,7 +57,6 @@ private fun GameModeScreen(
     ) {
         MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeUi.OnePicture) })
         MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeUi.OneSound) })
-        MainButton(text = "Test", onClick = { scanWorldSounds() })
         ImageCard(
             "Animals/1.jpg",
             onClick = {
