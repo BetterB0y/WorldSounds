@@ -16,6 +16,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
+import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.ui.components.ImageCard
 
 @Destination
@@ -32,7 +33,6 @@ fun CategoryScreen(
         }
     }
 
-
     CategoryScreen(
         state = state,
         saveAndNavigate = viewModel::saveAndNavigate
@@ -42,7 +42,7 @@ fun CategoryScreen(
 @Composable
 private fun CategoryScreen(
     state: CategoryScreenState,
-    saveAndNavigate: () -> Unit,
+    saveAndNavigate: (CategoryData) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier.fillMaxSize(),
@@ -53,7 +53,7 @@ private fun CategoryScreen(
             items = state.categories,
             key = { it.name }) {
             ImageCard(modifier = Modifier.padding(10.dp), file = it.image) {
-                saveAndNavigate()
+                saveAndNavigate(it)
             }
         }
     }
