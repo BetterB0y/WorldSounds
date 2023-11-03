@@ -7,6 +7,6 @@ import pl.polsl.worldsounds.data.database.models.ImageEntity
 
 @Dao
 interface ImageDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(image: ImageEntity): Long
 }

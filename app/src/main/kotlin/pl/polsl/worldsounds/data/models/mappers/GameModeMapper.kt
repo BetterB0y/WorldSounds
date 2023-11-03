@@ -6,7 +6,7 @@ import pl.polsl.worldsounds.domain.models.GameModeModel
 
 internal fun GameModeUi.toModel(): GameModeModel {
     return when (this) {
-        GameModeUi.SoundToImage -> GameModeModel.SoundToImage
-        GameModeUi.ImageToSound -> GameModeModel.ImageToSound
+        GameModeUi.OnePicture -> GameModeModel.OnePicture
+        GameModeUi.OneSound -> GameModeModel.OneSound
     }
 }

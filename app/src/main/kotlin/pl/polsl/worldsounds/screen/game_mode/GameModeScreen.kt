@@ -42,8 +42,8 @@ private fun GameModeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeUi.ImageToSound) })
-        MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeUi.SoundToImage) })
+        MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeUi.OnePicture) })
+        MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeUi.OneSound) })
         MainButton(text = "Test", onClick = { scanWorldSounds() })
     }
 }

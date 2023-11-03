@@ -8,7 +8,10 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "audios",
-    indices = [Index("category_id")],
+    indices = [
+        Index("category_id"),
+        Index(value = ["name"], unique = true)
+    ],
     foreignKeys = [ForeignKey(
         entity = CategoryEntity::class,
         parentColumns = ["id"],

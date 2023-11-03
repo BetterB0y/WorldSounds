@@ -7,6 +7,6 @@ import pl.polsl.worldsounds.data.database.models.AudioEntity
 
 @Dao
 interface AudioDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(audio: AudioEntity): Long
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "7512d6739f99f5372cd6ed5ca7207bea",
+    "identityHash": "4316995306ed5186b71346faa7202876",
     "entities": [
       {
         "tableName": "categories",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `path` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,8 +15,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "path",
-            "columnName": "path",
+            "fieldPath": "name",
+            "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -27,7 +27,17 @@
             "id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_categories_name",
+            "unique": true,
+            "columnNames": [
+              "name"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_categories_name` ON `${TABLE_NAME}` (`name`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -128,6 +138,15 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_audios_category_id` ON `${TABLE_NAME}` (`category_id`)"
+          },
+          {
+            "name": "index_audios_name",
+            "unique": true,
+            "columnNames": [
+              "name"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_audios_name` ON `${TABLE_NAME}` (`name`)"
           }
         ],
         "foreignKeys": [
@@ -182,6 +201,15 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_images_category_id` ON `${TABLE_NAME}` (`category_id`)"
+          },
+          {
+            "name": "index_images_name",
+            "unique": true,
+            "columnNames": [
+              "name"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_images_name` ON `${TABLE_NAME}` (`name`)"
           }
         ],
         "foreignKeys": [
@@ -202,7 +230,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7512d6739f99f5372cd6ed5ca7207bea')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4316995306ed5186b71346faa7202876')"
     ]
   }
 }

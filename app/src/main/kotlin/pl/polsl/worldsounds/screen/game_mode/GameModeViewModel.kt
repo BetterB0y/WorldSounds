@@ -40,6 +40,7 @@ class GameModeViewModel @Inject constructor(
     val folder = File(folderPath)
 
     fun scanWorldSounds() = launch {
+        categoryDao.deleteAll()
         folder.listFiles()?.forEach { categoryDir ->
             if (categoryDir.isDirectory) {
                 Timber.e("Category name: ${categoryDir.name}")
