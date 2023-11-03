@@ -1,8 +1,12 @@
 package pl.polsl.worldsounds.screen.game_mode
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
+import pl.polsl.worldsounds.app.Config
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.data.database.dao.AudioDao
@@ -36,8 +40,7 @@ class GameModeViewModel @Inject constructor(
         sendEvent(GameModeEvent.OpenCategoryScreen)
     }
 
-    val folderPath = "/storage/emulated/0/WorldSounds"
-    val folder = File(folderPath)
+    val folder = File(Config.basePath)
 
     fun scanWorldSounds() = launch {
         categoryDao.deleteAll()
@@ -59,6 +62,28 @@ class GameModeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private var mediaPlayer: MediaPlayer? = null
+
+    fun playAudio(context: Context, audioPath: String) {
+        stopAudio() // stop current playing audio if any
+        mediaPlayer = MediaPlayer.create(context, Uri.parse(Config.basePath + audioPath)).apply {
+            setOnCompletionListener {
+                // Notify UI or perform an action when audio is complete
+            }
+            start()
+        }
+    }
+
+    fun stopAudio() {
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        stopAudio()
     }
 }
 

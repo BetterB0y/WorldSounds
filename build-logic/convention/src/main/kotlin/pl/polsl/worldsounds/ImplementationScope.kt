@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 interface ImplementationScope {
     fun accompanist()
+    fun coil()
     fun JUnit()
     fun navigation()
     fun timber()
@@ -49,6 +50,10 @@ internal open class ImplementationScopeImpl(
 
     override fun accompanist(): Unit = dependencyHandlerScope.run {
         implementation("accompanist.permissions")
+    }
+
+    override fun coil(): Unit = dependencyHandlerScope.run {
+        implementation("coil.compose")
     }
 
     override fun navigation() = dependencyHandlerScope.run {

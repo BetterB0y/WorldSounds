@@ -37,6 +37,7 @@ tasks.withType<Test> {
 
 dependencyImplementation {
     accompanist()
+    coil()
     JUnit()
     navigation()
     timber()
