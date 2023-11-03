@@ -9,7 +9,10 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "images",
-    indices = [Index("category_id")],
+    indices = [
+        Index("category_id"),
+        Index(value = ["name", "category_id"], unique = true)
+    ],
     foreignKeys = [ForeignKey(
         entity = CategoryEntity::class,
         parentColumns = ["id"],
@@ -24,4 +27,11 @@ internal data class ImageEntity(
     val name: String,
     @ColumnInfo(name = "category_id")
     val categoryId: Long
-)
+) {
+    companion object {
+        fun new(
+            name: String,
+            categoryId: Long,
+        ) = ImageEntity(0, name, categoryId)
+    }
+}

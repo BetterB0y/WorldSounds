@@ -29,3 +29,30 @@ internal fun <T> Flow<T>.observeEvents(
             }
     }
 }
+
+@Composable
+private fun <TYPE> Flow<TYPE>.observeWithLifecycle(
+    initialState: TYPE,
+    lifecycleState: Lifecycle.State = Lifecycle.State.STARTED
+): State<TYPE> {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val flowLifecycleAware = remember(
+        this,
+        lifecycleOwner
+    ) {
+        this.flowWithLifecycle(
+            lifecycleOwner.lifecycle,
+            lifecycleState
+        )
+    }
+    return flowLifecycleAware.collectAsState(initial = initialState)
+}
+
+@Composable
+internal fun <STATE> BaseViewModel<STATE>.observeState(
+    initialState: STATE = this.initialState,
+    lifecycleState: Lifecycle.State = Lifecycle.State.STARTED
+): State<STATE> = this.state.observeWithLifecycle(
+    initialState = initialState,
+    lifecycleState = lifecycleState,
+)

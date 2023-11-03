@@ -1,6 +1,6 @@
-package pl.polsl.worldsounds.domain.usecase
+package pl.polsl.worldsounds.domain.usecases
 
 import pl.polsl.worldsounds.domain.base.SuspendUseCase
 import pl.polsl.worldsounds.domain.models.GameModeModel
 
-interface SaveGameModeUseCase : SuspendUseCase<GameModeModel, Unit>
+interface GetGameModeUseCase : SuspendUseCase<Unit, GameModeModel>

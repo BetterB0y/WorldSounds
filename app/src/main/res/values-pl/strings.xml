@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Głosy Świata</string>
+    <string name="addPermissions">Nadaj uprawnienia</string>
+    <string name="storagePermission">Dostęp do pamięci urządzenia jest potrzebny do poprawnego działania tej aplikacji. Proszę nadaj potrzebne uprawnienia.</string>
+    <string name="storageRationale">Dostęp do pamięci urządzenia jest potrzebny, aby dodawać własne kategorie. Nadaj potrzebne uprawnienia.</string>
+
 </resources>

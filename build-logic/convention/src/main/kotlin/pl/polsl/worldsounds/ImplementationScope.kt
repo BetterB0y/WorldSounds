@@ -6,6 +6,10 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 interface ImplementationScope {
+    fun accompanist()
+    fun coil()
+    fun coroutines()
+    fun coroutinesCore()
     fun JUnit()
     fun navigation()
     fun timber()
@@ -45,6 +49,24 @@ internal open class ImplementationScopeImpl(
     private fun DependencyHandlerScope.testImplementation(dependency: String) {
         "testImplementation"(libs.findLibrary(dependency).get().get())
     }
+
+    override fun accompanist(): Unit = dependencyHandlerScope.run {
+        implementation("accompanist.permissions")
+    }
+
+    override fun coil(): Unit = dependencyHandlerScope.run {
+        implementation("coil.compose")
+    }
+
+    override fun coroutines(): Unit = dependencyHandlerScope.run {
+        implementation("kotlinx.coroutines.android")
+    }
+
+
+    override fun coroutinesCore(): Unit = dependencyHandlerScope.run {
+        implementation("kotlinx.coroutines.core")
+    }
+
 
     override fun navigation() = dependencyHandlerScope.run {
         implementation("compose.destinations.core")
