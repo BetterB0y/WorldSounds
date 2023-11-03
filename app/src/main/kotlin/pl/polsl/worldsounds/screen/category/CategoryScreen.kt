@@ -53,17 +53,8 @@ private fun CategoryScreen(
             items = state.categories,
             key = { it.name }) {
             ImageCard(modifier = Modifier.padding(10.dp), file = it.image) {
-
+                saveAndNavigate()
             }
         }
     }
-    /* Column(
-         modifier = Modifier.fillMaxSize(),
-         horizontalAlignment = Alignment.CenterHorizontally,
-         verticalArrangement = Arrangement.Center,
-     ) {
-         MainButton(text = "Kategoria 1", onClick = { saveAndNavigate() })
-         MainButton(text = "Kategoria 2", onClick = {})
-         MainButton(text = "Kategoria 3", onClick = { })
-     }*/
 }
