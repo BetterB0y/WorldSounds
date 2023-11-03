@@ -17,9 +17,10 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
-import pl.polsl.worldsounds.data.models.GameModeUi
+import pl.polsl.worldsounds.models.GameModeData
 import pl.polsl.worldsounds.ui.components.ImageCard
 import pl.polsl.worldsounds.ui.components.MainButton
+import pl.polsl.worldsounds.utils.FileHelper
 
 @Destination
 @Composable
@@ -41,7 +42,7 @@ fun GameModeScreen(
 
 @Composable
 private fun GameModeScreen(
-    saveAndNavigate: (GameModeUi) -> Unit,
+    saveAndNavigate: (GameModeData) -> Unit,
     playAudio: (Context, String) -> Unit,
 ) {
 
@@ -55,10 +56,10 @@ private fun GameModeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeUi.OnePicture) })
-        MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeUi.OneSound) })
+        MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeData.OnePicture) })
+        MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeData.OneSound) })
         ImageCard(
-            "Animals/1.jpg",
+            FileHelper.buildFile("Animals", "1.jpg"),
             onClick = {
                 playAudio(context, "Animals/1.mp3")
                 isImageSelected = !isImageSelected

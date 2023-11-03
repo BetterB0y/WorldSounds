@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4316995306ed5186b71346faa7202876",
+    "identityHash": "eb6b55adebf4e7e4413908a424dee362",
     "entities": [
       {
         "tableName": "categories",
@@ -140,13 +140,14 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_audios_category_id` ON `${TABLE_NAME}` (`category_id`)"
           },
           {
-            "name": "index_audios_name",
+            "name": "index_audios_name_category_id",
             "unique": true,
             "columnNames": [
-              "name"
+              "name",
+              "category_id"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_audios_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_audios_name_category_id` ON `${TABLE_NAME}` (`name`, `category_id`)"
           }
         ],
         "foreignKeys": [
@@ -203,13 +204,14 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_images_category_id` ON `${TABLE_NAME}` (`category_id`)"
           },
           {
-            "name": "index_images_name",
+            "name": "index_images_name_category_id",
             "unique": true,
             "columnNames": [
-              "name"
+              "name",
+              "category_id"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_images_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_images_name_category_id` ON `${TABLE_NAME}` (`name`, `category_id`)"
           }
         ],
         "foreignKeys": [
@@ -230,7 +232,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4316995306ed5186b71346faa7202876')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb6b55adebf4e7e4413908a424dee362')"
     ]
   }
 }

@@ -7,6 +7,7 @@ compose = "1.5.4"
 composeDestinations = "1.9.54"
 composeMaterial3 = "1.1.2"
 composeCompiler = "1.5.3"
+coroutines = "1.7.3"
 datastore = "1.0.0"
 gradlePlugin = "8.1.2"
 java = "17"
@@ -34,6 +35,8 @@ compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations",
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }

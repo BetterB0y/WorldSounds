@@ -11,11 +11,6 @@ android {
         resourceConfigurations += listOf("en", "pl")
     }
 
-    buildTypes.getByName("release").proguardFiles(
-        getDefaultProguardFile("proguard-android-optimize.txt"),
-        "proguard-rules.pro"
-    )
-
     packaging {
         resources.excludes += "META-INF/AL2.0"
         resources.excludes += "META-INF/LGPL2.1"
@@ -37,6 +32,7 @@ tasks.withType<Test> {
 
 dependencyImplementation {
     accompanist()
+    coroutines()
     coil()
     JUnit()
     navigation()

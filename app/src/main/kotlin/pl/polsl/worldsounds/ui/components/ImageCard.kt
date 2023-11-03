@@ -11,20 +11,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import pl.polsl.worldsounds.app.Config
 import java.io.File
 
 
 @Composable
 fun ImageCard(
-    filePath: String,
-    isSelected: Boolean,
-    onClick: () -> Unit
+    file: File,
+    modifier: Modifier = Modifier,
+    isSelected: Boolean = false,
+    onClick: () -> Unit,
 ) {
     AsyncImage(
-        model = File(Config.basePath + filePath),
+        model = file,
         contentDescription = "Square Image",
-        modifier = Modifier
+        modifier = modifier
             .size(150.dp)
             .aspectRatio(1f)
             .border(

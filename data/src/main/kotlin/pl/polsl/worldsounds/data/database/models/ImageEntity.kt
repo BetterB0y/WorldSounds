@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
     tableName = "images",
     indices = [
         Index("category_id"),
-        Index(value = ["name"], unique = true)
+        Index(value = ["name", "category_id"], unique = true)
     ],
     foreignKeys = [ForeignKey(
         entity = CategoryEntity::class,

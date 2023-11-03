@@ -7,9 +7,11 @@ import dagger.hilt.components.SingletonComponent
 import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.settings.Settings
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
 import javax.inject.Singleton
@@ -31,4 +33,9 @@ internal object UseCaseModule {
     @Singleton
     fun providesScanFolderWithAssetsUseCase(categoryRepository: CategoryRepository): ScanFolderWithAssetsUseCase =
         ScanFolderWithAssetsUseCaseImpl(categoryRepository)
+
+    @Provides
+    @Singleton
+    fun providesObserveCategoriesUseCase(categoryRepository: CategoryRepository): ObserveCategoriesUseCase =
+        ObserveCategoriesUseCaseImpl(categoryRepository)
 }
