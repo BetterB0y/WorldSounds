@@ -5,17 +5,18 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.base.BaseViewModel
-import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
+import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.mappers.toData
-import timber.log.Timber
+import pl.polsl.worldsounds.screen.destinations.GameScreenDestination
 import javax.inject.Inject
 
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    private val _getGameModeUseCase: GetGameModeUseCase,
+    private val _saveCategoryIdUseCase: SaveCategoryIdUseCase,
     observeCategoriesUseCase: ObserveCategoriesUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<CategoryScreenState>(coroutineDispatcher) {
@@ -24,10 +25,14 @@ class CategoryViewModel @Inject constructor(
         CategoryScreenState.ReadyState(it.map { category -> category.toData() })
     }
 
-    fun saveAndNavigate() = launch {
-        val test = _getGameModeUseCase(Unit)
-        Timber.e("Test $test")
+    fun saveAndNavigate(category: CategoryData) = launch {
+        _saveCategoryIdUseCase(category.id)
+        sendEvent(CategoryEvent.OpenGame)
     }
+}
+
+sealed class CategoryEvent {
+    object OpenGame : Event.Navigation(GameScreenDestination)
 }
 
 sealed class CategoryScreenState {
@@ -38,6 +43,6 @@ sealed class CategoryScreenState {
     }
 
     data class ReadyState(
-        override val categories: List<CategoryData> = emptyList()
+        override val categories: List<CategoryData>
     ) : CategoryScreenState()
 }

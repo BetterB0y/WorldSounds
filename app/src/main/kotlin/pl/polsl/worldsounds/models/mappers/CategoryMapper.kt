@@ -6,6 +6,7 @@ import pl.polsl.worldsounds.utils.FileHelper
 
 
 internal fun CategoryModel.toData(): CategoryData = CategoryData(
+    id = id,
     name = name,
     image = FileHelper.buildFile(name, imageName)
 )

@@ -10,3 +10,11 @@ internal fun GameModeData.toModel(): GameModeModel {
         GameModeData.OneSound -> GameModeModel.OneSound
     }
 }
+
+
+internal fun GameModeModel.toData(): GameModeData {
+    return when (this) {
+        GameModeModel.OnePicture -> GameModeData.OnePicture
+        GameModeModel.OneSound -> GameModeData.OneSound
+    }
+}

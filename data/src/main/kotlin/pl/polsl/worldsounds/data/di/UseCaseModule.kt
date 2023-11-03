@@ -6,12 +6,16 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.settings.Settings
+import pl.polsl.worldsounds.data.usecases.GetCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
+import pl.polsl.worldsounds.domain.usecases.GetCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
 import javax.inject.Singleton
@@ -38,4 +42,14 @@ internal object UseCaseModule {
     @Singleton
     fun providesObserveCategoriesUseCase(categoryRepository: CategoryRepository): ObserveCategoriesUseCase =
         ObserveCategoriesUseCaseImpl(categoryRepository)
+
+    @Provides
+    @Singleton
+    fun providesSaveCategoryIdUseCase(settings: Settings): SaveCategoryIdUseCase =
+        SaveCategoryIdUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesGetCategoryIdUseCase(settings: Settings): GetCategoryIdUseCase =
+        GetCategoryIdUseCaseImpl(settings)
 }

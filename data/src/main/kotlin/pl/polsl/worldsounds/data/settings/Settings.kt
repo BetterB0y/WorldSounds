@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.domain.models.GameModeModel
@@ -13,12 +14,15 @@ const val SETTINGS_NAME = "preferences"
 internal interface Settings {
     suspend fun setGameMode(gameMode: GameModeModel)
     suspend fun getGameMode(): GameModeModel
+
+    suspend fun setCategoryId(id: Long)
+    suspend fun getCategoryId(): Long
 }
 
 internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Settings {
     companion object {
         private val GAME_MODE = intPreferencesKey("gameMode")
-        private val CATEGORY = intPreferencesKey("category")
+        private val CATEGORY = longPreferencesKey("category")
     }
 
     private suspend fun <T> DataStore<Preferences>.set(key: Preferences.Key<T>, value: T) {
@@ -35,5 +39,14 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
 
     override suspend fun getGameMode(): GameModeModel {
         return GameModeModel.values()[_dataStore.get(GAME_MODE) ?: 0]
+    }
+
+    override suspend fun setCategoryId(id: Long) = _dataStore.set(
+        CATEGORY,
+        id,
+    )
+
+    override suspend fun getCategoryId(): Long {
+        return _dataStore.get(CATEGORY) ?: 0L
     }
 }

@@ -5,6 +5,7 @@ import pl.polsl.worldsounds.domain.models.CategoryModel
 
 
 internal fun CategoryEntity.toModel(imageName: String): CategoryModel = CategoryModel(
+    id = id,
     name = name,
     imageName = imageName
 )
