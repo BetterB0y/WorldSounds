@@ -1,4 +1,4 @@
-package pl.polsl.worldsounds.screen.game
+package pl.polsl.worldsounds.screen.game.one_sound
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -20,31 +20,59 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import pl.polsl.worldsounds.models.RoundAssetsData
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.polsl.worldsounds.base.observeEvents
+import pl.polsl.worldsounds.base.observeState
+import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.ui.components.ImageCard
-import timber.log.Timber
 import java.io.File
 
+@Destination
 @Composable
 fun OneSoundGameScreen(
-    state: GameScreenState,
-    playAudio: (Context, File) -> Unit,
-    navigateToMainScreen: () -> Unit,
+    viewModel: OneSoundGameViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
     val context = LocalContext.current
-    val (roundNumber, assets) = state.roundAssets!!
-    assets as RoundAssetsData.OneSound
+    val state by viewModel.observeState()
 
-    Timber.e("OneSoundGameScreen: $assets")
+    viewModel.events.observeEvents {
+        when (it) {
+            is GameEvent.OpenMainMenuScreen -> it.pushReplacement(navigator)
+        }
+    }
 
-    var selectedId by remember { mutableStateOf(-1L) }
+    if (state !is OneSoundGameScreenState.InitialState) {
+        OneSoundGameScreen(
+            context = context,
+            state = state,
+            playAudio = viewModel::playAudio,
+            navigateToMainScreen = viewModel::navigateToMainScreen,
+            processAnswer = viewModel::processAnswer,
+        )
+    }
+}
+
+@Composable
+private fun OneSoundGameScreen(
+    context: Context,
+    state: OneSoundGameScreenState,
+    playAudio: (Context, File) -> Unit,
+    navigateToMainScreen: () -> Unit,
+    processAnswer: (String) -> Unit,
+) {
+
+
+    var selectedImageName by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Button(onClick = { playAudio(context, assets.audio.file) }) {
+        Button(onClick = { playAudio(context, state.roundAssets.audio.file) }) {
             Text("Play")
         }
         LazyRow(
@@ -52,10 +80,14 @@ fun OneSoundGameScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             items(
-                items = assets.images,
+                items = state.roundAssets.images.filter { !it.isHidden },
                 key = { it.file }) {
-                ImageCard(modifier = Modifier.padding(10.dp), file = it.file, isSelected = selectedId == it.id) {
-                    selectedId = it.id
+                ImageCard(
+                    modifier = Modifier.padding(10.dp),
+                    file = it.file,
+                    isSelected = selectedImageName == it.file.nameWithoutExtension
+                ) {
+                    selectedImageName = it.file.nameWithoutExtension
                 }
             }
         }
@@ -67,7 +99,7 @@ fun OneSoundGameScreen(
                 Text("Wyjdź")
             }
 
-            Button(onClick = { /*TODO*/ }) {
+            Button(onClick = { processAnswer(selectedImageName) }) {
                 Text("Zatwierdź")
             }
 
