@@ -1,4 +1,4 @@
-package pl.polsl.worldsounds.data.models.mappers
+package pl.polsl.worldsounds.data.database.models.mappers
 
 import pl.polsl.worldsounds.data.database.models.CategoryEntity
 import pl.polsl.worldsounds.domain.models.CategoryModel

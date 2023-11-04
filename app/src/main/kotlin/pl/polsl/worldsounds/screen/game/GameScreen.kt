@@ -1,39 +1,39 @@
 package pl.polsl.worldsounds.screen.game
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.polsl.worldsounds.base.Event
+import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
+import pl.polsl.worldsounds.models.GameModeData
 
 @Destination
 @Composable
 fun GameScreen(
     viewModel: GameViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
     val state by viewModel.observeState()
 
-    GameScreen(
-        state = state,
-    )
-}
+    viewModel.events.observeEvents {
+        when (it) {
+            is GameEvent.OpenMainMenuScreen -> it.pushReplacement(navigator)
+            is Event.Navigation -> it.navigate(navigator)
+        }
+    }
 
-@Composable
-private fun GameScreen(
-    state: GameScreenState
-) {
-    Column(
-        Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(text = "Kategoria ${state.categoryId}")
-        Text(text = "Tryb ${state.gameMode}")
+    if (state != GameScreenState.InitialState) {
+        if (state.gameMode == GameModeData.OnePicture) {
+            OnePictureGameScreen(state, viewModel::playAudio)
+        } else {
+            OneSoundGameScreen(
+                state,
+                viewModel::playAudio,
+                viewModel::navigateToMainScreen
+            )
+        }
     }
 }

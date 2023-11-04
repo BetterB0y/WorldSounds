@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.data.database.dao.CategoryDao
 import pl.polsl.worldsounds.data.database.models.CategoryEntity
-import pl.polsl.worldsounds.data.models.mappers.toModel
+import pl.polsl.worldsounds.data.database.models.mappers.toModel
 import pl.polsl.worldsounds.domain.base.Config
 import pl.polsl.worldsounds.domain.models.CategoryModel
 import java.io.File
@@ -29,9 +29,9 @@ internal class CategoryRepository(
 
                 filesList?.forEach { file ->
                     if (file.extension == "mp3") {
-                        audioRepository.addAudio(file.name, categoryId)
+                        audioRepository.addAudio(file.nameWithoutExtension, file.extension, categoryId)
                     } else {
-                        imageRepository.addImage(file.name, categoryId)
+                        imageRepository.addImage(file.nameWithoutExtension, file.extension, categoryId)
                     }
                 }
             }
@@ -45,5 +45,10 @@ internal class CategoryRepository(
                 entity.toModel(imageName)
             }
         }
+    }
+
+    suspend fun getCategoryById(id: Long): CategoryModel = dao.getById(id).let { entity ->
+        val imageName = imageRepository.getCategoryImage(entity.id)
+        return entity.toModel(imageName)
     }
 }

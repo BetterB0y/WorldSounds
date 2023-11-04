@@ -18,6 +18,9 @@ internal interface CategoryDao {
     @Query("SELECT * FROM categories")
     fun observeAll(): Flow<List<CategoryEntity>>
 
+    @Query("SELECT * FROM categories WHERE id = :id")
+    suspend fun getById(id: Long): CategoryEntity
+
     @Transaction
     suspend fun deleteAll() {
         _deleteAll()
