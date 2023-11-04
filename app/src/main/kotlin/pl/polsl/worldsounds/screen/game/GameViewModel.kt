@@ -1,45 +1,63 @@
 package pl.polsl.worldsounds.screen.game
 
-import dagger.hilt.android.lifecycle.HiltViewModel
+import android.content.Context
+import android.media.MediaPlayer
+import androidx.core.net.toUri
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.MutableStateFlow
 import pl.polsl.worldsounds.base.BaseViewModel
-import pl.polsl.worldsounds.domain.usecases.GetCategoryIdUseCase
-import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
-import pl.polsl.worldsounds.models.GameModeData
-import pl.polsl.worldsounds.models.mappers.toData
-import javax.inject.Inject
+import pl.polsl.worldsounds.base.Event
+import pl.polsl.worldsounds.models.RoundAssetsData
+import pl.polsl.worldsounds.screen.destinations.MainMenuScreenDestination
+import timber.log.Timber
+import java.io.File
 
-
-@HiltViewModel
-class GameViewModel @Inject constructor(
-    private val _getGameModeUseCase: GetGameModeUseCase,
-    private val _getCategoryIdUseCase: GetCategoryIdUseCase,
+abstract class GameViewModel<out STATE : GameScreenState>(
     coroutineDispatcher: CoroutineDispatcher
-) : BaseViewModel<GameScreenState>(coroutineDispatcher) {
-    override val initialState: GameScreenState = GameScreenState.InitialState
-    override val _state: MutableStateFlow<GameScreenState> = MutableStateFlow(initialState)
+) : BaseViewModel<STATE>(coroutineDispatcher) {
+    private var mediaPlayer: MediaPlayer? = null
 
-    init {
-        launch {
-            val gameMode = _getGameModeUseCase(Unit)
-            val categoryId = _getCategoryIdUseCase(Unit)
-            _state.value = GameScreenState.ReadyState(gameMode.toData(), categoryId)
+    protected abstract fun incorrectAnswer(answer: String)
+    abstract fun correctAnswer(answer: String)
+
+
+    fun navigateToMainScreen() = launch {
+        sendEvent(GameEvent.OpenMainMenuScreen)
+    }
+
+    fun processAnswer(answer: String) {
+        if (answer.isEmpty()) return
+        if (answer == state.value.roundAssets.answerFileName) {
+            Timber.e("Answer correct")
+            correctAnswer(answer)
+        } else {
+            Timber.e("Answer incorrect")
+            incorrectAnswer(answer)
         }
+    }
+
+    fun playAudio(context: Context, audio: File) {
+        stopAudio()
+        mediaPlayer = MediaPlayer.create(context, audio.toUri()).apply {
+            start()
+        }
+    }
+
+    private fun stopAudio() {
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        stopAudio()
     }
 }
 
-sealed class GameScreenState {
-    abstract val gameMode: GameModeData
+sealed class GameEvent {
+    object OpenMainMenuScreen : Event.Navigation(MainMenuScreenDestination)
+}
+
+abstract class GameScreenState {
     abstract val categoryId: Long
-
-    data object InitialState : GameScreenState() {
-        override val gameMode: GameModeData = GameModeData.OnePicture
-        override val categoryId: Long = -1L
-    }
-
-    data class ReadyState(
-        override val gameMode: GameModeData,
-        override val categoryId: Long,
-    ) : GameScreenState()
+    abstract val roundAssets: RoundAssetsData
 }

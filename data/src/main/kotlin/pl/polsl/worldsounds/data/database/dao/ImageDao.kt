@@ -11,6 +11,12 @@ internal interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(image: ImageEntity): Long
 
-    @Query("SELECT name FROM images WHERE category_id = :categoryId ORDER BY name ASC LIMIT 1")
-    suspend fun getCategoryImage(categoryId: Long): String?
+    @Query("SELECT * FROM images WHERE category_id = :categoryId ORDER BY name ASC LIMIT 1")
+    suspend fun getCategoryImage(categoryId: Long): ImageEntity?
+
+    @Query("SELECT * FROM images WHERE category_id = :categoryId ORDER BY RANDOM() LIMIT 4")
+    suspend fun getRandomImages(categoryId: Long): List<ImageEntity>
+
+    @Query("SELECT * FROM images WHERE name = :fileName")
+    suspend fun getCorrectAnswer(fileName: String): ImageEntity?
 }

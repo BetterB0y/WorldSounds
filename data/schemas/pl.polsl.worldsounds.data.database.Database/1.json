@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "eb6b55adebf4e7e4413908a424dee362",
+    "identityHash": "3f15053cf0eab97544539561418405bf",
     "entities": [
       {
         "tableName": "categories",
@@ -102,7 +102,7 @@
       },
       {
         "tableName": "audios",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `category_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `extension` TEXT NOT NULL, `category_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -113,6 +113,12 @@
           {
             "fieldPath": "name",
             "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "extension",
+            "columnName": "extension",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -140,14 +146,15 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_audios_category_id` ON `${TABLE_NAME}` (`category_id`)"
           },
           {
-            "name": "index_audios_name_category_id",
+            "name": "index_audios_name_extension_category_id",
             "unique": true,
             "columnNames": [
               "name",
+              "extension",
               "category_id"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_audios_name_category_id` ON `${TABLE_NAME}` (`name`, `category_id`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_audios_name_extension_category_id` ON `${TABLE_NAME}` (`name`, `extension`, `category_id`)"
           }
         ],
         "foreignKeys": [
@@ -166,7 +173,7 @@
       },
       {
         "tableName": "images",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `category_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `extension` TEXT NOT NULL, `category_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -177,6 +184,12 @@
           {
             "fieldPath": "name",
             "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "extension",
+            "columnName": "extension",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -204,14 +217,15 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_images_category_id` ON `${TABLE_NAME}` (`category_id`)"
           },
           {
-            "name": "index_images_name_category_id",
+            "name": "index_images_name_extension_category_id",
             "unique": true,
             "columnNames": [
               "name",
+              "extension",
               "category_id"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_images_name_category_id` ON `${TABLE_NAME}` (`name`, `category_id`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_images_name_extension_category_id` ON `${TABLE_NAME}` (`name`, `extension`, `category_id`)"
           }
         ],
         "foreignKeys": [
@@ -232,7 +246,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb6b55adebf4e7e4413908a424dee362')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3f15053cf0eab97544539561418405bf')"
     ]
   }
 }

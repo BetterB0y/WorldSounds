@@ -6,17 +6,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.base.Event
+import pl.polsl.worldsounds.domain.models.GameModeModel
+import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.mappers.toData
-import pl.polsl.worldsounds.screen.destinations.GameScreenDestination
+import pl.polsl.worldsounds.screen.destinations.OnePictureGameScreenDestination
+import pl.polsl.worldsounds.screen.destinations.OneSoundGameScreenDestination
 import javax.inject.Inject
 
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
     private val _saveCategoryIdUseCase: SaveCategoryIdUseCase,
+    private val _getGameModeUseCase: GetGameModeUseCase,
     observeCategoriesUseCase: ObserveCategoriesUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<CategoryScreenState>(coroutineDispatcher) {
@@ -27,12 +31,18 @@ class CategoryViewModel @Inject constructor(
 
     fun saveAndNavigate(category: CategoryData) = launch {
         _saveCategoryIdUseCase(category.id)
-        sendEvent(CategoryEvent.OpenGame)
+        sendEvent(
+            when (_getGameModeUseCase(Unit)) {
+                GameModeModel.OnePicture -> CategoryEvent.OpenOnePictureGame
+                GameModeModel.OneSound -> CategoryEvent.OpenOneSoundGame
+            }
+        )
     }
 }
 
 sealed class CategoryEvent {
-    object OpenGame : Event.Navigation(GameScreenDestination)
+    object OpenOnePictureGame : Event.Navigation(OnePictureGameScreenDestination)
+    object OpenOneSoundGame : Event.Navigation(OneSoundGameScreenDestination)
 }
 
 sealed class CategoryScreenState {

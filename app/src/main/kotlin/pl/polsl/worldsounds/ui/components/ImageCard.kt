@@ -29,7 +29,7 @@ fun ImageCard(
             .aspectRatio(1f)
             .border(
                 border =
-                if (isSelected) BorderStroke(width = 2.dp, color = Color.Black) else BorderStroke(
+                if (isSelected) BorderStroke(width = 2.dp, color = Color.Red) else BorderStroke(
                     width = 0.dp,
                     color = Color.Transparent
                 )

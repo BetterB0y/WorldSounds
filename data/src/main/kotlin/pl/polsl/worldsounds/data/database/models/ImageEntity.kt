@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
     tableName = "images",
     indices = [
         Index("category_id"),
-        Index(value = ["name", "category_id"], unique = true)
+        Index(value = ["name", "extension", "category_id"], unique = true)
     ],
     foreignKeys = [ForeignKey(
         entity = CategoryEntity::class,
@@ -25,13 +25,18 @@ internal data class ImageEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
+    val extension: String,
     @ColumnInfo(name = "category_id")
     val categoryId: Long
 ) {
+    val fileName: String
+        get() = "$name.$extension"
+
     companion object {
         fun new(
             name: String,
+            extension: String,
             categoryId: Long,
-        ) = ImageEntity(0, name, categoryId)
+        ) = ImageEntity(0, name, extension, categoryId)
     }
 }
