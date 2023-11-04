@@ -11,7 +11,6 @@ import pl.polsl.worldsounds.screen.destinations.MainMenuScreenDestination
 import timber.log.Timber
 import java.io.File
 
-
 abstract class GameViewModel<out STATE : GameScreenState>(
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<STATE>(coroutineDispatcher) {
@@ -26,6 +25,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     }
 
     fun processAnswer(answer: String) {
+        if (answer.isEmpty()) return
         if (answer == state.value.roundAssets.answerFileName) {
             Timber.e("Answer correct")
             correctAnswer(answer)

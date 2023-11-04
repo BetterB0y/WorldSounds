@@ -3,9 +3,7 @@ package pl.polsl.worldsounds.screen.game.one_sound
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -26,6 +24,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
+import pl.polsl.worldsounds.ui.components.GameNavButtons
 import pl.polsl.worldsounds.ui.components.ImageCard
 import java.io.File
 
@@ -63,8 +62,6 @@ private fun OneSoundGameScreen(
     navigateToMainScreen: () -> Unit,
     processAnswer: (String) -> Unit,
 ) {
-
-
     var selectedImageName by remember { mutableStateOf("") }
 
     Column(
@@ -91,18 +88,10 @@ private fun OneSoundGameScreen(
                 }
             }
         }
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Button(onClick = { navigateToMainScreen() }) {
-                Text("Wyjdź")
-            }
-
-            Button(onClick = { processAnswer(selectedImageName) }) {
-                Text("Zatwierdź")
-            }
-
-        }
+        GameNavButtons(
+            navigateToMainScreen = navigateToMainScreen,
+            processAnswer = processAnswer,
+            selectedName = selectedImageName
+        )
     }
 }

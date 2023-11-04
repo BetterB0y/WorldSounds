@@ -11,6 +11,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +24,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
+import pl.polsl.worldsounds.ui.components.GameNavButtons
 import pl.polsl.worldsounds.ui.components.ImageCard
 import java.io.File
 
@@ -44,6 +48,8 @@ fun OnePictureGameScreen(
             state = state,
             context = context,
             playAudio = viewModel::playAudio,
+            navigateToMainScreen = viewModel::navigateToMainScreen,
+            processAnswer = viewModel::processAnswer,
         )
     }
 }
@@ -53,7 +59,12 @@ private fun OnePictureGameScreen(
     context: Context,
     state: OnePictureGameScreenState,
     playAudio: (Context, File) -> Unit,
+    navigateToMainScreen: () -> Unit,
+    processAnswer: (String) -> Unit,
 ) {
+
+    var selectedAudioName by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,12 +76,20 @@ private fun OnePictureGameScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             items(
-                items = state.roundAssets.audios,
+                items = state.roundAssets.audios.filter { !it.isHidden },
                 key = { it.file }) {
-                Button(onClick = { playAudio(context, it.file) }) {
+                Button(onClick = {
+                    playAudio(context, it.file)
+                    selectedAudioName = it.file.nameWithoutExtension
+                }) {
                     Text("Play")
                 }
             }
         }
+        GameNavButtons(
+            navigateToMainScreen = navigateToMainScreen,
+            processAnswer = processAnswer,
+            selectedName = selectedAudioName
+        )
     }
 }
