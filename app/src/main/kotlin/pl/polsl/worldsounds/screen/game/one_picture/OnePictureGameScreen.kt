@@ -2,8 +2,6 @@ package pl.polsl.worldsounds.screen.game.one_picture
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -22,7 +20,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
-import pl.polsl.worldsounds.ui.components.GameNavButtons
+import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
 import pl.polsl.worldsounds.ui.components.SelectedButton
 import java.io.File
@@ -65,16 +63,13 @@ private fun OnePictureGameScreen(
 ) {
     val assets = state.currentRoundData
     var selectedAudioName by remember { mutableStateOf("") }
-    val isFirstTry = remember {
-        mutableMapOf<Int, Boolean>().apply {
-            (1..state.numberOfRounds).forEach { this[it] = true }
-        }
-    }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    GameScreen(
+        state = state,
+        selectedName = selectedAudioName,
+        resetSelectedName = { selectedAudioName = "" },
+        navigateToMainScreen = navigateToMainScreen,
+        processAnswer = processAnswer,
     ) {
         ImageCard(modifier = Modifier.padding(10.dp), file = assets.image.file) {}
         LazyRow(
@@ -93,15 +88,5 @@ private fun OnePictureGameScreen(
                 }
             }
         }
-        GameNavButtons(
-            navigateToMainScreen = navigateToMainScreen,
-            processAnswer = {
-                processAnswer(it, isFirstTry[state.currentRound]!!) { isCorrect ->
-                    isFirstTry[state.currentRound] = false
-                    if (isCorrect) selectedAudioName = ""
-                }
-            },
-            selectedName = selectedAudioName
-        )
     }
 }
