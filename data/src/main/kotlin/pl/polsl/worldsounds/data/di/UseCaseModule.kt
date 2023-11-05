@@ -9,17 +9,21 @@ import pl.polsl.worldsounds.data.repositories.GameRepository
 import pl.polsl.worldsounds.data.settings.Settings
 import pl.polsl.worldsounds.data.usecases.GetCategoryUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.GetNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetRoundsAssetsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.SaveNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
 import javax.inject.Singleton
 
@@ -63,4 +67,15 @@ internal object UseCaseModule {
     @Singleton
     fun providesGetRoundsAssetsUseCase(gameRepository: GameRepository): GetRoundsAssetsUseCase =
         GetRoundsAssetsUseCaseImpl(gameRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetNumberOfRoundsUseCase(settings: Settings): GetNumberOfRoundsUseCase =
+        GetNumberOfRoundsUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesSaveNumberOfRoundsUseCase(settings: Settings): SaveNumberOfRoundsUseCase =
+        SaveNumberOfRoundsUseCaseImpl(settings)
+
 }

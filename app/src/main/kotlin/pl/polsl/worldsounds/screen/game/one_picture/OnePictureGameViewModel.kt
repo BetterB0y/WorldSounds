@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
+import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.RoundAssetsData
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class OnePictureGameViewModel @Inject constructor(
     private val _getCategoryUseCase: GetCategoryUseCase,
     private val _getRoundsAssetsUseCase: GetRoundsAssetsUseCase,
+    private val _getNumberOfRoundsUseCase: GetNumberOfRoundsUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : GameViewModel<OnePictureGameScreenState>(coroutineDispatcher) {
     private val _roundsAssets: MutableStateFlow<List<RoundAssetsData.OnePicture>> =
@@ -46,6 +48,9 @@ class OnePictureGameViewModel @Inject constructor(
             val categoryData = _getCategoryUseCase(Unit).toData()
             category.update {
                 categoryData
+            }
+            numberOfRounds.update {
+                _getNumberOfRoundsUseCase(Unit)
             }
             _roundsAssets.update {
                 _getRoundsAssetsUseCase(

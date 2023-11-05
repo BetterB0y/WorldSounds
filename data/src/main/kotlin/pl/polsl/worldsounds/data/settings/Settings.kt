@@ -17,12 +17,16 @@ internal interface Settings {
 
     suspend fun setCategoryId(id: Long)
     suspend fun getCategoryId(): Long
+
+    suspend fun setNumberOfRounds(value: Int)
+    suspend fun getNumberOfRounds(): Int
 }
 
 internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Settings {
     companion object {
         private val GAME_MODE = intPreferencesKey("gameMode")
         private val CATEGORY = longPreferencesKey("category")
+        private val NUMBER_OF_ROUNDS = intPreferencesKey("numberOfRounds")
     }
 
     private suspend fun <T> DataStore<Preferences>.set(key: Preferences.Key<T>, value: T) {
@@ -48,5 +52,14 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
 
     override suspend fun getCategoryId(): Long {
         return _dataStore.get(CATEGORY) ?: 0L
+    }
+
+    override suspend fun setNumberOfRounds(value: Int) = _dataStore.set(
+        NUMBER_OF_ROUNDS,
+        value,
+    )
+
+    override suspend fun getNumberOfRounds(): Int {
+        return _dataStore.get(NUMBER_OF_ROUNDS) ?: 1
     }
 }
