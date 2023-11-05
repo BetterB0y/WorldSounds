@@ -40,6 +40,7 @@ fun OneSoundGameScreen(
     viewModel.events.observeEvents {
         when (it) {
             is GameEvent.OpenMainMenuScreen -> it.pushReplacement(navigator)
+            is GameEvent.OpenScoreScreen -> it.pushReplacement(navigator)
         }
     }
 
@@ -60,16 +61,22 @@ private fun OneSoundGameScreen(
     state: OneSoundGameScreenState,
     playAudio: (Context, File) -> Unit,
     navigateToMainScreen: () -> Unit,
-    processAnswer: (String) -> Unit,
+    processAnswer: (String, Boolean, (Boolean) -> Unit) -> Unit,
 ) {
+    val assets = state.currentRoundData
     var selectedImageName by remember { mutableStateOf("") }
+    val isFirstTry = remember {
+        mutableMapOf<Int, Boolean>().apply {
+            (1..state.numberOfRounds).forEach { this[it] = true }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Button(onClick = { playAudio(context, state.roundAssets.audio.file) }) {
+        Button(onClick = { playAudio(context, assets.audio.file) }) {
             Text("Play")
         }
         LazyRow(
@@ -77,7 +84,7 @@ private fun OneSoundGameScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             items(
-                items = state.roundAssets.images.filter { !it.isHidden },
+                items = assets.images.filter { !it.isHidden },
                 key = { it.file }) {
                 ImageCard(
                     modifier = Modifier.padding(10.dp),
@@ -90,7 +97,12 @@ private fun OneSoundGameScreen(
         }
         GameNavButtons(
             navigateToMainScreen = navigateToMainScreen,
-            processAnswer = processAnswer,
+            processAnswer = {
+                processAnswer(it, isFirstTry[state.currentRound]!!) { isCorrect ->
+                    isFirstTry[state.currentRound] = false
+                    if (isCorrect) selectedImageName = ""
+                }
+            },
             selectedName = selectedImageName
         )
     }

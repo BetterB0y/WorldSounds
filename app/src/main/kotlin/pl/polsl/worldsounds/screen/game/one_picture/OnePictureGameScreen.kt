@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +24,7 @@ import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.ui.components.GameNavButtons
 import pl.polsl.worldsounds.ui.components.ImageCard
+import pl.polsl.worldsounds.ui.components.SelectedButton
 import java.io.File
 
 @Destination
@@ -40,8 +39,10 @@ fun OnePictureGameScreen(
     viewModel.events.observeEvents {
         when (it) {
             is GameEvent.OpenMainMenuScreen -> it.pushReplacement(navigator)
+            is GameEvent.OpenScoreScreen -> it.pushReplacement(navigator)
         }
     }
+
 
     if (state !is OnePictureGameScreenState.InitialState) {
         OnePictureGameScreen(
@@ -60,35 +61,46 @@ private fun OnePictureGameScreen(
     state: OnePictureGameScreenState,
     playAudio: (Context, File) -> Unit,
     navigateToMainScreen: () -> Unit,
-    processAnswer: (String) -> Unit,
+    processAnswer: (String, Boolean, (Boolean) -> Unit) -> Unit,
 ) {
-
+    val assets = state.currentRoundData
     var selectedAudioName by remember { mutableStateOf("") }
+    val isFirstTry = remember {
+        mutableMapOf<Int, Boolean>().apply {
+            (1..state.numberOfRounds).forEach { this[it] = true }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        ImageCard(modifier = Modifier.padding(10.dp), file = state.roundAssets.image.file) {}
+        ImageCard(modifier = Modifier.padding(10.dp), file = assets.image.file) {}
         LazyRow(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             items(
-                items = state.roundAssets.audios.filter { !it.isHidden },
+                items = assets.audios.filter { !it.isHidden },
                 key = { it.file }) {
-                Button(onClick = {
+                SelectedButton(
+                    text = "Play",
+                    isSelected = selectedAudioName == it.file.nameWithoutExtension
+                ) {
                     playAudio(context, it.file)
                     selectedAudioName = it.file.nameWithoutExtension
-                }) {
-                    Text("Play")
                 }
             }
         }
         GameNavButtons(
             navigateToMainScreen = navigateToMainScreen,
-            processAnswer = processAnswer,
+            processAnswer = {
+                processAnswer(it, isFirstTry[state.currentRound]!!) { isCorrect ->
+                    isFirstTry[state.currentRound] = false
+                    if (isCorrect) selectedAudioName = ""
+                }
+            },
             selectedName = selectedAudioName
         )
     }
