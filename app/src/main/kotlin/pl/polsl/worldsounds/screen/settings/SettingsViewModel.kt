@@ -10,15 +10,18 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
+import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
-import timber.log.Timber
+import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
 import javax.inject.Inject
 
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val _getNumberOfRoundsUseCase: GetNumberOfRoundsUseCase,
+    private val _getUsernameUseCase: GetUsernameUseCase,
     private val _saveNumberOfRoundsUseCase: SaveNumberOfRoundsUseCase,
+    private val _saveUsernameUseCase: SaveUsernameUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<SettingsScreenState>(coroutineDispatcher) {
     private val _numberOfRounds: MutableStateFlow<Float> =
@@ -43,6 +46,9 @@ class SettingsViewModel @Inject constructor(
             _numberOfRounds.update {
                 _getNumberOfRoundsUseCase(Unit).toFloat()
             }
+            _username.update {
+                _getUsernameUseCase(Unit)
+            }
         }
     }
 
@@ -50,12 +56,16 @@ class SettingsViewModel @Inject constructor(
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
     }
 
+    fun changeUsername(username: String) = launch {
+        _username.update { username }
+        _saveUsernameUseCase(username)
+    }
+
     fun onSliderChange(value: Float) {
         _numberOfRounds.update { value }
     }
 
     fun saveNumberOfRounds(value: Float) = launch {
-        Timber.e("Save number of rounds: $value")
         _saveNumberOfRoundsUseCase(value.toInt())
     }
 }

@@ -8,6 +8,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,11 +19,12 @@ import com.ramcosta.composedestinations.annotation.Destination
 import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.RoundsSlider
+import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 
 @Destination
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.observeState()
 
@@ -28,6 +32,7 @@ fun SettingsScreen(
         SettingsScreen(
             state = state,
             changeLanguage = viewModel::changeLanguage,
+            changeUsername = viewModel::changeUsername,
             saveNumberOfRounds = viewModel::saveNumberOfRounds,
             onSliderChange = viewModel::onSliderChange
         )
@@ -38,9 +43,13 @@ fun SettingsScreen(
 private fun SettingsScreen(
     state: SettingsScreenState,
     changeLanguage: (String) -> Unit,
+    changeUsername: (String) -> Unit,
     saveNumberOfRounds: (Float) -> Unit,
     onSliderChange: (Float) -> Unit
 ) {
+    var isChangeUsernameDialogVisible: Boolean by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         Modifier.fillMaxSize(),
@@ -60,6 +69,21 @@ private fun SettingsScreen(
             }) {
                 Text("Angielski")
             }
+        }
+        Button(onClick = {
+            isChangeUsernameDialogVisible = true
+        }) {
+            Text("Zmień nazwę użytkownika")
+        }
+        if (isChangeUsernameDialogVisible) {
+            ChangeUsernameDialog(
+                username = state.username,
+                onConfirm = {
+                    changeUsername(it)
+                    isChangeUsernameDialogVisible = false
+                },
+                onDismiss = { isChangeUsernameDialogVisible = false },
+            )
         }
         RoundsSlider(
             value = state.numberOfRounds,

@@ -11,19 +11,23 @@ import pl.polsl.worldsounds.data.usecases.GetCategoryUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetRoundsAssetsUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.GetUsernameUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveNumberOfRoundsUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.SaveUsernameUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
+import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
 import javax.inject.Singleton
 
@@ -77,5 +81,15 @@ internal object UseCaseModule {
     @Singleton
     fun providesSaveNumberOfRoundsUseCase(settings: Settings): SaveNumberOfRoundsUseCase =
         SaveNumberOfRoundsUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesGetUsernameUseCase(settings: Settings): GetUsernameUseCase =
+        GetUsernameUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesSaveUsernameUseCase(settings: Settings): SaveUsernameUseCase =
+        SaveUsernameUseCaseImpl(settings)
 
 }
