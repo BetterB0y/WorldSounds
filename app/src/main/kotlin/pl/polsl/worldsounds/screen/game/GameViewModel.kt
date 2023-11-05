@@ -8,12 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.base.Event
+import pl.polsl.worldsounds.domain.usecases.SaveScoreUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.RoundAssetsData
-import pl.polsl.worldsounds.screen.destinations.MainMenuScreenDestination
+import pl.polsl.worldsounds.screen.destinations.SummaryScreenDestination
 import java.io.File
 
 abstract class GameViewModel<out STATE : GameScreenState>(
+    private val _saveScoreUseCase: SaveScoreUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<STATE>(coroutineDispatcher) {
     private var mediaPlayer: MediaPlayer? = null
@@ -48,7 +50,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
         }
         if (state.value.isGameFinished) {
             saveScore()
-            sendEvent(GameEvent.OpenScoreScreen)
+            sendEvent(GameEvent.OpenSummaryScreen(score.value))
             return@launch
         }
 
@@ -60,8 +62,13 @@ abstract class GameViewModel<out STATE : GameScreenState>(
         score.update { it + 1 }
     }
 
-    private fun saveScore() {
-        //TODO save score
+    private suspend fun saveScore() {
+        _saveScoreUseCase(
+            SaveScoreUseCase.Params(
+                score = score.value,
+                categoryId = category.value.id
+            )
+        )
     }
 
     private fun changeRound() {
@@ -69,7 +76,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     }
 
     fun navigateToMainScreen() = launch {
-        sendEvent(GameEvent.OpenMainMenuScreen)
+        sendEvent(Event.Navigation.NavigateToMainMenu)
     }
 
     fun playAudio(context: Context, audio: File) {
@@ -91,8 +98,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
 }
 
 sealed class GameEvent {
-    object OpenMainMenuScreen : Event.Navigation(MainMenuScreenDestination)
-    object OpenScoreScreen : Event.Navigation(MainMenuScreenDestination)
+    class OpenSummaryScreen(score: Int) : Event.Navigation(SummaryScreenDestination(score))
 }
 
 abstract class GameScreenState {

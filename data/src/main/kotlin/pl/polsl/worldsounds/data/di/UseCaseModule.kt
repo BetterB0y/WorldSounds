@@ -16,6 +16,7 @@ import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveNumberOfRoundsUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.SaveScoreUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveUsernameUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
@@ -27,6 +28,7 @@ import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveScoreUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
 import javax.inject.Singleton
@@ -91,5 +93,10 @@ internal object UseCaseModule {
     @Singleton
     fun providesSaveUsernameUseCase(settings: Settings): SaveUsernameUseCase =
         SaveUsernameUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesSaveScoreUseCase(settings: Settings, gameRepository: GameRepository): SaveScoreUseCase =
+        SaveScoreUseCaseImpl(settings, gameRepository)
 
 }

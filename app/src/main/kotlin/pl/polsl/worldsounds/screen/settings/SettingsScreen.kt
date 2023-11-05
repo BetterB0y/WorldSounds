@@ -56,8 +56,7 @@ private fun SettingsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text(text = "Język")
-        Text(text = stringResource(id = R.string.app_name))
+        Text(text = stringResource(R.string.language))
         Row {
             Button(onClick = {
                 changeLanguage("pl")
@@ -67,7 +66,7 @@ private fun SettingsScreen(
             Button(onClick = {
                 changeLanguage("en")
             }) {
-                Text("Angielski")
+                Text("English")
             }
         }
         Button(onClick = {
