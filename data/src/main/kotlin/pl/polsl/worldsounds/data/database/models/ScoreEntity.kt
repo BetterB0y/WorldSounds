@@ -25,4 +25,12 @@ internal data class ScoreEntity(
     val score: Int,
     @ColumnInfo(name = "category_id")
     val categoryId: Long,
-)
+) {
+    companion object {
+        fun new(
+            playerName: String,
+            score: Int,
+            categoryId: Long,
+        ) = ScoreEntity(0, playerName, score, categoryId)
+    }
+}

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
@@ -37,8 +38,8 @@ fun OneSoundGameScreen(
 
     viewModel.events.observeEvents {
         when (it) {
-            is GameEvent.OpenMainMenuScreen -> it.pushReplacement(navigator)
-            is GameEvent.OpenScoreScreen -> it.pushReplacement(navigator)
+            is GameEvent.OpenSummaryScreen -> it.pushReplacement(navigator)
+            is Event.Navigation -> it.navigate(navigator)
         }
     }
 

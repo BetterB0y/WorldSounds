@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import pl.polsl.worldsounds.data.database.dao.AudioDao
 import pl.polsl.worldsounds.data.database.dao.CategoryDao
 import pl.polsl.worldsounds.data.database.dao.ImageDao
+import pl.polsl.worldsounds.data.database.dao.ScoreDao
 import pl.polsl.worldsounds.data.repositories.AudioRepository
 import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.repositories.GameRepository
@@ -51,10 +52,12 @@ internal object RepositoryModule {
     @Singleton
     @Provides
     fun provideGameRepository(
+        dao: ScoreDao,
         audioRepository: AudioRepository,
         imageRepository: ImageRepository
     ): GameRepository =
         GameRepository(
+            dao,
             audioRepository,
             imageRepository,
         )
