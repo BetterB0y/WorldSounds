@@ -9,14 +9,14 @@ import pl.polsl.worldsounds.data.repositories.GameRepository
 import pl.polsl.worldsounds.data.settings.Settings
 import pl.polsl.worldsounds.data.usecases.GetCategoryUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
-import pl.polsl.worldsounds.data.usecases.GetRoundAssetsUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.GetRoundsAssetsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
-import pl.polsl.worldsounds.domain.usecases.GetRoundAssetsUseCase
+import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
@@ -61,6 +61,6 @@ internal object UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesGetRoundAssetsUseCase(gameRepository: GameRepository): GetRoundAssetsUseCase =
-        GetRoundAssetsUseCaseImpl(gameRepository)
+    fun providesGetRoundsAssetsUseCase(gameRepository: GameRepository): GetRoundsAssetsUseCase =
+        GetRoundsAssetsUseCaseImpl(gameRepository)
 }

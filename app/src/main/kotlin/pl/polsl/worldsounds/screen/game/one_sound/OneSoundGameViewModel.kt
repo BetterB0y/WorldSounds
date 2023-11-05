@@ -2,10 +2,13 @@ package pl.polsl.worldsounds.screen.game.one_sound
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import pl.polsl.worldsounds.domain.models.GameModeModel
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
-import pl.polsl.worldsounds.domain.usecases.GetRoundAssetsUseCase
+import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
+import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.RoundAssetsData
 import pl.polsl.worldsounds.models.mappers.toData
 import pl.polsl.worldsounds.screen.game.GameScreenState
@@ -16,55 +19,78 @@ import javax.inject.Inject
 @HiltViewModel
 class OneSoundGameViewModel @Inject constructor(
     private val _getCategoryUseCase: GetCategoryUseCase,
-    private val _getRoundAssetsUseCase: GetRoundAssetsUseCase,
+    private val _getRoundsAssetsUseCase: GetRoundsAssetsUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : GameViewModel<OneSoundGameScreenState>(coroutineDispatcher) {
-
+    private val _roundsAssets: MutableStateFlow<List<RoundAssetsData.OneSound>> =
+        MutableStateFlow(emptyList())
 
     override val initialState: OneSoundGameScreenState = OneSoundGameScreenState.InitialState
-    override val _state: MutableStateFlow<OneSoundGameScreenState> = MutableStateFlow(initialState)
+    override val _state: Flow<OneSoundGameScreenState> = combine(
+        category,
+        _roundsAssets,
+        currentRound,
+        numberOfRounds,
+        score,
+    ) { category, roundsAssets, currentRound, numberOfRounds, score ->
+        OneSoundGameScreenState.ReadyState(
+            category,
+            roundsAssets,
+            currentRound,
+            numberOfRounds,
+            score
+        )
+    }
 
     init {
         launch {
-            val category = _getCategoryUseCase(Unit)
-            val roundAssets = _getRoundAssetsUseCase(GetRoundAssetsUseCase.Params(category.id, GameModeModel.OneSound))
-            _state.value = OneSoundGameScreenState.ReadyState(
-                category.id,
-                roundAssets.toData(category.name) as RoundAssetsData.OneSound
-            )
+            val categoryData = _getCategoryUseCase(Unit).toData()
+            category.update {
+                categoryData
+            }
+            _roundsAssets.update {
+                _getRoundsAssetsUseCase(
+                    GetRoundsAssetsUseCase.Params.OneSound(
+                        categoryData.id,
+                        numberOfRounds.value
+                    )
+                ).map { it.toData(categoryData.name) as RoundAssetsData.OneSound }
+            }
         }
     }
 
-    override fun correctAnswer(answer: String) {
-
-    }
-
-    override fun incorrectAnswer(answer: String) {
-        val state = state.value
-        if (state is OneSoundGameScreenState.ReadyState) {
-            _state.value = state.copy(
-                roundAssets = (state.roundAssets.copy(images = state.roundAssets.images.map {
-                    if (it.file.nameWithoutExtension == answer) it.copy(
-                        isHidden = true
-                    ) else it
-                }))
-            )
+    override fun hideWrongAsset(answer: String) {
+        _roundsAssets.update {
+            _roundsAssets.value.toMutableList().apply {
+                set(currentRound.value - 1, state.value.currentRoundData.hideImage(answer))
+            }
         }
     }
 }
 
 
 sealed class OneSoundGameScreenState : GameScreenState() {
-    abstract override val categoryId: Long
-    abstract override val roundAssets: RoundAssetsData.OneSound
+    abstract override val roundData: List<RoundAssetsData.OneSound>
+    abstract override val currentRoundData: RoundAssetsData.OneSound
 
     data object InitialState : OneSoundGameScreenState() {
-        override val categoryId: Long = -1L
-        override val roundAssets: RoundAssetsData.OneSound = RoundAssetsData.OneSound.default()
+        override val category: CategoryData = CategoryData.default()
+        override val roundData: List<RoundAssetsData.OneSound> = emptyList()
+        override val currentRound: Int = 0
+        override val numberOfRounds: Int = 0
+        override val score: Int = 0
+        override val currentRoundData: RoundAssetsData.OneSound
+            get() = RoundAssetsData.OneSound.default()
     }
 
     data class ReadyState(
-        override val categoryId: Long,
-        override val roundAssets: RoundAssetsData.OneSound
-    ) : OneSoundGameScreenState()
+        override val category: CategoryData,
+        override val roundData: List<RoundAssetsData.OneSound>,
+        override val currentRound: Int,
+        override val numberOfRounds: Int,
+        override val score: Int,
+    ) : OneSoundGameScreenState() {
+        override val currentRoundData: RoundAssetsData.OneSound
+            get() = roundData[currentRound - 1]
+    }
 }

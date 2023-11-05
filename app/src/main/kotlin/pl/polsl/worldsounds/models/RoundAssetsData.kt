@@ -13,6 +13,14 @@ sealed class RoundAssetsData {
         companion object {
             fun default() = OneSound("", AudioData(id = 0, file = File("")), emptyList())
         }
+
+        fun hideImage(fileName: String): OneSound {
+            return copy(images = images.map {
+                if (it.file.nameWithoutExtension == fileName) it.copy(
+                    isHidden = true
+                ) else it
+            })
+        }
     }
 
     data class OnePicture(
@@ -23,6 +31,14 @@ sealed class RoundAssetsData {
         companion object {
             fun default() =
                 OnePicture("", ImageData(id = 0, file = File("")), emptyList())
+        }
+
+        fun hideAudio(fileName: String): OnePicture {
+            return copy(audios = audios.map {
+                if (it.file.nameWithoutExtension == fileName) it.copy(
+                    isHidden = true
+                ) else it
+            })
         }
     }
 }
