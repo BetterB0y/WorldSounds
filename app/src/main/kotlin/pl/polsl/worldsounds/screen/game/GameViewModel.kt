@@ -27,7 +27,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
         MutableStateFlow(1)
 
     protected val numberOfRounds: MutableStateFlow<Int> =
-        MutableStateFlow(5)
+        MutableStateFlow(1)
 
     protected abstract fun hideWrongAsset(answer: String)
 
