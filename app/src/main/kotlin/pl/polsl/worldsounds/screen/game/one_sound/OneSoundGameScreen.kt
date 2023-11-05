@@ -2,8 +2,6 @@ package pl.polsl.worldsounds.screen.game.one_sound
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -24,7 +22,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
-import pl.polsl.worldsounds.ui.components.GameNavButtons
+import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
 import java.io.File
 
@@ -65,16 +63,13 @@ private fun OneSoundGameScreen(
 ) {
     val assets = state.currentRoundData
     var selectedImageName by remember { mutableStateOf("") }
-    val isFirstTry = remember {
-        mutableMapOf<Int, Boolean>().apply {
-            (1..state.numberOfRounds).forEach { this[it] = true }
-        }
-    }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    GameScreen(
+        state = state,
+        selectedName = selectedImageName,
+        resetSelectedName = { selectedImageName = "" },
+        navigateToMainScreen = navigateToMainScreen,
+        processAnswer = processAnswer,
     ) {
         Button(onClick = { playAudio(context, assets.audio.file) }) {
             Text("Play")
@@ -95,15 +90,5 @@ private fun OneSoundGameScreen(
                 }
             }
         }
-        GameNavButtons(
-            navigateToMainScreen = navigateToMainScreen,
-            processAnswer = {
-                processAnswer(it, isFirstTry[state.currentRound]!!) { isCorrect ->
-                    isFirstTry[state.currentRound] = false
-                    if (isCorrect) selectedImageName = ""
-                }
-            },
-            selectedName = selectedImageName
-        )
     }
 }
