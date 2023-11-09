@@ -22,8 +22,8 @@ internal class ImageRepository(
         return dao.getAssets(categoryId, answerFilename).map { it.toModel() }.shuffled()
     }
 
-    suspend fun getRandomAnswerNotIn(answers: Set<Long>): ImageModel {
+    suspend fun getRandomAnswerNotIn(categoryId: Long, answers: Set<Long>): ImageModel {
         // TODO error handling
-        return dao.get1RandomNotIn(answers)?.toModel() ?: throw Exception("Image not found")
+        return dao.get1RandomNotIn(categoryId, answers)?.toModel() ?: throw Exception("Image not found")
     }
 }

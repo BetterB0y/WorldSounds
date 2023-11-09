@@ -17,8 +17,8 @@ internal class AudioRepository(
         return dao.getAssets(categoryId, answerFilename).map { it.toModel() }.shuffled()
     }
 
-    suspend fun getRandomAnswerNotIn(answers: Set<Long>): AudioModel {
+    suspend fun getRandomAnswerNotIn(categoryId: Long, answers: Set<Long>): AudioModel {
         // TODO error handling
-        return dao.get1RandomNotIn(answers)?.toModel() ?: throw Exception("Audio not found")
+        return dao.get1RandomNotIn(categoryId, answers)?.toModel() ?: throw Exception("Audio not found")
     }
 }

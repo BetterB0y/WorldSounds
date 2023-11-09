@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -19,6 +21,7 @@ fun ImageCard(
     file: File,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
+    isActive: Boolean = true,
     onClick: () -> Unit,
 ) {
     AsyncImage(
@@ -34,9 +37,10 @@ fun ImageCard(
                     color = Color.Transparent
                 )
             )
-            .clickable {
-                onClick()
-            },
+            .then(if (isActive) Modifier.clickable(onClick = onClick) else Modifier),
         contentScale = ContentScale.Crop,
+        colorFilter = if (!isActive) ColorFilter.colorMatrix(ColorMatrix().apply {
+            setToSaturation(0.0f)
+        }) else null
     )
 }

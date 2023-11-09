@@ -96,7 +96,7 @@ sealed class OnePictureGameScreenState : GameScreenState() {
         override val score: Int,
     ) : OnePictureGameScreenState() {
         override val currentRoundData: RoundAssetsData.OnePicture
-            get() = roundData[currentRound - 1]
+            get() = roundData.getOrElse(currentRound - 1) { RoundAssetsData.OnePicture.default() }
     }
 }
 

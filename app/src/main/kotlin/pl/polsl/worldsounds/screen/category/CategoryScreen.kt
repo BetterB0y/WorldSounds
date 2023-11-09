@@ -52,7 +52,11 @@ private fun CategoryScreen(
         items(
             items = state.categories,
             key = { it.name }) {
-            ImageCard(modifier = Modifier.padding(10.dp), file = it.image) {
+            ImageCard(
+                modifier = Modifier.padding(10.dp),
+                file = it.image,
+                isActive = it.assetsCounts.areAssetsCorrect(state.numberOfRounds),
+            ) {
                 saveAndNavigate(it)
             }
         }

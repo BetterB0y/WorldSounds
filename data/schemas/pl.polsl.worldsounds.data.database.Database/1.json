@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3f15053cf0eab97544539561418405bf",
+    "identityHash": "ec7facf6f091c087b75e75b42e030d2e",
     "entities": [
       {
         "tableName": "categories",
@@ -243,10 +243,15 @@
         ]
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "CategoryCountView",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT \n    c.id AS id,\n    c.name AS name,\n    COUNT(DISTINCT i.id) AS image_count,\n    COUNT(DISTINCT a.id) AS audio_count\nFROM \n    categories c\nLEFT JOIN \n    Images i ON c.id = i.category_id\nLEFT JOIN \n    Audios a ON c.id = a.category_id\nGROUP BY \n    c.id, c.name;"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3f15053cf0eab97544539561418405bf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ec7facf6f091c087b75e75b42e030d2e')"
     ]
   }
 }

@@ -17,8 +17,8 @@ internal interface ImageDao {
     @Query("SELECT * FROM images WHERE category_id = :categoryId ORDER BY name ASC LIMIT 1")
     suspend fun getCategoryImage(categoryId: Long): ImageEntity?
 
-    @Query("SELECT * FROM images WHERE id NOT IN (:answers) ORDER BY RANDOM() LIMIT 1")
-    suspend fun get1RandomNotIn(answers: Set<Long>): ImageEntity?
+    @Query("SELECT * FROM images WHERE category_id = :categoryId AND id NOT IN (:answers) ORDER BY RANDOM() LIMIT 1")
+    suspend fun get1RandomNotIn(categoryId: Long, answers: Set<Long>): ImageEntity?
 
     @Transaction
     suspend fun getAssets(categoryId: Long, answerFilename: String): List<ImageEntity> {

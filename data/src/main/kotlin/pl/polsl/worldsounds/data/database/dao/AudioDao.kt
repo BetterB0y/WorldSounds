@@ -14,8 +14,8 @@ internal interface AudioDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(audio: AudioEntity): Long
 
-    @Query("SELECT * FROM audios WHERE id NOT IN (:answers) ORDER BY RANDOM() LIMIT 1")
-    suspend fun get1RandomNotIn(answers: Set<Long>): AudioEntity?
+    @Query("SELECT * FROM audios WHERE category_id = :categoryId AND id NOT IN (:answers) ORDER BY RANDOM() LIMIT 1")
+    suspend fun get1RandomNotIn(categoryId: Long, answers: Set<Long>): AudioEntity?
 
     @Transaction
     suspend fun getAssets(categoryId: Long, answerFilename: String): List<AudioEntity> {

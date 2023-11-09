@@ -32,7 +32,7 @@ internal class GameRepository(
     }
 
     private suspend fun getRoundForOnePicture(categoryId: Long, answers: Set<Long>): RoundAssetsModel.OnePicture {
-        val image = imageRepository.getRandomAnswerNotIn(answers)
+        val image = imageRepository.getRandomAnswerNotIn(categoryId, answers)
         val audios = audioRepository.getAudioAssets(categoryId, image.name)
         return RoundAssetsModel.OnePicture(
             audios = audios,
@@ -41,7 +41,7 @@ internal class GameRepository(
     }
 
     private suspend fun getRoundForOneSound(categoryId: Long, answers: Set<Long>): RoundAssetsModel.OneSound {
-        val audio = audioRepository.getRandomAnswerNotIn(answers)
+        val audio = audioRepository.getRandomAnswerNotIn(categoryId, answers)
         val images = imageRepository.getImageAssets(categoryId, audio.name)
         return RoundAssetsModel.OneSound(
             images = images,
