@@ -11,34 +11,39 @@ internal class GameRepository(
     private val imageRepository: ImageRepository
 ) {
     suspend fun getRoundAssets(categoryId: Long, numberOfRounds: Int, gameMode: GameModeModel): List<RoundAssetsModel> {
-        return when (gameMode) {
-            GameModeModel.OnePicture -> List(numberOfRounds) { getRoundForOnePicture(categoryId) }
+        val roundAssets: MutableList<RoundAssetsModel> = mutableListOf()
+        val answers: MutableSet<Long> = mutableSetOf()
 
-            GameModeModel.OneSound -> List(numberOfRounds) { getRoundForOneSound(categoryId) }
+        val getAsset: suspend (Long, Set<Long>) -> RoundAssetsModel = when (gameMode) {
+            GameModeModel.OnePicture -> ::getRoundForOnePicture
+            GameModeModel.OneSound -> ::getRoundForOneSound
         }
+
+        for (i in 0 until numberOfRounds) {
+            val assets = getAsset(categoryId, answers)
+            roundAssets.add(assets)
+            answers.add(assets.answerId)
+        }
+        return roundAssets
     }
 
     suspend fun saveScore(playerName: String, score: Int, categoryId: Long) {
         dao.insert(ScoreEntity.new(playerName, score, categoryId))
     }
 
-    private suspend fun getRoundForOnePicture(categoryId: Long): RoundAssetsModel.OnePicture {
-        val audios = audioRepository.getRandomAudios(categoryId)
-        val correctAnswer = audios.random()
-        val image = imageRepository.getAnswerImage(correctAnswer.name)
+    private suspend fun getRoundForOnePicture(categoryId: Long, answers: Set<Long>): RoundAssetsModel.OnePicture {
+        val image = imageRepository.getRandomAnswerNotIn(answers)
+        val audios = audioRepository.getAudioAssets(categoryId, image.name)
         return RoundAssetsModel.OnePicture(
-            answerFileName = correctAnswer.name,
             audios = audios,
             image = image
         )
     }
 
-    private suspend fun getRoundForOneSound(categoryId: Long): RoundAssetsModel.OneSound {
-        val images = imageRepository.getRandomImages(categoryId)
-        val correctAnswerName = images.random().name
-        val audio = audioRepository.getAnswerAudio(correctAnswerName)
+    private suspend fun getRoundForOneSound(categoryId: Long, answers: Set<Long>): RoundAssetsModel.OneSound {
+        val audio = audioRepository.getRandomAnswerNotIn(answers)
+        val images = imageRepository.getImageAssets(categoryId, audio.name)
         return RoundAssetsModel.OneSound(
-            answerFileName = correctAnswerName,
             images = images,
             audio = audio,
         )

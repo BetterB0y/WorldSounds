@@ -12,12 +12,13 @@ internal class AudioRepository(
         dao.insert(AudioEntity.new(fileName, extension, categoryId))
     }
 
-    suspend fun getRandomAudios(categoryId: Long): List<AudioModel> {
-        return dao.getRandomAudios(categoryId).map { it.toModel() }
+    suspend fun getAudioAssets(categoryId: Long, answerFilename: String): List<AudioModel> {
+        // TODO error handling
+        return dao.getAssets(categoryId, answerFilename).map { it.toModel() }.shuffled()
     }
 
-    suspend fun getAnswerAudio(fileName: String): AudioModel {
-        //TODO error handling
-        return dao.getCorrectAnswer(fileName)?.toModel() ?: throw Exception("Audio not found")
+    suspend fun getRandomAnswerNotIn(answers: Set<Long>): AudioModel {
+        // TODO error handling
+        return dao.get1RandomNotIn(answers)?.toModel() ?: throw Exception("Audio not found")
     }
 }
