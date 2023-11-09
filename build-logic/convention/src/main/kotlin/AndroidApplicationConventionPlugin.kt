@@ -26,6 +26,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     versionCode = ModuleConfig.versionCode
                     versionName = ModuleConfig.versionName
                     vectorDrawables.useSupportLibrary = true
+                    setProperty("archivesBaseName", ModuleConfig.archiveName)
                 }
                 configureKotlin(this)
                 configureBuildTypes(this)
