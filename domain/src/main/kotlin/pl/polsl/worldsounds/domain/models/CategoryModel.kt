@@ -4,4 +4,5 @@ data class CategoryModel(
     val id: Long,
     val name: String,
     val imageName: String,
+    val assetsCountModel: AssetsCountModel,
 )

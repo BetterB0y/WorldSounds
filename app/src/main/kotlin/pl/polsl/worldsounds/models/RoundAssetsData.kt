@@ -6,12 +6,13 @@ sealed class RoundAssetsData {
     abstract val answerFileName: String
 
     data class OneSound(
-        override val answerFileName: String,
         val audio: AudioData,
         val images: List<ImageData>
     ) : RoundAssetsData() {
+        override val answerFileName: String get() = audio.file.nameWithoutExtension
+
         companion object {
-            fun default() = OneSound("", AudioData(id = 0, file = File("")), emptyList())
+            fun default() = OneSound(AudioData(id = 0, file = File("")), emptyList())
         }
 
         fun hideImage(fileName: String): OneSound {
@@ -24,13 +25,13 @@ sealed class RoundAssetsData {
     }
 
     data class OnePicture(
-        override val answerFileName: String,
         val image: ImageData,
         val audios: List<AudioData>
     ) : RoundAssetsData() {
+        override val answerFileName: String get() = image.file.nameWithoutExtension
         companion object {
             fun default() =
-                OnePicture("", ImageData(id = 0, file = File("")), emptyList())
+                OnePicture(ImageData(id = 0, file = File("")), emptyList())
         }
 
         fun hideAudio(fileName: String): OnePicture {

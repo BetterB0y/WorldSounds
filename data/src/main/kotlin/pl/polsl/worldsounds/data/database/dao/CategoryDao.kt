@@ -9,17 +9,18 @@ import androidx.room.Query
 import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 import pl.polsl.worldsounds.data.database.models.CategoryEntity
+import pl.polsl.worldsounds.data.database.models.views.CategoryCountView
 
 @Dao
 internal interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(category: CategoryEntity): Long
 
-    @Query("SELECT * FROM categories")
-    fun observeAll(): Flow<List<CategoryEntity>>
+    @Query("SELECT * FROM CategoryCountView")
+    fun observeAll(): Flow<List<CategoryCountView>>
 
-    @Query("SELECT * FROM categories WHERE id = :id")
-    suspend fun getById(id: Long): CategoryEntity
+    @Query("SELECT * FROM CategoryCountView WHERE id = :id")
+    suspend fun getById(id: Long): CategoryCountView
 
     @Transaction
     suspend fun deleteAll() {

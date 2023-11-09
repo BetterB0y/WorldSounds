@@ -10,6 +10,7 @@ import pl.polsl.worldsounds.data.database.models.AudioEntity
 import pl.polsl.worldsounds.data.database.models.CategoryEntity
 import pl.polsl.worldsounds.data.database.models.ImageEntity
 import pl.polsl.worldsounds.data.database.models.ScoreEntity
+import pl.polsl.worldsounds.data.database.models.views.CategoryCountView
 
 @Database(
     entities = [
@@ -17,6 +18,9 @@ import pl.polsl.worldsounds.data.database.models.ScoreEntity
         ScoreEntity::class,
         AudioEntity::class,
         ImageEntity::class,
+    ],
+    views = [
+        CategoryCountView::class,
     ],
     version = 1
 )

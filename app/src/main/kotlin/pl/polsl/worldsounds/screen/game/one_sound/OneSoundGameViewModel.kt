@@ -97,6 +97,6 @@ sealed class OneSoundGameScreenState : GameScreenState() {
         override val score: Int,
     ) : OneSoundGameScreenState() {
         override val currentRoundData: RoundAssetsData.OneSound
-            get() = roundData[currentRound - 1]
+            get() = roundData.getOrElse(currentRound - 1) { RoundAssetsData.OneSound.default() }
     }
 }
