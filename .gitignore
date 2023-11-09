@@ -86,3 +86,4 @@ proguard/
 /scanner/build/
 /build-logic/build/
 /build-logic/convention/build/
+/app/release/
