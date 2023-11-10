@@ -1,4 +1,4 @@
-package pl.polsl.worldsounds.ui.components
+package pl.polsl.worldsounds.ui.components.buttons
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

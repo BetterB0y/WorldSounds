@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import pl.polsl.worldsounds.ui.components.GameNavButtons
+import pl.polsl.worldsounds.ui.components.buttons.GameNavButtons
 
 @Composable
 fun GameScreen(
