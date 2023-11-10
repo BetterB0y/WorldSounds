@@ -5,5 +5,8 @@
     <string name="storageRationale">Dostęp do pamięci urządzenia jest potrzebny, aby dodawać własne kategorie. Nadaj potrzebne uprawnienia.</string>
     <string name="language">Język:</string>
     <string name="defaultUsername">Gracz</string>
+    <string name="save">Zapisz</string>
+    <string name="exit">Wyjdź</string>
+
 
 </resources>

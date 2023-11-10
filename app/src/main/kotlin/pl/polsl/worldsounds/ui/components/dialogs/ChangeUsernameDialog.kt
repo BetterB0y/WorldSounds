@@ -9,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import pl.polsl.worldsounds.R
 
 
 @Composable
@@ -32,8 +33,9 @@ fun ChangeUsernameDialog(
             ),
         )
         DialogButtonsRow(
+            actionText = R.string.save,
             onConfirm = { onConfirm(textFieldValue) },
-            onDismiss = onDismiss
+            onDismiss = onDismiss,
         )
 
     }
