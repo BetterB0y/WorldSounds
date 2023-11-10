@@ -5,4 +5,6 @@ data class BestScoreData(
     val categoryName: String,
     val score: Int,
     val playerName: String
-)
+) {
+    val isDefaultUsername get() = playerName == "Player"
+}

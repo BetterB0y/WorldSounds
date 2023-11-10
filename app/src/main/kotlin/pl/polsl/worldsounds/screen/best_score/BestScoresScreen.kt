@@ -10,8 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.models.GameModeData
 
@@ -43,12 +45,18 @@ private fun BestScoresScreen(
                 Text(text = "GameMode.OneSound")
             }
         }
-        LazyColumn {
-            items(
-                items = state.scores,
-                key = { score -> score.id }
-            ) { score ->
-                Text(text = "${score.categoryName} - ${score.playerName} - ${score.score}")
+        if (state.scores.isEmpty()) {
+            Text("Brak wyników")
+        } else {
+            LazyColumn {
+                items(
+                    items = state.scores,
+                    key = { score -> score.id }
+                ) { score ->
+                    val playerName =
+                        if (score.isDefaultUsername) stringResource(R.string.defaultUsername) else score.playerName
+                    Text(text = "${score.categoryName} - $playerName - ${score.score}")
+                }
             }
         }
     }
