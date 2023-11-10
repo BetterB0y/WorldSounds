@@ -2,10 +2,15 @@ package pl.polsl.worldsounds.screen
 
 import android.Manifest
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -18,6 +23,7 @@ import pl.polsl.worldsounds.screen.destinations.GameModeScreenDestination
 import pl.polsl.worldsounds.screen.destinations.SettingsScreenDestination
 import pl.polsl.worldsounds.ui.components.MainButton
 import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
+import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 
 
 @RootNavGraph(start = true)
@@ -35,6 +41,20 @@ fun MainMenuScreen(navigator: DestinationsNavigator) {
             }
         }
     )
+
+
+    var isExitDialogVisible: Boolean by remember {
+        mutableStateOf(false)
+    }
+
+    BackHandler {
+        isExitDialogVisible = true
+    }
+
+
+    if (isExitDialogVisible) {
+        ExitAppDialog(onDismiss = { isExitDialogVisible = false })
+    }
 
     MultiplePermissionPage(
         state = storagePermissionState,
