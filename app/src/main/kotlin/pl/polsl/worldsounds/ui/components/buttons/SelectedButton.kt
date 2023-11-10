@@ -1,4 +1,4 @@
-package pl.polsl.worldsounds.ui.components
+package pl.polsl.worldsounds.ui.components.buttons
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border

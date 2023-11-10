@@ -1,4 +1,4 @@
-package pl.polsl.worldsounds.ui.components
+package pl.polsl.worldsounds.ui.components.buttons
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,8 +12,8 @@ import pl.polsl.worldsounds.ui.resources.D
 
 @Composable
 fun GameNavButtons(
-    navigateToMainScreen: () -> Unit,
-    processAnswer: (String) -> Unit,
+    onExit: () -> Unit,
+    onNext: (String) -> Unit,
     selectedName: String
 ) {
     Row(
@@ -22,11 +22,11 @@ fun GameNavButtons(
             .padding(horizontal = D.Padding.paddingDoubleBig),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Button(onClick = { navigateToMainScreen() }) {
+        Button(onClick = { onExit() }) {
             Text("Wyjdź")
         }
 
-        Button(onClick = { processAnswer(selectedName) }) {
+        Button(onClick = { onNext(selectedName) }) {
             Text("Zatwierdź")
         }
     }

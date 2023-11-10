@@ -1,5 +1,6 @@
 package pl.polsl.worldsounds.ui.components.dialogs
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -8,10 +9,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable
-fun DialogButtonsRow(onDismiss: (() -> Unit), onConfirm: (() -> Unit)) {
+fun DialogButtonsRow(
+    @StringRes actionText: Int,
+    onDismiss: (() -> Unit),
+    onConfirm: (() -> Unit)
+) {
     Row(
         modifier = Modifier.padding(top = D.Padding.Dialog.buttonsSpacer),
     ) {
@@ -26,7 +32,7 @@ fun DialogButtonsRow(onDismiss: (() -> Unit), onConfirm: (() -> Unit)) {
             modifier = Modifier.weight(1f),
             onClick = onConfirm
         ) {
-            Text("Zapisz")
+            Text(stringResource(actionText))
         }
     }
 }

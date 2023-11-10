@@ -5,5 +5,7 @@
     <string name="storageRationale">Access to the storage is needed to add Your own categories. Give the necessary permissions.</string>
     <string name="language">Language:</string>
     <string name="defaultUsername">Player</string>
+    <string name="save">Save</string>
+    <string name="exit">Exit</string>
 
 </resources>

@@ -23,7 +23,7 @@ import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
-import pl.polsl.worldsounds.ui.components.SelectedButton
+import pl.polsl.worldsounds.ui.components.buttons.SelectedButton
 import java.io.File
 
 @Destination
