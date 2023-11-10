@@ -7,5 +7,7 @@
     <string name="defaultUsername">Player</string>
     <string name="save">Save</string>
     <string name="exit">Exit</string>
+    <string name="riddleWrongAnswer">Wrong answer. Try again!</string>
+    <string name="riddleEmptyAnswer">Empty answer. Try again!</string>
 
 </resources>
