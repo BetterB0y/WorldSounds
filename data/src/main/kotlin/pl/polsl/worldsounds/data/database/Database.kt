@@ -2,6 +2,7 @@ package pl.polsl.worldsounds.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import pl.polsl.worldsounds.data.database.dao.AudioDao
 import pl.polsl.worldsounds.data.database.dao.CategoryDao
 import pl.polsl.worldsounds.data.database.dao.ImageDao
@@ -25,6 +26,7 @@ import pl.polsl.worldsounds.data.database.models.views.CategoryCountView
     version = 1
 )
 
+@TypeConverters(Converters::class)
 internal abstract class Database : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun audioDao(): AudioDao

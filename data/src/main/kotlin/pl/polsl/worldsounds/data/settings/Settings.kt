@@ -74,6 +74,6 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
     )
 
     override suspend fun getUsername(): String {
-        return _dataStore.get(USERNAME) ?: ""
+        return _dataStore.get(USERNAME) ?: "Player"
     }
 }

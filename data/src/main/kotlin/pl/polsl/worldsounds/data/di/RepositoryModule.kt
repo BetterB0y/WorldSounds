@@ -12,6 +12,7 @@ import pl.polsl.worldsounds.data.repositories.AudioRepository
 import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.repositories.GameRepository
 import pl.polsl.worldsounds.data.repositories.ImageRepository
+import pl.polsl.worldsounds.data.repositories.ScoresRepository
 import javax.inject.Singleton
 
 @Module
@@ -52,13 +53,20 @@ internal object RepositoryModule {
     @Singleton
     @Provides
     fun provideGameRepository(
-        dao: ScoreDao,
         audioRepository: AudioRepository,
         imageRepository: ImageRepository
     ): GameRepository =
         GameRepository(
-            dao,
             audioRepository,
             imageRepository,
+        )
+
+    @Singleton
+    @Provides
+    fun provideScoresRepository(
+        dao: ScoreDao,
+    ): ScoresRepository =
+        ScoresRepository(
+            dao,
         )
 }

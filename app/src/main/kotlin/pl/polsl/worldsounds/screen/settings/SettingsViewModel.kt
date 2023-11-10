@@ -9,10 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.base.BaseViewModel
+import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
+import pl.polsl.worldsounds.screen.destinations.BestScoresScreenDestination
 import javax.inject.Inject
 
 
@@ -68,6 +70,14 @@ class SettingsViewModel @Inject constructor(
     fun saveNumberOfRounds(value: Float) = launch {
         _saveNumberOfRoundsUseCase(value.toInt())
     }
+
+    fun navigateToBestScoresScreen() = launch {
+        sendEvent(SettingsEvent.OpenBestScoresScreen)
+    }
+}
+
+sealed class SettingsEvent {
+    object OpenBestScoresScreen : Event.Navigation(BestScoresScreenDestination)
 }
 
 sealed class SettingsScreenState {
