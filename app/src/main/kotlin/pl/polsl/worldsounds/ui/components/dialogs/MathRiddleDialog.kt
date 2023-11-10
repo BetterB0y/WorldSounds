@@ -31,7 +31,8 @@ fun MathRiddleDialog(
             onValueChange = { textFieldValue = it },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.NumberPassword,
+                keyboardType = KeyboardType.Number,
+                autoCorrect = false,
                 imeAction = ImeAction.Done
             ),
         )

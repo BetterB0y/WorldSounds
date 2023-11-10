@@ -91,7 +91,6 @@ private fun MainMenuScreen(
         isExitDialogVisible = true
     }
 
-
     if (isExitDialogVisible) {
         ExitAppDialog(onDismiss = { isExitDialogVisible = false })
     }
