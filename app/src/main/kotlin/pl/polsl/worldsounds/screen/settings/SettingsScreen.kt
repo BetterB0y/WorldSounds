@@ -16,7 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.R
+import pl.polsl.worldsounds.base.Event
+import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.RoundsSlider
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
@@ -25,8 +28,15 @@ import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
     val state by viewModel.observeState()
+
+    viewModel.events.observeEvents {
+        when (it) {
+            is Event.Navigation -> it.navigate(navigator)
+        }
+    }
 
     if (state is SettingsScreenState.ReadyState) {
         SettingsScreen(
@@ -34,7 +44,8 @@ fun SettingsScreen(
             changeLanguage = viewModel::changeLanguage,
             changeUsername = viewModel::changeUsername,
             saveNumberOfRounds = viewModel::saveNumberOfRounds,
-            onSliderChange = viewModel::onSliderChange
+            onSliderChange = viewModel::onSliderChange,
+            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen
         )
     }
 }
@@ -45,7 +56,8 @@ private fun SettingsScreen(
     changeLanguage: (String) -> Unit,
     changeUsername: (String) -> Unit,
     saveNumberOfRounds: (Float) -> Unit,
-    onSliderChange: (Float) -> Unit
+    onSliderChange: (Float) -> Unit,
+    navigateToBestScoresScreen: () -> Unit
 ) {
     var isChangeUsernameDialogVisible: Boolean by remember {
         mutableStateOf(false)
@@ -83,6 +95,9 @@ private fun SettingsScreen(
                 },
                 onDismiss = { isChangeUsernameDialogVisible = false },
             )
+        }
+        Button(onClick = navigateToBestScoresScreen) {
+            Text("Zobacz najlepsze wyniki")
         }
         RoundsSlider(
             value = state.numberOfRounds,

@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.repositories.GameRepository
+import pl.polsl.worldsounds.data.repositories.ScoresRepository
 import pl.polsl.worldsounds.data.settings.Settings
 import pl.polsl.worldsounds.data.usecases.GetCategoryUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
@@ -13,6 +14,7 @@ import pl.polsl.worldsounds.data.usecases.GetNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetRoundsAssetsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetUsernameUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.ObserveScoresWithGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveNumberOfRoundsUseCaseImpl
@@ -25,6 +27,7 @@ import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
+import pl.polsl.worldsounds.domain.usecases.ObserveScoresWithGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
@@ -96,7 +99,12 @@ internal object UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesSaveScoreUseCase(settings: Settings, gameRepository: GameRepository): SaveScoreUseCase =
-        SaveScoreUseCaseImpl(settings, gameRepository)
+    fun providesSaveScoreUseCase(settings: Settings, scoresRepository: ScoresRepository): SaveScoreUseCase =
+        SaveScoreUseCaseImpl(settings, scoresRepository)
+
+    @Provides
+    @Singleton
+    fun providesObserveScoresWithGameModeUseCase(scoresRepository: ScoresRepository): ObserveScoresWithGameModeUseCase =
+        ObserveScoresWithGameModeUseCaseImpl(scoresRepository)
 
 }

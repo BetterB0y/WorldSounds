@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ec7facf6f091c087b75e75b42e030d2e",
+    "identityHash": "9c862283b88ac59ba19b21dce85daf4d",
     "entities": [
       {
         "tableName": "categories",
@@ -42,7 +42,7 @@
       },
       {
         "tableName": "scores",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `player_name` TEXT NOT NULL, `score` INTEGER NOT NULL, `category_id` INTEGER NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `player_name` TEXT NOT NULL, `score` INTEGER NOT NULL, `game_mode` INTEGER NOT NULL, `category_name` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -63,9 +63,15 @@
             "notNull": true
           },
           {
-            "fieldPath": "categoryId",
-            "columnName": "category_id",
+            "fieldPath": "gameMode",
+            "columnName": "game_mode",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoryName",
+            "columnName": "category_name",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -77,28 +83,25 @@
         },
         "indices": [
           {
-            "name": "index_scores_category_id",
+            "name": "index_scores_category_name",
             "unique": false,
             "columnNames": [
-              "category_id"
+              "category_name"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_scores_category_id` ON `${TABLE_NAME}` (`category_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scores_category_name` ON `${TABLE_NAME}` (`category_name`)"
+          },
+          {
+            "name": "index_scores_game_mode",
+            "unique": false,
+            "columnNames": [
+              "game_mode"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_scores_game_mode` ON `${TABLE_NAME}` (`game_mode`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "categories",
-            "onDelete": "CASCADE",
-            "onUpdate": "CASCADE",
-            "columns": [
-              "category_id"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "audios",
@@ -251,7 +254,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ec7facf6f091c087b75e75b42e030d2e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9c862283b88ac59ba19b21dce85daf4d')"
     ]
   }
 }

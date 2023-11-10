@@ -66,7 +66,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
         _saveScoreUseCase(
             SaveScoreUseCase.Params(
                 score = score.value,
-                categoryId = category.value.id
+                categoryName = category.value.name
             )
         )
     }
