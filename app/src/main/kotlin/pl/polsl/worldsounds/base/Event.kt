@@ -8,8 +8,19 @@ import com.ramcosta.composedestinations.spec.Direction
 import pl.polsl.worldsounds.screen.destinations.MainMenuScreenDestination
 
 open class Event {
-    data class Message(@StringRes private val textId: Int) : Event() {
+    open class Message(@StringRes private val textId: Int) : Event() {
         fun text(context: Context): String = context.getString(textId)
+        override fun equals(other: Any?): Boolean {
+            return if (other is Message) {
+                textId == other.textId
+            } else {
+                super.equals(other)
+            }
+        }
+
+        override fun hashCode(): Int {
+            return textId
+        }
     }
 
     open class Navigation(private val _direction: Direction?) : Event() {
