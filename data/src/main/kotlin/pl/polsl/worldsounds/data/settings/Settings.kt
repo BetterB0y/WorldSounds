@@ -24,6 +24,9 @@ internal interface Settings {
 
     suspend fun setUsername(value: String)
     suspend fun getUsername(): String
+
+    suspend fun setAudioPath(value: String)
+    suspend fun getAudioPath(): String
 }
 
 internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Settings {
@@ -32,6 +35,7 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
         private val CATEGORY = longPreferencesKey("category")
         private val NUMBER_OF_ROUNDS = intPreferencesKey("numberOfRounds")
         private val USERNAME = stringPreferencesKey("username")
+        private val AUDIO_PATH = stringPreferencesKey("audioPath")
     }
 
     private suspend fun <T> DataStore<Preferences>.set(key: Preferences.Key<T>, value: T) {
@@ -75,5 +79,14 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
 
     override suspend fun getUsername(): String {
         return _dataStore.get(USERNAME) ?: "Player"
+    }
+
+    override suspend fun setAudioPath(value: String) = _dataStore.set(
+        AUDIO_PATH,
+        value,
+    )
+
+    override suspend fun getAudioPath(): String {
+        return _dataStore.get(AUDIO_PATH) ?: ""
     }
 }

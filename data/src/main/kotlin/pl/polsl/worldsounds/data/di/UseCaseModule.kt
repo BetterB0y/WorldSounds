@@ -8,6 +8,7 @@ import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.repositories.GameRepository
 import pl.polsl.worldsounds.data.repositories.ScoresRepository
 import pl.polsl.worldsounds.data.settings.Settings
+import pl.polsl.worldsounds.data.usecases.GetAudioToPlayUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetCategoryUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetNumberOfRoundsUseCaseImpl
@@ -15,12 +16,14 @@ import pl.polsl.worldsounds.data.usecases.GetRoundsAssetsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetUsernameUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveCategoriesUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ObserveScoresWithGameModeUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.SaveAudioToPlayUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveScoreUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveUsernameUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.ScanFolderWithAssetsUseCaseImpl
+import pl.polsl.worldsounds.domain.usecases.GetAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
@@ -28,6 +31,7 @@ import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveCategoriesUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveScoresWithGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
@@ -106,5 +110,15 @@ internal object UseCaseModule {
     @Singleton
     fun providesObserveScoresWithGameModeUseCase(scoresRepository: ScoresRepository): ObserveScoresWithGameModeUseCase =
         ObserveScoresWithGameModeUseCaseImpl(scoresRepository)
+
+    @Provides
+    @Singleton
+    fun providesGetAudioToPlayUseCase(settings: Settings): GetAudioToPlayUseCase =
+        GetAudioToPlayUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesSaveAudioToPlayUseCase(settings: Settings): SaveAudioToPlayUseCase =
+        SaveAudioToPlayUseCaseImpl(settings)
 
 }
