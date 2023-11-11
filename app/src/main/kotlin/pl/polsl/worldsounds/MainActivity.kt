@@ -3,13 +3,15 @@ package pl.polsl.worldsounds
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +24,7 @@ import pl.polsl.worldsounds.screen.NavGraphs
 import pl.polsl.worldsounds.screen.appCurrentDestinationAsState
 import pl.polsl.worldsounds.screen.destinations.Destination
 import pl.polsl.worldsounds.screen.startAppDestination
+import pl.polsl.worldsounds.ui.components.GlobalBackground
 import pl.polsl.worldsounds.ui.resources.WorldSoundsTheme
 import pl.polsl.worldsounds.utils.PlayAudioOnShakeListener
 import java.util.Objects
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemUI()
         sensorListener = PlayAudioOnShakeListener(this, getAudioToPlayUseCase)
         setContent {
             WorldSoundsTheme {
@@ -50,13 +54,14 @@ class MainActivity : AppCompatActivity() {
                 sensorListener.setCurrentDestination(currentDestination)
 
                 Scaffold { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
+                    GlobalBackground(innerPadding) {
                         DestinationsNavHost(
                             navGraph = NavGraphs.root,
                             navController = navController,
                         )
                     }
                 }
+
             }
         }
 
@@ -67,6 +72,23 @@ class MainActivity : AppCompatActivity() {
                 sensorListener, sensorManager
                     .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL
             )
+    }
+
+    private fun hideSystemUI() {
+        actionBar?.hide()
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            @Suppress("DEPRECATION")
+            //TODO Check on older android
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.insetsController?.apply {
+                hide(WindowInsets.Type.statusBars())
+                systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        }
     }
 
 
