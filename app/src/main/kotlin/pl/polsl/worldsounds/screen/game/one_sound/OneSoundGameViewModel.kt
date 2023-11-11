@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveScoreUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.RoundAssetsData
@@ -23,8 +24,9 @@ class OneSoundGameViewModel @Inject constructor(
     private val _getRoundsAssetsUseCase: GetRoundsAssetsUseCase,
     private val _getNumberOfRoundsUseCase: GetNumberOfRoundsUseCase,
     saveScoreUseCase: SaveScoreUseCase,
+    saveAudioToPlayUseCase: SaveAudioToPlayUseCase,
     coroutineDispatcher: CoroutineDispatcher
-) : GameViewModel<OneSoundGameScreenState>(saveScoreUseCase, coroutineDispatcher) {
+) : GameViewModel<OneSoundGameScreenState>(saveScoreUseCase, saveAudioToPlayUseCase, coroutineDispatcher) {
     private val _roundsAssets: MutableStateFlow<List<RoundAssetsData.OneSound>> =
         MutableStateFlow(emptyList())
 
@@ -36,6 +38,9 @@ class OneSoundGameViewModel @Inject constructor(
         numberOfRounds,
         score,
     ) { category, roundsAssets, currentRound, numberOfRounds, score ->
+        if (currentRound != state.value.currentRound) {
+            saveAudio(_roundsAssets.value[currentRound - 1].audio.file)
+        }
         OneSoundGameScreenState.ReadyState(
             category,
             roundsAssets,

@@ -1,24 +1,25 @@
 package pl.polsl.worldsounds.screen.game
 
 import android.content.Context
-import android.media.MediaPlayer
 import androidx.core.net.toUri
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.base.Event
+import pl.polsl.worldsounds.domain.usecases.SaveAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveScoreUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.RoundAssetsData
 import pl.polsl.worldsounds.screen.destinations.SummaryScreenDestination
+import pl.polsl.worldsounds.utils.AudioPlayer
 import java.io.File
 
 abstract class GameViewModel<out STATE : GameScreenState>(
     private val _saveScoreUseCase: SaveScoreUseCase,
+    private val _saveAudioToPlayUseCase: SaveAudioToPlayUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<STATE>(coroutineDispatcher) {
-    private var mediaPlayer: MediaPlayer? = null
     protected val score: MutableStateFlow<Int> =
         MutableStateFlow(0)
 
@@ -34,7 +35,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     protected abstract fun hideWrongAsset(answer: String)
 
     fun processAnswer(answer: String, isFirstTry: Boolean, result: (Boolean) -> Unit) = launch {
-        stopAudio()
+        AudioPlayer.stopAudio()
         if (answer.isEmpty()) {
             result(false)
             return@launch
@@ -80,20 +81,17 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     }
 
     fun playAudio(context: Context, audio: File) {
-        stopAudio()
-        mediaPlayer = MediaPlayer.create(context, audio.toUri()).apply {
-            start()
-        }
+        AudioPlayer.playAudio(context, audio.toUri())
     }
 
-    private fun stopAudio() {
-        mediaPlayer?.release()
-        mediaPlayer = null
+
+    fun saveAudio(audio: File) = launch {
+        _saveAudioToPlayUseCase(audio.toString())
     }
 
     override fun onCleared() {
         super.onCleared()
-        stopAudio()
+        AudioPlayer.stopAudio()
     }
 }
 

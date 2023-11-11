@@ -48,6 +48,7 @@ fun OnePictureGameScreen(
             state = state,
             context = context,
             playAudio = viewModel::playAudio,
+            saveAudio = viewModel::saveAudio,
             navigateToMainScreen = viewModel::navigateToMainScreen,
             processAnswer = viewModel::processAnswer,
         )
@@ -59,6 +60,7 @@ private fun OnePictureGameScreen(
     context: Context,
     state: OnePictureGameScreenState,
     playAudio: (Context, File) -> Unit,
+    saveAudio: (File) -> Unit,
     navigateToMainScreen: () -> Unit,
     processAnswer: (String, Boolean, (Boolean) -> Unit) -> Unit,
 ) {
@@ -85,6 +87,7 @@ private fun OnePictureGameScreen(
                     isSelected = selectedAudioName == it.file.nameWithoutExtension
                 ) {
                     playAudio(context, it.file)
+                    saveAudio(it.file)
                     selectedAudioName = it.file.nameWithoutExtension
                 }
             }

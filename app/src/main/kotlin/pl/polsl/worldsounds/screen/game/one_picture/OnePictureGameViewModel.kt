@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveScoreUseCase
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.models.RoundAssetsData
@@ -23,8 +24,9 @@ class OnePictureGameViewModel @Inject constructor(
     private val _getRoundsAssetsUseCase: GetRoundsAssetsUseCase,
     private val _getNumberOfRoundsUseCase: GetNumberOfRoundsUseCase,
     saveScoreUseCase: SaveScoreUseCase,
+    saveAudioToPlayUseCase: SaveAudioToPlayUseCase,
     coroutineDispatcher: CoroutineDispatcher
-) : GameViewModel<OnePictureGameScreenState>(saveScoreUseCase, coroutineDispatcher) {
+) : GameViewModel<OnePictureGameScreenState>(saveScoreUseCase, saveAudioToPlayUseCase, coroutineDispatcher) {
     private val _roundsAssets: MutableStateFlow<List<RoundAssetsData.OnePicture>> =
         MutableStateFlow(emptyList())
 
@@ -47,6 +49,7 @@ class OnePictureGameViewModel @Inject constructor(
 
     init {
         launch {
+            saveAudioToPlayUseCase("")
             val categoryData = _getCategoryUseCase(Unit).toData()
             category.update {
                 categoryData
