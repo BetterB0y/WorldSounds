@@ -16,5 +16,5 @@ plugins {
 }
 
 tasks.withType<Delete> {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory.get())
 }
