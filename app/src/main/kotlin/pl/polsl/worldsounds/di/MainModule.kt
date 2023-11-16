@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import pl.polsl.worldsounds.app.appFolder
+import java.io.File
 import javax.inject.Singleton
 
 @Module
@@ -16,4 +18,8 @@ object MainModule {
     @Singleton
     fun providesCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
+
+    @Provides
+    @Singleton
+    fun providesAppFolder(): File = appFolder
 }

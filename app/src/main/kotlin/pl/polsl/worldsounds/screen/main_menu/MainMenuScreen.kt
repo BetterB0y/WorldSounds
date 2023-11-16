@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +23,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.R
+import pl.polsl.worldsounds.app.appFolder
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
@@ -30,6 +32,7 @@ import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
 import pl.polsl.worldsounds.ui.components.SnackbarScreenWrapper
 import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 import pl.polsl.worldsounds.ui.components.dialogs.MathRiddleDialog
+import timber.log.Timber
 
 
 @RootNavGraph(start = true)
@@ -75,6 +78,7 @@ private fun MainMenuScreen(
                 add(Manifest.permission.READ_MEDIA_IMAGES)
             } else {
                 add(Manifest.permission.READ_EXTERNAL_STORAGE)
+                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
         }
     )
@@ -110,6 +114,12 @@ private fun MainMenuScreen(
         permission = R.string.storagePermission,
         rationale = R.string.storageRationale,
     ) {
+        LaunchedEffect(key1 = appFolder.exists(), block = {
+            if (!appFolder.exists()) {
+                val created = appFolder.mkdirs()
+                Timber.d("Is App Folder created: $created")
+            }
+        })
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
