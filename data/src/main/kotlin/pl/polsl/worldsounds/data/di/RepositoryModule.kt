@@ -13,6 +13,7 @@ import pl.polsl.worldsounds.data.repositories.CategoryRepository
 import pl.polsl.worldsounds.data.repositories.GameRepository
 import pl.polsl.worldsounds.data.repositories.ImageRepository
 import pl.polsl.worldsounds.data.repositories.ScoresRepository
+import java.io.File
 import javax.inject.Singleton
 
 @Module
@@ -22,11 +23,13 @@ internal object RepositoryModule {
     @Singleton
     @Provides
     fun provideCategoryRepository(
+        appFolder: File,
         dao: CategoryDao,
         audioRepository: AudioRepository,
         imageRepository: ImageRepository
     ): CategoryRepository =
         CategoryRepository(
+            appFolder,
             dao,
             audioRepository,
             imageRepository,

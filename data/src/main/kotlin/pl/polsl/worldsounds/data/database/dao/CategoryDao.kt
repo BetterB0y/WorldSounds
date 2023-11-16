@@ -16,7 +16,7 @@ internal interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(category: CategoryEntity): Long
 
-    @Query("SELECT * FROM CategoryCountView")
+    @Query("SELECT * FROM CategoryCountView ORDER BY name ASC")
     fun observeAll(): Flow<List<CategoryCountView>>
 
     @Query("SELECT * FROM CategoryCountView WHERE id = :id")

@@ -5,17 +5,15 @@ import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.data.database.dao.CategoryDao
 import pl.polsl.worldsounds.data.database.models.CategoryEntity
 import pl.polsl.worldsounds.data.database.models.mappers.toModel
-import pl.polsl.worldsounds.domain.base.Config
 import pl.polsl.worldsounds.domain.models.CategoryModel
 import java.io.File
 
 internal class CategoryRepository(
+    private val appFolder: File,
     private val dao: CategoryDao,
     private val audioRepository: AudioRepository,
     private val imageRepository: ImageRepository
 ) {
-    private val appFolder = File(Config.basePath)
-
     suspend fun scanFolderWithAssets() {
         dao.deleteAll()
 
