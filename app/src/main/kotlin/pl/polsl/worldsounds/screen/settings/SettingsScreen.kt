@@ -21,6 +21,7 @@ import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
+import pl.polsl.worldsounds.ui.components.AccelerometerSlider
 import pl.polsl.worldsounds.ui.components.RoundsSlider
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 
@@ -44,7 +45,9 @@ fun SettingsScreen(
             changeLanguage = viewModel::changeLanguage,
             changeUsername = viewModel::changeUsername,
             saveNumberOfRounds = viewModel::saveNumberOfRounds,
-            onSliderChange = viewModel::onSliderChange,
+            onRoundSliderChange = viewModel::onRoundSliderChange,
+            saveAccelerometerThreshold = viewModel::saveAccelerometerThreshold,
+            onAccelerometerSliderChange = viewModel::onAccelerometerSliderChange,
             navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen
         )
     }
@@ -55,8 +58,10 @@ private fun SettingsScreen(
     state: SettingsScreenState,
     changeLanguage: (String) -> Unit,
     changeUsername: (String) -> Unit,
-    saveNumberOfRounds: (Float) -> Unit,
-    onSliderChange: (Float) -> Unit,
+    saveNumberOfRounds: () -> Unit,
+    onRoundSliderChange: (Float) -> Unit,
+    saveAccelerometerThreshold: () -> Unit,
+    onAccelerometerSliderChange: (Float) -> Unit,
     navigateToBestScoresScreen: () -> Unit
 ) {
     var isChangeUsernameDialogVisible: Boolean by remember {
@@ -101,8 +106,13 @@ private fun SettingsScreen(
         }
         RoundsSlider(
             value = state.numberOfRounds,
-            onValueChange = onSliderChange,
-            onValueChangeFinished = { saveNumberOfRounds(state.numberOfRounds) }
+            onValueChange = onRoundSliderChange,
+            onValueChangeFinished = saveNumberOfRounds
+        )
+        AccelerometerSlider(
+            value = state.accelerometerThreshold,
+            onValueChange = onAccelerometerSliderChange,
+            onValueChangeFinished = saveAccelerometerThreshold
         )
 
     }

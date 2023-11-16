@@ -2,19 +2,20 @@ package pl.polsl.worldsounds.ui.components
 
 import androidx.compose.runtime.Composable
 import pl.polsl.worldsounds.domain.base.Config
+import java.util.Locale
 
 @Composable
-fun RoundsSlider(
+fun AccelerometerSlider(
     value: Float,
     onValueChange: (Float) -> Unit,
     onValueChangeFinished: () -> Unit,
 ) {
     CustomSlider(
         value = value,
-        text = "Liczba rund: ${value.toInt()}",
+        text = "Czułość akcelerometru: ${String.format(Locale.US, "%.2f", value)}",
         onValueChange = onValueChange,
-        valueRange = Config.GameParameters.minNumbersOfRounds..Config.GameParameters.maxNumbersOfRounds,
-        steps = Config.GameParameters.sliderSteps,
+        valueRange = Config.AccelerometerParameters.minThreshold..Config.AccelerometerParameters.maxThreshold,
+        steps = 0,
         onValueChangeFinished = onValueChangeFinished,
     )
 }

@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.polsl.worldsounds.domain.usecases.GetAudioToPlayUseCase
+import pl.polsl.worldsounds.domain.usecases.ObserveAccelerometerThresholdUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
 import pl.polsl.worldsounds.screen.NavGraphs
 import pl.polsl.worldsounds.screen.appCurrentDestinationAsState
@@ -38,13 +39,16 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var getAudioToPlayUseCase: GetAudioToPlayUseCase
 
+    @Inject
+    lateinit var observeAccelerometerThresholdUseCase: ObserveAccelerometerThresholdUseCase
+
     private lateinit var sensorManager: SensorManager
     private lateinit var sensorListener: PlayAudioOnShakeListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemUI()
-        sensorListener = PlayAudioOnShakeListener(this, getAudioToPlayUseCase)
+        sensorListener = PlayAudioOnShakeListener(this, getAudioToPlayUseCase, observeAccelerometerThresholdUseCase)
         setContent {
             WorldSoundsTheme {
                 val navController = rememberNavController()

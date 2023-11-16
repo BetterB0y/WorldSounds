@@ -3,9 +3,12 @@ package pl.polsl.worldsounds.data.settings
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.domain.models.GameModeModel
@@ -22,6 +25,10 @@ internal interface Settings {
     suspend fun setNumberOfRounds(value: Int)
     suspend fun getNumberOfRounds(): Int
 
+    suspend fun setAccelerometerThreshold(value: Float)
+    suspend fun getAccelerometerThreshold(): Float
+    fun observeAccelerometerThreshold(): Flow<Float>
+
     suspend fun setUsername(value: String)
     suspend fun getUsername(): String
 
@@ -34,6 +41,7 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
         private val GAME_MODE = intPreferencesKey("gameMode")
         private val CATEGORY = longPreferencesKey("category")
         private val NUMBER_OF_ROUNDS = intPreferencesKey("numberOfRounds")
+        private val ACCELEROMETER_THRESHOLD = floatPreferencesKey("accelerometerThreshold")
         private val USERNAME = stringPreferencesKey("username")
         private val AUDIO_PATH = stringPreferencesKey("audioPath")
     }
@@ -71,6 +79,19 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
     override suspend fun getNumberOfRounds(): Int {
         return _dataStore.get(NUMBER_OF_ROUNDS) ?: 1
     }
+
+    override suspend fun setAccelerometerThreshold(value: Float) = _dataStore.set(
+        ACCELEROMETER_THRESHOLD,
+        value,
+    )
+
+    override suspend fun getAccelerometerThreshold(): Float {
+        return _dataStore.get(ACCELEROMETER_THRESHOLD) ?: 1f
+    }
+
+    override fun observeAccelerometerThreshold(): Flow<Float> =
+        _dataStore.data.distinctUntilChanged().map { it[ACCELEROMETER_THRESHOLD] ?: 1f }
+
 
     override suspend fun setUsername(value: String) = _dataStore.set(
         USERNAME,
