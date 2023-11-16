@@ -18,6 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import pl.polsl.worldsounds.app.isAllPermissionsGranted
+import pl.polsl.worldsounds.domain.base.AssetsFolders
 import pl.polsl.worldsounds.domain.usecases.GetAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.ObserveAccelerometerThresholdUseCase
 import pl.polsl.worldsounds.domain.usecases.ScanFolderWithAssetsUseCase
@@ -28,6 +30,7 @@ import pl.polsl.worldsounds.screen.startAppDestination
 import pl.polsl.worldsounds.ui.components.GlobalBackground
 import pl.polsl.worldsounds.ui.resources.WorldSoundsTheme
 import pl.polsl.worldsounds.utils.PlayAudioOnShakeListener
+import pl.polsl.worldsounds.utils.copyToAppFolder
 import java.util.Objects
 import javax.inject.Inject
 
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sensorManager: SensorManager
     private lateinit var sensorListener: PlayAudioOnShakeListener
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,8 +107,15 @@ class MainActivity : AppCompatActivity() {
                 Sensor.TYPE_ACCELEROMETER
             ), SensorManager.SENSOR_DELAY_NORMAL
         )
-        CoroutineScope(Dispatchers.IO).launch {
-            scanFolderWithAssetsUseCase(Unit)
+
+        if (isAllPermissionsGranted()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    assets.copyToAppFolder(AssetsFolders.Animals)
+                } catch (_: Exception) {
+                }
+                scanFolderWithAssetsUseCase(Unit)
+            }
         }
     }
 
