@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 package pl.polsl.worldsounds
 
 import com.android.build.api.dsl.CommonExtension

@@ -1,5 +1,6 @@
 package pl.polsl.worldsounds.data.repositories
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import pl.polsl.worldsounds.data.database.dao.ScoreDao
@@ -19,6 +20,7 @@ internal class ScoresRepository(
         dao.insert(ScoreEntity.new(playerName, score, gameModeModel, categoryName))
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     fun observeScoresWithGameMode(
         gameModel: Flow<GameModeModel>,
     ): Flow<List<BestScoreModel>> = gameModel.flatMapLatest {

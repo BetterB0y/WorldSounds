@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage", "unused")
+@file:Suppress("unused")
 
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
@@ -20,7 +20,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 compileSdk = ModuleConfig.compileSdk
                 defaultConfig {
                     minSdk = ModuleConfig.minSdk
-                    targetSdk = ModuleConfig.targetSdk
                 }
                 configureKotlin(this)
                 configureBuildTypes(this)

@@ -1,3 +1,5 @@
+@file:Suppress("PropertyName")
+
 package pl.polsl.worldsounds.base
 
 import androidx.lifecycle.ViewModel
