@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -14,7 +13,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
-import pl.polsl.worldsounds.base.observeState
 
 @Destination
 @Composable
@@ -23,11 +21,8 @@ fun SummaryScreen(
     viewModel: SummaryViewModel = hiltViewModel(),
     navigator: DestinationsNavigator
 ) {
-    val state by viewModel.observeState()
-
     viewModel.events.observeEvents {
         when (it) {
-            //TODO fix navigation go back after entering game screen
             is SummaryEvent.OpenOnePictureGame -> it.pushReplacement(navigator)
             is SummaryEvent.OpenOneSoundGame -> it.pushReplacement(navigator)
             is Event.Navigation -> it.navigate(navigator)
@@ -35,7 +30,6 @@ fun SummaryScreen(
     }
 
     SummaryScreen(
-        state = state,
         score = score,
         navigateToMainScreen = viewModel::navigateToMainScreen,
         startGameAgain = viewModel::startGameAgain,
@@ -44,7 +38,6 @@ fun SummaryScreen(
 
 @Composable
 private fun SummaryScreen(
-    state: SummaryScreenState,
     score: Int,
     navigateToMainScreen: () -> Unit,
     startGameAgain: () -> Unit,

@@ -8,7 +8,7 @@ group = "pl.polsl.worldsounds.buildlogic"
 
 // Configure the build-logic plugins to target JDK 1.8
 // This matches the JDK used to build the project, and is not related to what is running on device.
-val javaVersion = libs.versions.java.get()
+val javaVersion: String = libs.versions.java.get()
 
 java {
     JavaVersion.toVersion(javaVersion).let {

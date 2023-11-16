@@ -1,4 +1,4 @@
-@file:Suppress("UnstableApiUsage", "unused")
+@file:Suppress("unused")
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
