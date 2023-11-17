@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +23,9 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.AccelerometerSlider
 import pl.polsl.worldsounds.ui.components.RoundsSlider
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
+import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
 @Composable
@@ -48,7 +50,6 @@ fun SettingsScreen(
             onRoundSliderChange = viewModel::onRoundSliderChange,
             saveAccelerometerThreshold = viewModel::saveAccelerometerThreshold,
             onAccelerometerSliderChange = viewModel::onAccelerometerSliderChange,
-            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen
         )
     }
 }
@@ -62,7 +63,6 @@ private fun SettingsScreen(
     onRoundSliderChange: (Float) -> Unit,
     saveAccelerometerThreshold: () -> Unit,
     onAccelerometerSliderChange: (Float) -> Unit,
-    navigateToBestScoresScreen: () -> Unit
 ) {
     var isChangeUsernameDialogVisible: Boolean by remember {
         mutableStateOf(false)
@@ -75,21 +75,21 @@ private fun SettingsScreen(
     ) {
         Text(text = stringResource(R.string.language))
         Row {
-            Button(onClick = {
+            FilledButton(
+                text = "Polski",
+                modifier = Modifier.padding(D.Padding.paddingSmall),
+            ) {
                 changeLanguage("pl")
-            }) {
-                Text("Polski")
             }
-            Button(onClick = {
+            FilledButton(
+                text = "English",
+                modifier = Modifier.padding(D.Padding.paddingSmall)
+            ) {
                 changeLanguage("en")
-            }) {
-                Text("English")
             }
         }
-        Button(onClick = {
+        FilledButton(text = "Zmień nazwę użytkownika", modifier = Modifier.padding(D.Padding.paddingSmall)) {
             isChangeUsernameDialogVisible = true
-        }) {
-            Text("Zmień nazwę użytkownika")
         }
         if (isChangeUsernameDialogVisible) {
             ChangeUsernameDialog(
@@ -100,9 +100,6 @@ private fun SettingsScreen(
                 },
                 onDismiss = { isChangeUsernameDialogVisible = false },
             )
-        }
-        Button(onClick = navigateToBestScoresScreen) {
-            Text("Zobacz najlepsze wyniki")
         }
         RoundsSlider(
             value = state.numberOfRounds,

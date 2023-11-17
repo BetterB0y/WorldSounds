@@ -4,6 +4,8 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,11 +26,12 @@ import pl.polsl.worldsounds.app.permissions
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
-import pl.polsl.worldsounds.ui.components.MainButton
 import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
 import pl.polsl.worldsounds.ui.components.SnackbarScreenWrapper
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
 import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 import pl.polsl.worldsounds.ui.components.dialogs.MathRiddleDialog
+import pl.polsl.worldsounds.ui.resources.D
 
 
 @RootNavGraph(start = true)
@@ -55,6 +58,7 @@ fun MainMenuScreen(
             navigateToGameModeScreen = viewModel::navigateToGameModeScreen,
             generateRiddle = viewModel::generateRiddle,
             processRiddleAnswer = viewModel::processRiddleAnswer,
+            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen
         )
     }
 }
@@ -66,6 +70,7 @@ private fun MainMenuScreen(
     navigateToGameModeScreen: () -> Unit,
     generateRiddle: () -> Unit,
     processRiddleAnswer: (String) -> Unit,
+    navigateToBestScoresScreen: () -> Unit
 ) {
     val storagePermissionState = rememberMultiplePermissionsState(
         permissions = permissions
@@ -106,13 +111,29 @@ private fun MainMenuScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            MainButton(text = "Graj") {
-                navigateToGameModeScreen()
-            }
-            MainButton(text = "Ustawienia") {
+            FilledButton(
+                text = "Graj",
+                onClick = navigateToGameModeScreen,
+                modifier = Modifier
+                    .fillMaxWidth(0.4f)
+                    .padding(D.Padding.paddingSmall)
+            )
+            FilledButton(
+                text = "Ustawienia",
+                modifier = Modifier
+                    .fillMaxWidth(0.4f)
+                    .padding(D.Padding.paddingSmall)
+            ) {
                 generateRiddle()
                 isMathRiddleDialogVisible = true
             }
+            FilledButton(
+                text = "Zobacz najlepsze wyniki",
+                onClick = navigateToBestScoresScreen,
+                modifier = Modifier
+                    .fillMaxWidth(0.4f)
+                    .padding(D.Padding.paddingSmall),
+            )
         }
     }
 }

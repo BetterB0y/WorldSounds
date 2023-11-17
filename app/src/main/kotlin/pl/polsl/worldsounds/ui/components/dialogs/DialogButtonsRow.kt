@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import pl.polsl.worldsounds.ui.components.buttons.base.EmptyButton
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable
@@ -21,18 +21,18 @@ fun DialogButtonsRow(
     Row(
         modifier = Modifier.padding(top = D.Padding.Dialog.buttonsSpacer),
     ) {
-        Button(
+        EmptyButton(
+            text = "Anuluj",
             modifier = Modifier.weight(1f),
-            onClick = onDismiss
         ) {
-            Text("Anuluj")
+            onDismiss()
         }
         Box(Modifier.width(D.Padding.Dialog.buttons))
-        Button(
+        FilledButton(
+            text = stringResource(actionText),
             modifier = Modifier.weight(1f),
-            onClick = onConfirm
         ) {
-            Text(stringResource(actionText))
+            onConfirm()
         }
     }
 }

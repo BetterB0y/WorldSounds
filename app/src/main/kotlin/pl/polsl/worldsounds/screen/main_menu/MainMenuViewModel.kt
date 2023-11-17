@@ -10,6 +10,7 @@ import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.models.RiddleData
+import pl.polsl.worldsounds.screen.destinations.BestScoresScreenDestination
 import pl.polsl.worldsounds.screen.destinations.GameModeScreenDestination
 import pl.polsl.worldsounds.screen.destinations.SettingsScreenDestination
 import javax.inject.Inject
@@ -46,11 +47,16 @@ class MainMenuViewModel @Inject constructor(
     fun generateRiddle() {
         _riddleData.update { RiddleData.generate() }
     }
+
+    fun navigateToBestScoresScreen() = launch {
+        sendEvent(MainMenuEvent.OpenBestScoresScreen)
+    }
 }
 
 sealed class MainMenuEvent {
     object OpenGameModeScreen : Event.Navigation(GameModeScreenDestination)
     object OpenSettingsScreen : Event.Navigation(SettingsScreenDestination)
+    object OpenBestScoresScreen : Event.Navigation(BestScoresScreenDestination)
     object WrongAnswer : Event.Message(R.string.riddleWrongAnswer)
     object EmptyAnswer : Event.Message(R.string.riddleEmptyAnswer)
 }

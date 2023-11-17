@@ -2,12 +2,12 @@ package pl.polsl.worldsounds.ui.components.buttons
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.resources.S
 
 
 @Composable
@@ -17,17 +17,17 @@ fun SelectedButton(
     isSelected: Boolean = false,
     onClick: () -> Unit,
 ) {
-    Button(
+    FilledButton(
+        text = text,
         modifier = modifier
             .border(
-                border =
-                if (isSelected) BorderStroke(width = 2.dp, color = Color.Red) else BorderStroke(
+                shape = S.large,
+                border = if (isSelected) BorderStroke(width = 2.dp, color = Color.Red) else BorderStroke(
                     width = 0.dp,
                     color = Color.Transparent
                 )
-            ),
-        onClick = onClick
+            )
     ) {
-        Text(text)
+        onClick()
     }
 }

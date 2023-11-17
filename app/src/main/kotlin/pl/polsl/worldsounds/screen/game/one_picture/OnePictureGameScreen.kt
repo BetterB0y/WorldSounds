@@ -24,6 +24,7 @@ import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
 import pl.polsl.worldsounds.ui.components.buttons.SelectedButton
+import pl.polsl.worldsounds.ui.resources.D
 import java.io.File
 
 @Destination
@@ -84,7 +85,8 @@ private fun OnePictureGameScreen(
                 key = { it.file }) {
                 SelectedButton(
                     text = "Play",
-                    isSelected = selectedAudioName == it.file.nameWithoutExtension
+                    isSelected = selectedAudioName == it.file.nameWithoutExtension,
+                    modifier = Modifier.padding(D.Padding.paddingSmall)
                 ) {
                     playAudio(context, it.file)
                     saveAudio(it.file)

@@ -3,6 +3,8 @@ package pl.polsl.worldsounds.screen.game_mode
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,7 +14,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.models.GameModeData
-import pl.polsl.worldsounds.ui.components.MainButton
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
 @Composable
@@ -40,7 +43,21 @@ private fun GameModeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        MainButton(text = "Nutki", onClick = { saveAndNavigate(GameModeData.OnePicture) })
-        MainButton(text = "Obrazki", onClick = { saveAndNavigate(GameModeData.OneSound) })
+        FilledButton(
+            text = "Nutki",
+            modifier = Modifier
+                .fillMaxWidth(0.4f)
+                .padding(D.Padding.paddingSmall),
+        ) {
+            saveAndNavigate(GameModeData.OnePicture)
+        }
+        FilledButton(
+            text = "Obrazki",
+            modifier = Modifier
+                .fillMaxWidth(0.4f)
+                .padding(D.Padding.paddingSmall),
+        ) {
+            saveAndNavigate(GameModeData.OneSound)
+        }
     }
 }

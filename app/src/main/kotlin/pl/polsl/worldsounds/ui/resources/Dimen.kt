@@ -24,6 +24,20 @@ object D {
         }
     }
 
+    object Size {
+        object Height {
+            val button = 56.dp
+        }
+
+        object Width {
+            val button = 200.dp
+        }
+
+        object Thickness {
+            val borderStroke = 3.dp
+        }
+    }
+
     object Radius {
         val large = 10.dp
         val dialog = 22.dp
