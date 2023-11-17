@@ -3,7 +3,8 @@ package pl.polsl.worldsounds.screen.summary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,6 +14,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
 @Composable
@@ -49,11 +52,19 @@ private fun SummaryScreen(
     ) {
         Text("Gratulacje")
         Text("Zdobyłeś $score punktów")
-        Button(onClick = startGameAgain) {
-            Text("Jeszcze raz")
-        }
-        Button(onClick = navigateToMainScreen) {
-            Text("Wróć")
-        }
+        FilledButton(
+            text = "Jeszcze raz",
+            onClick = startGameAgain,
+            modifier = Modifier
+                .padding(D.Padding.paddingSmall)
+                .fillMaxWidth(0.4f)
+        )
+        FilledButton(
+            text = "Wróć",
+            onClick = navigateToMainScreen,
+            modifier = Modifier
+                .padding(D.Padding.paddingSmall)
+                .fillMaxWidth(0.4f)
+        )
     }
 }

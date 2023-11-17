@@ -3,12 +3,13 @@ package pl.polsl.worldsounds.screen.best_score
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,6 +17,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.models.GameModeData
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
 @Composable
@@ -36,13 +39,19 @@ private fun BestScoresScreen(
     state: BestScoreScreenState,
     changeGameMode: (GameModeData) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            Button(onClick = { changeGameMode(GameModeData.OnePicture) }) {
-                Text(text = "GameMode.OnePicture")
+            FilledButton(
+                text = "GameMode.OnePicture",
+                modifier = Modifier.padding(D.Padding.paddingSmall)
+            ) {
+                changeGameMode(GameModeData.OnePicture)
             }
-            Button(onClick = { changeGameMode(GameModeData.OneSound) }) {
-                Text(text = "GameMode.OneSound")
+            FilledButton(
+                text = "GameMode.OneSound",
+                modifier = Modifier.padding(D.Padding.paddingSmall)
+            ) {
+                changeGameMode(GameModeData.OneSound)
             }
         }
         if (state.scores.isEmpty()) {

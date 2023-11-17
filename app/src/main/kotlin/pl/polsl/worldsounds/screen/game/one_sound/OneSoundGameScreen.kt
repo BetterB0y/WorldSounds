@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +23,7 @@ import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
+import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
 import java.io.File
 
 @Destination
@@ -72,8 +71,8 @@ private fun OneSoundGameScreen(
         navigateToMainScreen = navigateToMainScreen,
         processAnswer = processAnswer,
     ) {
-        Button(onClick = { playAudio(context, assets.audio.file) }) {
-            Text("Play")
+        FilledButton(text = "Play") {
+            playAudio(context, assets.audio.file)
         }
         LazyRow(
             horizontalArrangement = Arrangement.Center,
