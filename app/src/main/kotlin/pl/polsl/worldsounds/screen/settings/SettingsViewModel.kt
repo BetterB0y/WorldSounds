@@ -15,6 +15,7 @@ import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveAccelerometerThresholdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
+import pl.polsl.worldsounds.models.Language
 import javax.inject.Inject
 
 
@@ -37,16 +38,22 @@ class SettingsViewModel @Inject constructor(
     private val _username: MutableStateFlow<String> =
         MutableStateFlow("")
 
+    private val _language: MutableStateFlow<Language> =
+        MutableStateFlow(Language.POLISH)
+
+
     override val initialState: SettingsScreenState = SettingsScreenState.InitialState
     override val _state: Flow<SettingsScreenState> = combine(
         _numberOfRounds,
         _accelerometerThreshold,
         _username,
-    ) { numberOfRounds, accelerometerThreshold, username ->
+        _language,
+    ) { numberOfRounds, accelerometerThreshold, username, language ->
         SettingsScreenState.ReadyState(
             numberOfRounds,
             accelerometerThreshold,
-            username
+            username,
+            language,
         )
     }
 
@@ -61,11 +68,13 @@ class SettingsViewModel @Inject constructor(
             _username.update {
                 _getUsernameUseCase(Unit)
             }
+            //todo get language
         }
     }
 
-    fun changeLanguage(locale: String) {
-        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(locale))
+    fun changeLanguage(language: Language) {
+        _language.update { language }
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language.locale))
     }
 
     fun changeUsername(username: String) = launch {
@@ -94,16 +103,19 @@ sealed class SettingsScreenState {
     abstract val numberOfRounds: Float
     abstract val accelerometerThreshold: Float
     abstract val username: String
+    abstract val language: Language
 
     data object InitialState : SettingsScreenState() {
         override val numberOfRounds: Float = 1f
         override val accelerometerThreshold: Float = 0f
         override val username: String = ""
+        override val language: Language = Language.POLISH
     }
 
     data class ReadyState(
         override val numberOfRounds: Float,
         override val accelerometerThreshold: Float,
-        override val username: String
+        override val username: String,
+        override val language: Language,
     ) : SettingsScreenState()
 }

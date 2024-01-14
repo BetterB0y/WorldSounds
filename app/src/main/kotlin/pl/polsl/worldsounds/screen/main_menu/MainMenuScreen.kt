@@ -59,7 +59,8 @@ fun MainMenuScreen(
             navigateToGameModeScreen = viewModel::navigateToGameModeScreen,
             generateRiddle = viewModel::generateRiddle,
             processRiddleAnswer = viewModel::processRiddleAnswer,
-            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen
+            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen,
+            goToSettings = viewModel::goToSettings
         )
     }
 }
@@ -71,7 +72,8 @@ private fun MainMenuScreen(
     navigateToGameModeScreen: () -> Unit,
     generateRiddle: () -> Unit,
     processRiddleAnswer: (String) -> Unit,
-    navigateToBestScoresScreen: () -> Unit
+    navigateToBestScoresScreen: () -> Unit,
+    goToSettings: () -> Unit,
 ) {
     val storagePermissionState = rememberMultiplePermissionsState(
         permissions = permissions
@@ -127,8 +129,9 @@ private fun MainMenuScreen(
                     .fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
             ) {
-                generateRiddle()
-                isMathRiddleDialogVisible = true
+                goToSettings()
+//                generateRiddle()
+//                isMathRiddleDialogVisible = true
             }
             SecondaryButton(
                 icon = R.drawable.high_scores,

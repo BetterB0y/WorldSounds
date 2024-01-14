@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable
@@ -22,13 +23,15 @@ fun GameNavButtons(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         SecondaryButton(
-            text = "Wyjdź",
+            icon = R.drawable.home,
+            iconDescription = "Exit to main menu",
             modifier = Modifier.width(D.Size.Width.button)
         ) {
             onExit()
         }
         PrimaryButton(
-            text = "Zatwierdź",
+            icon = R.drawable.arrow_right,
+            iconDescription = "Next",
             modifier = Modifier.width(D.Size.Width.button),
         ) {
             onNext(selectedName)

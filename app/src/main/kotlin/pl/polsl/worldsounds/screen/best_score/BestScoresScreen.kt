@@ -42,13 +42,15 @@ private fun BestScoresScreen(
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
             PrimaryButton(
-                text = "GameMode.OnePicture",
+                icon = R.drawable.music,
+                iconDescription = "One picture game mode",
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
                 changeGameMode(GameModeData.OnePicture)
             }
             PrimaryButton(
-                text = "GameMode.OneSound",
+                icon = R.drawable.paw,
+                iconDescription = "One sound game mode",
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
                 changeGameMode(GameModeData.OneSound)

@@ -32,7 +32,7 @@ fun PrimaryButton(
     modifier: Modifier = Modifier,
     elevation: Dp = D.Elevation.default,
     @DrawableRes icon: Int,
-    iconDescription: String?,
+    iconDescription: String? = null,
     onClick: (() -> Unit)?,
 ) {
     FilledButton(
