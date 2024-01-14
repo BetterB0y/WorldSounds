@@ -28,7 +28,8 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
 import pl.polsl.worldsounds.ui.components.SnackbarScreenWrapper
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 import pl.polsl.worldsounds.ui.components.dialogs.MathRiddleDialog
 import pl.polsl.worldsounds.ui.resources.D
@@ -58,7 +59,8 @@ fun MainMenuScreen(
             navigateToGameModeScreen = viewModel::navigateToGameModeScreen,
             generateRiddle = viewModel::generateRiddle,
             processRiddleAnswer = viewModel::processRiddleAnswer,
-            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen
+            navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen,
+            goToSettings = viewModel::goToSettings
         )
     }
 }
@@ -70,7 +72,8 @@ private fun MainMenuScreen(
     navigateToGameModeScreen: () -> Unit,
     generateRiddle: () -> Unit,
     processRiddleAnswer: (String) -> Unit,
-    navigateToBestScoresScreen: () -> Unit
+    navigateToBestScoresScreen: () -> Unit,
+    goToSettings: () -> Unit,
 ) {
     val storagePermissionState = rememberMultiplePermissionsState(
         permissions = permissions
@@ -111,24 +114,28 @@ private fun MainMenuScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            FilledButton(
-                text = "Graj",
+            PrimaryButton(
+                icon = R.drawable.play,
+                iconDescription = "Play",
                 onClick = navigateToGameModeScreen,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
             )
-            FilledButton(
-                text = "Ustawienia",
+            SecondaryButton(
+                icon = R.drawable.settings,
+                iconDescription = "Settings",
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
             ) {
-                generateRiddle()
-                isMathRiddleDialogVisible = true
+                goToSettings()
+//                generateRiddle()
+//                isMathRiddleDialogVisible = true
             }
-            FilledButton(
-                text = "Zobacz najlepsze wyniki",
+            SecondaryButton(
+                icon = R.drawable.high_scores,
+                iconDescription = "High scores",
                 onClick = navigateToBestScoresScreen,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)

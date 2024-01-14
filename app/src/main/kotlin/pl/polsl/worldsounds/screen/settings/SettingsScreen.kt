@@ -21,9 +21,11 @@ import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
+import pl.polsl.worldsounds.models.Language
 import pl.polsl.worldsounds.ui.components.AccelerometerSlider
 import pl.polsl.worldsounds.ui.components.RoundsSlider
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.LanguageButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 import pl.polsl.worldsounds.ui.resources.D
 
@@ -57,7 +59,7 @@ fun SettingsScreen(
 @Composable
 private fun SettingsScreen(
     state: SettingsScreenState,
-    changeLanguage: (String) -> Unit,
+    changeLanguage: (Language) -> Unit,
     changeUsername: (String) -> Unit,
     saveNumberOfRounds: () -> Unit,
     onRoundSliderChange: (Float) -> Unit,
@@ -75,20 +77,22 @@ private fun SettingsScreen(
     ) {
         Text(text = stringResource(R.string.language))
         Row {
-            FilledButton(
-                text = "Polski",
+            LanguageButton(
+                language = Language.POLISH,
+                isSelected = state.language == Language.POLISH,
                 modifier = Modifier.padding(D.Padding.paddingSmall),
             ) {
-                changeLanguage("pl")
+                changeLanguage(Language.POLISH)
             }
-            FilledButton(
-                text = "English",
+            LanguageButton(
+                language = Language.ENGLISH,
+                isSelected = state.language == Language.ENGLISH,
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
-                changeLanguage("en")
+                changeLanguage(Language.ENGLISH)
             }
         }
-        FilledButton(text = "Zmień nazwę użytkownika", modifier = Modifier.padding(D.Padding.paddingSmall)) {
+        PrimaryButton(text = "Zmień nazwę użytkownika", modifier = Modifier.padding(D.Padding.paddingSmall)) {
             isChangeUsernameDialogVisible = true
         }
         if (isChangeUsernameDialogVisible) {

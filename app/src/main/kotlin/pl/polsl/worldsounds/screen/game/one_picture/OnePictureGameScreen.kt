@@ -23,7 +23,7 @@ import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
-import pl.polsl.worldsounds.ui.components.buttons.SelectedButton
+import pl.polsl.worldsounds.ui.components.buttons.audio.SelectedAudioButton
 import pl.polsl.worldsounds.ui.resources.D
 import java.io.File
 
@@ -83,8 +83,7 @@ private fun OnePictureGameScreen(
             items(
                 items = assets.audios.filter { !it.isHidden },
                 key = { it.file }) {
-                SelectedButton(
-                    text = "Play",
+                SelectedAudioButton(
                     isSelected = selectedAudioName == it.file.nameWithoutExtension,
                     modifier = Modifier.padding(D.Padding.paddingSmall)
                 ) {

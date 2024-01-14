@@ -12,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
@@ -52,15 +54,17 @@ private fun SummaryScreen(
     ) {
         Text("Gratulacje")
         Text("Zdobyłeś $score punktów")
-        FilledButton(
-            text = "Jeszcze raz",
+        PrimaryButton(
+            icon = R.drawable.play_again,
+            iconDescription = "Play again",
             onClick = startGameAgain,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)
                 .fillMaxWidth(0.4f)
         )
-        FilledButton(
-            text = "Wróć",
+        SecondaryButton(
+            icon = R.drawable.home,
+            iconDescription = "Exit to main menu",
             onClick = navigateToMainScreen,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)

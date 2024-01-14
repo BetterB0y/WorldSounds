@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import pl.polsl.worldsounds.ui.resources.D
 import pl.polsl.worldsounds.ui.resources.S
 
+//TODO delete if not used
 @Composable
 fun EmptyButton(
     modifier: Modifier = Modifier,

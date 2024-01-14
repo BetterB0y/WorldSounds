@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.models.GameModeData
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
@@ -43,16 +44,18 @@ private fun GameModeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        FilledButton(
-            text = "Nutki",
+        PrimaryButton(
+            icon = R.drawable.music,
+            iconDescription = "One picture game mode",
             modifier = Modifier
                 .fillMaxWidth(0.4f)
                 .padding(D.Padding.paddingSmall),
         ) {
             saveAndNavigate(GameModeData.OnePicture)
         }
-        FilledButton(
-            text = "Obrazki",
+        PrimaryButton(
+            icon = R.drawable.paw,
+            iconDescription = "One sound game mode",
             modifier = Modifier
                 .fillMaxWidth(0.4f)
                 .padding(D.Padding.paddingSmall),

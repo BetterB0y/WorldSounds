@@ -1,7 +1,7 @@
 package pl.polsl.worldsounds.ui.components.dialogs
 
 import androidx.compose.runtime.Composable
-import pl.polsl.worldsounds.R
+import pl.polsl.worldsounds.ui.components.buttons.DialogButtonsRow
 
 @Composable
 fun ExitGameDialog(
@@ -10,7 +10,6 @@ fun ExitGameDialog(
 ) {
     BaseDialog(title = "Wyjdź z gry", description = "Czy na pewno chcesz wyjść z gry?", onDismiss = { }) {
         DialogButtonsRow(
-            actionText = R.string.exit,
             onConfirm = onConfirm,
             onDismiss = onDismiss
         )
