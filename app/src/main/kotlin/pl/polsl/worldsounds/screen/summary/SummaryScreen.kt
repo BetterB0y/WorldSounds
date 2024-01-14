@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -52,7 +53,10 @@ private fun SummaryScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text("Gratulacje")
+        Text(
+            "Gratulacje",
+            style = MaterialTheme.typography.titleMedium
+        )
         Text("Zdobyłeś $score punktów")
         PrimaryButton(
             icon = R.drawable.play_again,
