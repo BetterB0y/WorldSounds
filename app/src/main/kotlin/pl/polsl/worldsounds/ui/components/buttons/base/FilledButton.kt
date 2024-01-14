@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,10 +15,10 @@ import pl.polsl.worldsounds.ui.resources.S
 
 @Composable
 fun FilledButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     text: String,
-    color: Color = MaterialTheme.colorScheme.primary,
-    elevation: Dp = D.Elevation.default,
+    color: Color,
+    elevation: Dp,
     onClick: (() -> Unit)?,
 ) {
     FilledButton(
@@ -39,7 +38,7 @@ fun FilledButton(
 @Composable
 fun FilledButton(
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
+    color: Color,
     elevation: Dp = D.Elevation.default,
     onClick: (() -> Unit)?,
     content: @Composable RowScope.() -> Unit,

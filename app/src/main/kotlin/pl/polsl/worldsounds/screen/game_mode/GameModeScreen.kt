@@ -14,7 +14,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.models.GameModeData
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
@@ -43,7 +43,7 @@ private fun GameModeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        FilledButton(
+        PrimaryButton(
             text = "Nutki",
             modifier = Modifier
                 .fillMaxWidth(0.4f)
@@ -51,7 +51,7 @@ private fun GameModeScreen(
         ) {
             saveAndNavigate(GameModeData.OnePicture)
         }
-        FilledButton(
+        PrimaryButton(
             text = "Obrazki",
             modifier = Modifier
                 .fillMaxWidth(0.4f)

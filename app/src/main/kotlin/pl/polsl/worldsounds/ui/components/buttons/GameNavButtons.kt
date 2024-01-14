@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import pl.polsl.worldsounds.ui.components.buttons.base.EmptyButton
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.base.SecondaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable
@@ -23,13 +23,13 @@ fun GameNavButtons(
             .padding(horizontal = D.Padding.paddingDoubleBig),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        EmptyButton(
+        SecondaryButton(
             text = "Wyjdź",
             modifier = Modifier.width(D.Size.Width.button)
         ) {
             onExit()
         }
-        FilledButton(
+        PrimaryButton(
             text = "Zatwierdź",
             modifier = Modifier.width(D.Size.Width.button),
         ) {

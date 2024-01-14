@@ -14,7 +14,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
@@ -52,14 +52,14 @@ private fun SummaryScreen(
     ) {
         Text("Gratulacje")
         Text("Zdobyłeś $score punktów")
-        FilledButton(
+        PrimaryButton(
             text = "Jeszcze raz",
             onClick = startGameAgain,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)
                 .fillMaxWidth(0.4f)
         )
-        FilledButton(
+        PrimaryButton(
             text = "Wróć",
             onClick = navigateToMainScreen,
             modifier = Modifier

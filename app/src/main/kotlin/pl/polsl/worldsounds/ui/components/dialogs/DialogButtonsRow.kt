@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import pl.polsl.worldsounds.ui.components.buttons.base.EmptyButton
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.base.SecondaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable
@@ -21,14 +21,14 @@ fun DialogButtonsRow(
     Row(
         modifier = Modifier.padding(top = D.Padding.Dialog.buttonsSpacer),
     ) {
-        EmptyButton(
+        SecondaryButton(
             text = "Anuluj",
             modifier = Modifier.weight(1f),
         ) {
             onDismiss()
         }
         Box(Modifier.width(D.Padding.Dialog.buttons))
-        FilledButton(
+        PrimaryButton(
             text = stringResource(actionText),
             modifier = Modifier.weight(1f),
         ) {

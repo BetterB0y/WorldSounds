@@ -23,7 +23,7 @@ import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.screen.game.GameEvent
 import pl.polsl.worldsounds.screen.game.GameScreen
 import pl.polsl.worldsounds.ui.components.ImageCard
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
 import java.io.File
 
 @Destination
@@ -71,7 +71,7 @@ private fun OneSoundGameScreen(
         navigateToMainScreen = navigateToMainScreen,
         processAnswer = processAnswer,
     ) {
-        FilledButton(text = "Play") {
+        PrimaryButton(text = "Play") {
             playAudio(context, assets.audio.file)
         }
         LazyRow(

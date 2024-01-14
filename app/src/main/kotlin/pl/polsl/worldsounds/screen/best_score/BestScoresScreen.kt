@@ -17,7 +17,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.models.GameModeData
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
@@ -41,13 +41,13 @@ private fun BestScoresScreen(
 ) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            FilledButton(
+            PrimaryButton(
                 text = "GameMode.OnePicture",
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
                 changeGameMode(GameModeData.OnePicture)
             }
-            FilledButton(
+            PrimaryButton(
                 text = "GameMode.OneSound",
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {

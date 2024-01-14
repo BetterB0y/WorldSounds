@@ -23,7 +23,7 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.AccelerometerSlider
 import pl.polsl.worldsounds.ui.components.RoundsSlider
-import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
+import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 import pl.polsl.worldsounds.ui.resources.D
 
@@ -75,20 +75,20 @@ private fun SettingsScreen(
     ) {
         Text(text = stringResource(R.string.language))
         Row {
-            FilledButton(
+            PrimaryButton(
                 text = "Polski",
                 modifier = Modifier.padding(D.Padding.paddingSmall),
             ) {
                 changeLanguage("pl")
             }
-            FilledButton(
+            PrimaryButton(
                 text = "English",
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
                 changeLanguage("en")
             }
         }
-        FilledButton(text = "Zmień nazwę użytkownika", modifier = Modifier.padding(D.Padding.paddingSmall)) {
+        PrimaryButton(text = "Zmień nazwę użytkownika", modifier = Modifier.padding(D.Padding.paddingSmall)) {
             isChangeUsernameDialogVisible = true
         }
         if (isChangeUsernameDialogVisible) {
