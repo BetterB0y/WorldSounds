@@ -23,7 +23,7 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.AccelerometerSlider
 import pl.polsl.worldsounds.ui.components.RoundsSlider
-import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 import pl.polsl.worldsounds.ui.resources.D
 

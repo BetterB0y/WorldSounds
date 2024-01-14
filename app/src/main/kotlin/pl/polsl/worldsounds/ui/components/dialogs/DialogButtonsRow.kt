@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
-import pl.polsl.worldsounds.ui.components.buttons.base.SecondaryButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable

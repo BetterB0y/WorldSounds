@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
-import pl.polsl.worldsounds.ui.components.buttons.base.SecondaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Composable

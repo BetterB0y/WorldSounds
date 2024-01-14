@@ -14,7 +14,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
-import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination

@@ -28,7 +28,8 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
 import pl.polsl.worldsounds.ui.components.SnackbarScreenWrapper
-import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 import pl.polsl.worldsounds.ui.components.dialogs.MathRiddleDialog
 import pl.polsl.worldsounds.ui.resources.D
@@ -112,14 +113,16 @@ private fun MainMenuScreen(
             verticalArrangement = Arrangement.Center,
         ) {
             PrimaryButton(
-                text = "Graj",
+                icon = R.drawable.play,
+                iconDescription = "Play",
                 onClick = navigateToGameModeScreen,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
             )
-            PrimaryButton(
-                text = "Ustawienia",
+            SecondaryButton(
+                icon = R.drawable.settings,
+                iconDescription = "Settings",
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
@@ -127,8 +130,9 @@ private fun MainMenuScreen(
                 generateRiddle()
                 isMathRiddleDialogVisible = true
             }
-            PrimaryButton(
-                text = "Zobacz najlepsze wyniki",
+            SecondaryButton(
+                icon = R.drawable.high_scores,
+                iconDescription = "High scores",
                 onClick = navigateToBestScoresScreen,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)

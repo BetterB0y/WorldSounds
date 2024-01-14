@@ -17,7 +17,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.models.GameModeData
-import pl.polsl.worldsounds.ui.components.buttons.base.PrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
 
 @Destination
