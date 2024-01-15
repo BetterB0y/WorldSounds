@@ -12,6 +12,7 @@ import pl.polsl.worldsounds.data.usecases.GetAccelerometerThresholdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetAudioToPlayUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetCategoryUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetGameModeUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.GetLanguageUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetRoundsAssetsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.GetUsernameUseCaseImpl
@@ -22,6 +23,7 @@ import pl.polsl.worldsounds.data.usecases.SaveAccelerometerThresholdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveAudioToPlayUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveCategoryIdUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveGameModeUseCaseImpl
+import pl.polsl.worldsounds.data.usecases.SaveLanguageUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveNumberOfRoundsUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveScoreUseCaseImpl
 import pl.polsl.worldsounds.data.usecases.SaveUsernameUseCaseImpl
@@ -30,6 +32,7 @@ import pl.polsl.worldsounds.domain.usecases.GetAccelerometerThresholdUseCase
 import pl.polsl.worldsounds.domain.usecases.GetAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.GetLanguageUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
@@ -40,6 +43,7 @@ import pl.polsl.worldsounds.domain.usecases.SaveAccelerometerThresholdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveAudioToPlayUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveCategoryIdUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveGameModeUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveLanguageUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveScoreUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
@@ -141,5 +145,16 @@ internal object UseCaseModule {
     @Singleton
     fun providesObserveAccelerometerThresholdUseCase(settings: Settings): ObserveAccelerometerThresholdUseCase =
         ObserveAccelerometerThresholdUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesGetLanguageUseCase(settings: Settings): GetLanguageUseCase =
+        GetLanguageUseCaseImpl(settings)
+
+    @Provides
+    @Singleton
+    fun providesSaveLanguageUseCase(settings: Settings): SaveLanguageUseCase =
+        SaveLanguageUseCaseImpl(settings)
+
 
 }

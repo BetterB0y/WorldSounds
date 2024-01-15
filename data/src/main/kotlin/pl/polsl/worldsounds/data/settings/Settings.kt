@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import pl.polsl.worldsounds.domain.models.GameModeModel
+import java.util.Locale
 
 const val SETTINGS_NAME = "preferences"
 
@@ -34,6 +35,9 @@ internal interface Settings {
 
     suspend fun setAudioPath(value: String)
     suspend fun getAudioPath(): String
+
+    suspend fun setLanguage(value: String)
+    suspend fun getLanguage(): String
 }
 
 internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Settings {
@@ -44,6 +48,7 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
         private val ACCELEROMETER_THRESHOLD = floatPreferencesKey("accelerometerThreshold")
         private val USERNAME = stringPreferencesKey("username")
         private val AUDIO_PATH = stringPreferencesKey("audioPath")
+        private val LANGUAGE = stringPreferencesKey("language")
     }
 
     private suspend fun <T> DataStore<Preferences>.set(key: Preferences.Key<T>, value: T) {
@@ -109,5 +114,14 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
 
     override suspend fun getAudioPath(): String {
         return _dataStore.get(AUDIO_PATH) ?: ""
+    }
+
+    override suspend fun setLanguage(value: String) = _dataStore.set(
+        LANGUAGE,
+        value,
+    )
+
+    override suspend fun getLanguage(): String {
+        return _dataStore.get(LANGUAGE) ?: Locale.getDefault().isO3Language
     }
 }
