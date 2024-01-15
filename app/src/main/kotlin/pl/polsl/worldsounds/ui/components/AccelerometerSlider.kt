@@ -1,6 +1,7 @@
 package pl.polsl.worldsounds.ui.components
 
 import androidx.compose.runtime.Composable
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.domain.base.Config
 import java.util.Locale
 
@@ -12,7 +13,8 @@ fun AccelerometerSlider(
 ) {
     CustomSlider(
         value = value,
-        text = "Czułość akcelerometru: ${String.format(Locale.US, "%.2f", value)}",
+        text = R.string.accelerometerSensitivity,
+        textArg = String.format(Locale.US, "%.2f", value),
         onValueChange = onValueChange,
         valueRange = Config.AccelerometerParameters.minThreshold..Config.AccelerometerParameters.maxThreshold,
         steps = 0,

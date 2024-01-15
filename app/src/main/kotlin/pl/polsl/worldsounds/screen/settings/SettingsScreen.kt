@@ -92,7 +92,10 @@ private fun SettingsScreen(
                 changeLanguage(Language.ENGLISH)
             }
         }
-        PrimaryButton(text = "Zmień nazwę użytkownika", modifier = Modifier.padding(D.Padding.paddingSmall)) {
+        PrimaryButton(
+            text = stringResource(R.string.changeUsername),
+            modifier = Modifier.padding(D.Padding.paddingSmall)
+        ) {
             isChangeUsernameDialogVisible = true
         }
         if (isChangeUsernameDialogVisible) {

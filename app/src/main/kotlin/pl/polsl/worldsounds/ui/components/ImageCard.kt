@@ -11,8 +11,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import pl.polsl.worldsounds.R
 import java.io.File
 
 
@@ -26,7 +28,7 @@ fun ImageCard(
 ) {
     AsyncImage(
         model = file,
-        contentDescription = "Square Image",
+        contentDescription = stringResource(R.string.imageDescription),
         modifier = modifier
             .size(150.dp)
             .aspectRatio(1f)

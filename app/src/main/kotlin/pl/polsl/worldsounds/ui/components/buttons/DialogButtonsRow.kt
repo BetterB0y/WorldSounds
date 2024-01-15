@@ -19,7 +19,7 @@ fun DialogButtonsRow(
     ) {
         SecondaryButton(
             icon = R.drawable.cross,
-            iconDescription = "Anuluj",
+            iconDescription = R.string.iconCancel,
             modifier = Modifier.weight(1f),
         ) {
             onDismiss()
@@ -27,7 +27,7 @@ fun DialogButtonsRow(
         Box(Modifier.width(D.Padding.Dialog.buttons))
         PrimaryButton(
             icon = R.drawable.check,
-            iconDescription = "Zatwierdź",
+            iconDescription = R.string.iconConfirm,
             modifier = Modifier.weight(1f),
         ) {
             onConfirm()

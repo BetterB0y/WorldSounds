@@ -1,13 +1,39 @@
 <resources>
-    <string name="app_name">WorldSounds</string>
+    <string name="appName">World Sounds</string>
     <string name="addPermissions">Grant permissions</string>
     <string name="storagePermission">Access to the storage is needed for the correct operation of this application. Please grant the necessary permissions.</string>
     <string name="storageRationale">Access to the storage is needed to add Your own categories. Give the necessary permissions.</string>
     <string name="language">Language:</string>
     <string name="defaultUsername">Player</string>
-    <string name="save">Save</string>
-    <string name="exit">Exit</string>
     <string name="riddleWrongAnswer">Wrong answer. Try again!</string>
     <string name="riddleEmptyAnswer">Empty answer. Try again!</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="youScored">You scored %1$s points</string>
+    <string name="changeUsername">Change username</string>
+    <string name="yourNewUsername">Your new username:</string>
+    <string name="noScores">There are no scores yet</string>
+    <string name="imageDescription">Image</string>
+    <string name="exitApp">Exit the application</string>
+    <string name="exitAppAreYouSure">Are you sure you want to leave the application?</string>
+    <string name="exitGame">Exit the game</string>
+    <string name="exitGameAreYouSure">Are you sure you want to leave the game?</string>
+    <string name="solveRiddle">Solve the riddle</string>
+    <string name="solveRiddleAnswer">Give the value of the expression:</string>
+    <string name="accelerometerSensitivity">Accelerometer sensitivity: %1$s</string>
+    <string name="roundNumber">Number of rounds: %1$s</string>
 
+    <!--Icon descriptions-->
+    <string name="iconPlay">Play</string>
+    <string name="iconPlayAgain">Play again</string>
+    <string name="iconSettings">Settings</string>
+    <string name="iconHighScores">High scores</string>
+    <string name="iconHome">Back to main menu</string>
+    <string name="iconOnePicture">One picture game mode</string>
+    <string name="iconOneSound">One sound game mode</string>
+    <string name="iconCancel">Cancel</string>
+    <string name="iconConfirm">Confirm</string>
+    <string name="iconNext">Next</string>
+    <string name="audioButton">Audio Button</string>
+    <string name="languageEnglish">English</string>
+    <string name="languagePolish">Polish</string>
 </resources>

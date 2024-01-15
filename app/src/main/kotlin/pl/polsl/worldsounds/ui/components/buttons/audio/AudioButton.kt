@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
@@ -34,7 +35,7 @@ fun AudioButton(
             Icon(
                 painter = painterResource(id = R.drawable.audio),
                 tint = MaterialTheme.colorScheme.tertiary,
-                contentDescription = "Audio Button",
+                contentDescription = stringResource(R.string.audioButton),
             )
         },
     )

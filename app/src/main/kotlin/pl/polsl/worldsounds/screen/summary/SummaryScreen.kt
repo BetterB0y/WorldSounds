@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -54,13 +55,13 @@ private fun SummaryScreen(
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
-            "Gratulacje",
+            stringResource(R.string.congratulations),
             style = MaterialTheme.typography.titleMedium
         )
-        Text("Zdobyłeś $score punktów")
+        Text(stringResource(R.string.youScored, score))
         PrimaryButton(
             icon = R.drawable.play_again,
-            iconDescription = "Play again",
+            iconDescription = R.string.iconPlayAgain,
             onClick = startGameAgain,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)
@@ -68,7 +69,7 @@ private fun SummaryScreen(
         )
         SecondaryButton(
             icon = R.drawable.home,
-            iconDescription = "Exit to main menu",
+            iconDescription = R.string.iconHome,
             onClick = navigateToMainScreen,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)
