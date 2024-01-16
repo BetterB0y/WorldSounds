@@ -33,6 +33,7 @@
     <string name="iconCancel">Anuluj</string>
     <string name="iconConfirm">Zatwierdź</string>
     <string name="iconNext">Następne</string>
+    <string name="iconBack">Cofnij</string>
     <string name="audioButton">Przycisk dźwięku</string>
     <string name="languageEnglish">English</string>
     <string name="languagePolish">Polish</string>

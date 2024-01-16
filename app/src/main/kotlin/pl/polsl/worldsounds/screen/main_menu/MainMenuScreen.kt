@@ -31,7 +31,7 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
 import pl.polsl.worldsounds.ui.components.SnackbarScreenWrapper
-import pl.polsl.worldsounds.ui.components.buttons.RoundFilledPrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.RoundPrimaryButton
 import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 import pl.polsl.worldsounds.ui.components.dialogs.MathRiddleDialog
@@ -112,34 +112,30 @@ private fun MainMenuScreen(
         permission = R.string.storagePermission,
         rationale = R.string.storageRationale,
     ) {
+
+        SettingsButton {
+            goToSettings()
+//                generateRiddle()
+//                isMathRiddleDialogVisible = true
+        }
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceAround,
         ) {
             Text(
                 stringResource(R.string.appName),
                 style = MaterialTheme.typography.titleLarge
             )
-            RoundFilledPrimaryButton(
+            RoundPrimaryButton(
                 icon = R.drawable.play,
                 iconDescription = R.string.iconPlay,
+                iconSize = D.Size.playIconSize,
                 onClick = navigateToGameModeScreen,
-                size = D.Size.Height.playButton,
+                size = D.Size.playButton,
                 modifier = Modifier
                     .padding(D.Padding.paddingSmall)
             )
-            SecondaryButton(
-                icon = R.drawable.settings,
-                iconDescription = R.string.iconSettings,
-                modifier = Modifier
-                    .fillMaxWidth(0.4f)
-                    .padding(D.Padding.paddingSmall)
-            ) {
-                goToSettings()
-//                generateRiddle()
-//                isMathRiddleDialogVisible = true
-            }
             SecondaryButton(
                 icon = R.drawable.high_scores,
                 iconDescription = R.string.iconHighScores,

@@ -33,6 +33,7 @@
     <string name="iconCancel">Cancel</string>
     <string name="iconConfirm">Confirm</string>
     <string name="iconNext">Next</string>
+    <string name="iconBack">Back</string>
     <string name="audioButton">Audio Button</string>
     <string name="languageEnglish">English</string>
     <string name="languagePolish">Polish</string>
