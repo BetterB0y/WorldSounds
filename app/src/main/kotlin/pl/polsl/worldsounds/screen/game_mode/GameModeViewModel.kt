@@ -24,6 +24,10 @@ class GameModeViewModel @Inject constructor(
         _saveGameModeUseCase(gameMode.toModel())
         sendEvent(GameModeEvent.OpenCategoryScreen)
     }
+
+    fun navigateBack() = launch {
+        sendEvent(Event.Navigation.NavigateBack)
+    }
 }
 
 sealed class GameModeEvent {
