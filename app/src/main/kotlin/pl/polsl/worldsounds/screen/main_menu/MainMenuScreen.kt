@@ -31,9 +31,8 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.ui.components.MultiplePermissionPage
 import pl.polsl.worldsounds.ui.components.SnackbarScreenWrapper
-import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
-import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.components.buttons.RoundFilledPrimaryButton
+import pl.polsl.worldsounds.ui.components.buttons.SecondaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ExitAppDialog
 import pl.polsl.worldsounds.ui.components.dialogs.MathRiddleDialog
 import pl.polsl.worldsounds.ui.resources.D
@@ -126,8 +125,8 @@ private fun MainMenuScreen(
                 icon = R.drawable.play,
                 iconDescription = R.string.iconPlay,
                 onClick = navigateToGameModeScreen,
+                size = D.Size.Height.playButton,
                 modifier = Modifier
-                    //.fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
             )
             SecondaryButton(
