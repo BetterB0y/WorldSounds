@@ -25,9 +25,14 @@ object D {
     }
 
     object Size {
+        val playButton = 150.dp
+        val playIconSize = 60.dp
+        val settingsButton = 80.dp
+        val goBackButton = 80.dp
+        val roundIconSize = 100.dp
+
         object Height {
             val button = 56.dp
-            val playButton = 100.dp
         }
 
         object Width {
