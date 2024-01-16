@@ -24,14 +24,14 @@ fun GameNavButtons(
     ) {
         SecondaryButton(
             icon = R.drawable.home,
-            iconDescription = "Exit to main menu",
+            iconDescription = R.string.iconHome,
             modifier = Modifier.width(D.Size.Width.button)
         ) {
             onExit()
         }
         PrimaryButton(
             icon = R.drawable.arrow_right,
-            iconDescription = "Next",
+            iconDescription = R.string.iconNext,
             modifier = Modifier.width(D.Size.Width.button),
         ) {
             onNext(selectedName)

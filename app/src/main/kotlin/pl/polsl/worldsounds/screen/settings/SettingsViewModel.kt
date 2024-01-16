@@ -8,14 +8,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.runBlocking
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.domain.usecases.GetAccelerometerThresholdUseCase
+import pl.polsl.worldsounds.domain.usecases.GetLanguageUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetUsernameUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveAccelerometerThresholdUseCase
+import pl.polsl.worldsounds.domain.usecases.SaveLanguageUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.SaveUsernameUseCase
 import pl.polsl.worldsounds.models.Language
+import pl.polsl.worldsounds.models.toLocale
+import java.util.Locale
 import javax.inject.Inject
 
 
@@ -24,9 +29,11 @@ class SettingsViewModel @Inject constructor(
     private val _getNumberOfRoundsUseCase: GetNumberOfRoundsUseCase,
     private val _getAccelerometerThresholdUseCase: GetAccelerometerThresholdUseCase,
     private val _getUsernameUseCase: GetUsernameUseCase,
+    private val _getLanguageUseCase: GetLanguageUseCase,
     private val _saveNumberOfRoundsUseCase: SaveNumberOfRoundsUseCase,
     private val _saveAccelerometerThresholdUseCase: SaveAccelerometerThresholdUseCase,
     private val _saveUsernameUseCase: SaveUsernameUseCase,
+    private val _saveLanguageUseCase: SaveLanguageUseCase,
     coroutineDispatcher: CoroutineDispatcher
 ) : BaseViewModel<SettingsScreenState>(coroutineDispatcher) {
     private val _numberOfRounds: MutableStateFlow<Float> =
@@ -68,12 +75,17 @@ class SettingsViewModel @Inject constructor(
             _username.update {
                 _getUsernameUseCase(Unit)
             }
-            //todo get language
+            _language.update {
+                Locale.getDefault().isO3Language.toLocale()
+            }
         }
     }
 
     fun changeLanguage(language: Language) {
         _language.update { language }
+        runBlocking {
+            _saveLanguageUseCase(language.locale)
+        }
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language.locale))
     }
 

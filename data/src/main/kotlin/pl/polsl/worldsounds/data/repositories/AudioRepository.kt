@@ -13,7 +13,6 @@ internal class AudioRepository(
     }
 
     suspend fun getAudioAssets(categoryId: Long, answerFilename: String): List<AudioModel> {
-        // TODO error handling
         return dao.getAssets(categoryId, answerFilename).map { it.toModel() }.shuffled()
     }
 

@@ -1,11 +1,13 @@
 package pl.polsl.worldsounds.ui.components.buttons
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import pl.polsl.worldsounds.ui.components.buttons.base.FilledButton
 import pl.polsl.worldsounds.ui.resources.D
@@ -32,7 +34,7 @@ fun SecondaryButton(
     modifier: Modifier = Modifier,
     elevation: Dp = D.Elevation.default,
     @DrawableRes icon: Int,
-    iconDescription: String?,
+    @StringRes iconDescription: Int? = null,
     onClick: (() -> Unit)?,
 ) {
     FilledButton(
@@ -43,7 +45,7 @@ fun SecondaryButton(
         content = {
             Icon(
                 painter = painterResource(id = icon),
-                contentDescription = iconDescription,
+                contentDescription = if (iconDescription != null) stringResource(iconDescription) else null,
             )
         },
     )

@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
@@ -117,12 +118,12 @@ private fun MainMenuScreen(
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                "World Sounds",
+                stringResource(R.string.appName),
                 style = MaterialTheme.typography.titleLarge
             )
             PrimaryButton(
                 icon = R.drawable.play,
-                iconDescription = "Play",
+                iconDescription = R.string.iconPlay,
                 onClick = navigateToGameModeScreen,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
@@ -130,7 +131,7 @@ private fun MainMenuScreen(
             )
             SecondaryButton(
                 icon = R.drawable.settings,
-                iconDescription = "Settings",
+                iconDescription = R.string.iconSettings,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)
                     .padding(D.Padding.paddingSmall)
@@ -141,7 +142,7 @@ private fun MainMenuScreen(
             }
             SecondaryButton(
                 icon = R.drawable.high_scores,
-                iconDescription = "High scores",
+                iconDescription = R.string.iconHighScores,
                 onClick = navigateToBestScoresScreen,
                 modifier = Modifier
                     .fillMaxWidth(0.4f)

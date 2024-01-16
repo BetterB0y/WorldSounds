@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.models.GameModeData
@@ -45,8 +44,8 @@ private fun GameModeScreen(
         verticalArrangement = Arrangement.Center,
     ) {
         PrimaryButton(
-            icon = R.drawable.music,
-            iconDescription = "One picture game mode",
+            icon = GameModeData.OnePicture.icon,
+            iconDescription = GameModeData.OnePicture.iconDescription,
             modifier = Modifier
                 .fillMaxWidth(0.4f)
                 .padding(D.Padding.paddingSmall),
@@ -54,8 +53,8 @@ private fun GameModeScreen(
             saveAndNavigate(GameModeData.OnePicture)
         }
         PrimaryButton(
-            icon = R.drawable.paw,
-            iconDescription = "One sound game mode",
+            icon = GameModeData.OneSound.icon,
+            iconDescription = GameModeData.OneSound.iconDescription,
             modifier = Modifier
                 .fillMaxWidth(0.4f)
                 .padding(D.Padding.paddingSmall),

@@ -9,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.ui.components.buttons.DialogButtonsRow
 
 
@@ -21,7 +22,7 @@ fun ChangeUsernameDialog(
     var textFieldValue by rememberSaveable(username) {
         mutableStateOf(username)
     }
-    BaseDialog(title = "Zmień nazwę użytkownika", description = "Twoja nowa nazwa:", onDismiss = { }) {
+    BaseDialog(title = R.string.changeUsername, description = R.string.yourNewUsername, onDismiss = { }) {
 
         OutlinedTextField(
             value = textFieldValue,

@@ -42,22 +42,22 @@ private fun BestScoresScreen(
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
             PrimaryButton(
-                icon = R.drawable.music,
-                iconDescription = "One picture game mode",
+                icon = GameModeData.OnePicture.icon,
+                iconDescription = GameModeData.OnePicture.iconDescription,
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
                 changeGameMode(GameModeData.OnePicture)
             }
             PrimaryButton(
-                icon = R.drawable.paw,
-                iconDescription = "One sound game mode",
+                icon = GameModeData.OneSound.icon,
+                iconDescription = GameModeData.OneSound.iconDescription,
                 modifier = Modifier.padding(D.Padding.paddingSmall)
             ) {
                 changeGameMode(GameModeData.OneSound)
             }
         }
         if (state.scores.isEmpty()) {
-            Text("Brak wyników")
+            Text(stringResource(R.string.noScores))
         } else {
             LazyColumn {
                 items(
