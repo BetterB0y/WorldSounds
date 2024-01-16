@@ -39,6 +39,7 @@ class OneSoundGameViewModel @Inject constructor(
         score,
     ) { category, roundsAssets, currentRound, numberOfRounds, score ->
         if (currentRound != state.value.currentRound) {
+            //todo exception
             saveAudio(_roundsAssets.value[currentRound - 1].audio.file)
         }
         OneSoundGameScreenState.ReadyState(
