@@ -2,9 +2,12 @@ package pl.polsl.worldsounds.screen.summary
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,16 +59,18 @@ private fun SummaryScreen(
     ) {
         Text(
             stringResource(R.string.congratulations),
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleLarge,
+
         )
         Text(stringResource(R.string.youScored, score))
+        Spacer(modifier = Modifier.height(D.Padding.paddingDoubleBig))
         PrimaryButton(
             icon = R.drawable.play_again,
             iconDescription = R.string.iconPlayAgain,
             onClick = startGameAgain,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)
-                .fillMaxWidth(0.4f)
+                .width(D.Size.Width.button)
         )
         SecondaryButton(
             icon = R.drawable.home,
@@ -73,7 +78,7 @@ private fun SummaryScreen(
             onClick = navigateToMainScreen,
             modifier = Modifier
                 .padding(D.Padding.paddingSmall)
-                .fillMaxWidth(0.4f)
+                .width(D.Size.Width.button)
         )
     }
 }
