@@ -21,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -32,6 +31,7 @@ import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.models.Language
 import pl.polsl.worldsounds.ui.components.AccelerometerSlider
 import pl.polsl.worldsounds.ui.components.RoundsSlider
+import pl.polsl.worldsounds.ui.components.buttons.GlobalGoBackButton
 import pl.polsl.worldsounds.ui.components.buttons.LanguageButton
 import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
@@ -82,14 +82,7 @@ private fun SettingsScreen(
 
     val scrollState = rememberScrollState()
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        contentAlignment = Alignment.BottomStart
-    ) {
-        PrimaryButton(text = "Wróć", onClick = navigateBack)
-    }
+    GlobalGoBackButton(navigateBack)
 
     Box(
         modifier = Modifier

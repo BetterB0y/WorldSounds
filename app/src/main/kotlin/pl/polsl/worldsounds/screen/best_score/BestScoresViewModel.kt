@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import pl.polsl.worldsounds.base.BaseViewModel
+import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.domain.usecases.ObserveScoresWithGameModeUseCase
 import pl.polsl.worldsounds.models.BestScoreData
 import pl.polsl.worldsounds.models.GameModeData
@@ -34,6 +35,10 @@ class BestScoresViewModel @Inject constructor(
 
     fun changeGameMode(gameMode: GameModeData) {
         _gameMode.update { gameMode }
+    }
+
+    fun navigateBack() = launch {
+        sendEvent(Event.Navigation.NavigateBack)
     }
 }
 
