@@ -27,10 +27,12 @@ object D {
     object Size {
         object Height {
             val button = 56.dp
+            val playButton = 100.dp
         }
 
         object Width {
             val button = 200.dp
+            val playButton = 100.dp
         }
 
         object Thickness {
