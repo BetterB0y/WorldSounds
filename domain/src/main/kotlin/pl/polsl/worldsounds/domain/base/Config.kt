@@ -11,6 +11,6 @@ object Config {
 
     object AccelerometerParameters {
         const val minThreshold = 0f
-        const val maxThreshold = 20f
+        const val maxThreshold = 25f
     }
 }

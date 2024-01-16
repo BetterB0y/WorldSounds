@@ -91,7 +91,7 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
     )
 
     override suspend fun getAccelerometerThreshold(): Float {
-        return _dataStore.get(ACCELEROMETER_THRESHOLD) ?: 1f
+        return _dataStore.get(ACCELEROMETER_THRESHOLD) ?: 10f
     }
 
     override fun observeAccelerometerThreshold(): Flow<Float> =
