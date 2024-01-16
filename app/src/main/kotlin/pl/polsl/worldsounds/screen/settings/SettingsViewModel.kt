@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
 import pl.polsl.worldsounds.base.BaseViewModel
+import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.domain.usecases.GetAccelerometerThresholdUseCase
 import pl.polsl.worldsounds.domain.usecases.GetLanguageUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
@@ -108,6 +109,10 @@ class SettingsViewModel @Inject constructor(
 
     fun saveAccelerometerThreshold() = launch {
         _saveAccelerometerThresholdUseCase(_accelerometerThreshold.value)
+    }
+
+    fun navigateBack() = launch {
+        sendEvent(Event.Navigation.NavigateBack)
     }
 }
 
