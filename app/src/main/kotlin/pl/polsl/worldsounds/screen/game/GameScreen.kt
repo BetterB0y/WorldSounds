@@ -56,7 +56,9 @@ fun GameScreen(
                     if (isCorrect) resetSelectedName()
                 }
             },
-            selectedName = selectedName
+            selectedName = selectedName,
+            currentRound = state.currentRound,
+            maxRounds = state.numberOfRounds,
         )
     }
 
