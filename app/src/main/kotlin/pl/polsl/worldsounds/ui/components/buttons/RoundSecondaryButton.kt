@@ -23,6 +23,7 @@ fun RoundSecondaryButton(
     modifier: Modifier = Modifier,
     iconSize: Dp = D.Size.roundIconSize,
     elevation: Dp = 0.dp,
+    alpha: Float = 0.7f,
     @DrawableRes icon: Int,
     @StringRes iconDescription: Int? = null,
     onClick: (() -> Unit)?,
@@ -31,7 +32,7 @@ fun RoundSecondaryButton(
         modifier = modifier
             .height(size)
             .width(size)
-            .graphicsLayer(alpha = 0.7f),
+            .graphicsLayer(alpha = alpha),
         color = MaterialTheme.colorScheme.secondary,
         elevation = elevation,
         onClick = onClick,
