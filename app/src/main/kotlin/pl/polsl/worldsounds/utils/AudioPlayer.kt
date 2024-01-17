@@ -23,7 +23,9 @@ object AudioPlayer {
     }
 
     fun stopAudio() {
-        mediaPlayer?.stop()
+        if (isAudioPlaying) {
+            mediaPlayer?.stop()
+        }
         mediaPlayer?.release()
         mediaPlayer = null
     }
