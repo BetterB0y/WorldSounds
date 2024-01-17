@@ -111,7 +111,9 @@ class MainActivity : AppCompatActivity() {
         if (isAllPermissionsGranted()) {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    assets.copyToAppFolder(AssetsFolders.Animals)
+                    assets.copyToAppFolder(AssetsFolders.Alphabet)
+                    assets.copyToAppFolder(AssetsFolders.FarmAnimals)
+                    assets.copyToAppFolder(AssetsFolders.WildAnimals)
                 } catch (_: Exception) {
                 }
                 scanFolderWithAssetsUseCase(Unit)
