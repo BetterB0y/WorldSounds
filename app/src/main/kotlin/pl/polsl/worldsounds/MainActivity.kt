@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             @Suppress("DEPRECATION")
-            //TODO Check on older android
             window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         } else {
             window.insetsController?.apply {

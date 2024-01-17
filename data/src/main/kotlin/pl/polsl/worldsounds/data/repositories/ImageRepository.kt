@@ -13,17 +13,14 @@ internal class ImageRepository(
     }
 
     suspend fun getCategoryImage(categoryId: Long): String {
-        // TODO error handling
         return dao.getCategoryImage(categoryId)?.fileName ?: ""
     }
 
     suspend fun getImageAssets(categoryId: Long, answerFilename: String): List<ImageModel> {
-        // TODO error handling
         return dao.getAssets(categoryId, answerFilename).map { it.toModel() }.shuffled()
     }
 
     suspend fun getRandomAnswerNotIn(categoryId: Long, answers: Set<Long>): ImageModel {
-        // TODO error handling
         return dao.get1RandomNotIn(categoryId, answers)?.toModel() ?: throw Exception("Image not found")
     }
 }

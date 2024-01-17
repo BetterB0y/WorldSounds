@@ -17,7 +17,6 @@ internal class AudioRepository(
     }
 
     suspend fun getRandomAnswerNotIn(categoryId: Long, answers: Set<Long>): AudioModel {
-        // TODO error handling
         return dao.get1RandomNotIn(categoryId, answers)?.toModel() ?: throw Exception("Audio not found")
     }
 }

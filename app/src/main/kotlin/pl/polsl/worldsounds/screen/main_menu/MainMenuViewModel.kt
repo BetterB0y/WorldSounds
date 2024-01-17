@@ -51,10 +51,6 @@ class MainMenuViewModel @Inject constructor(
     fun navigateToBestScoresScreen() = launch {
         sendEvent(MainMenuEvent.OpenBestScoresScreen)
     }
-
-    fun goToSettings() = launch {
-        sendEvent(MainMenuEvent.OpenSettingsScreen)
-    }
 }
 
 sealed class MainMenuEvent {

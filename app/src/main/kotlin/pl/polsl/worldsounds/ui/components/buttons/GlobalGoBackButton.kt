@@ -24,6 +24,7 @@ fun GlobalGoBackButton(navigateBack: () -> Unit) {
             iconDescription = R.string.iconBack,
             onClick = navigateBack,
             size = D.Size.goBackButton,
+            alpha = 0.9f,
         )
     }
 }

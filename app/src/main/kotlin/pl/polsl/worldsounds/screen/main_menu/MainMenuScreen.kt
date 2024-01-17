@@ -63,7 +63,6 @@ fun MainMenuScreen(
             generateRiddle = viewModel::generateRiddle,
             processRiddleAnswer = viewModel::processRiddleAnswer,
             navigateToBestScoresScreen = viewModel::navigateToBestScoresScreen,
-            goToSettings = viewModel::goToSettings
         )
     }
 }
@@ -76,7 +75,6 @@ private fun MainMenuScreen(
     generateRiddle: () -> Unit,
     processRiddleAnswer: (String) -> Unit,
     navigateToBestScoresScreen: () -> Unit,
-    goToSettings: () -> Unit,
 ) {
     val storagePermissionState = rememberMultiplePermissionsState(
         permissions = permissions
@@ -114,9 +112,8 @@ private fun MainMenuScreen(
     ) {
 
         SettingsButton {
-            goToSettings()
-//                generateRiddle()
-//                isMathRiddleDialogVisible = true
+            generateRiddle()
+            isMathRiddleDialogVisible = true
         }
         Column(
             modifier = Modifier.fillMaxSize(),

@@ -97,7 +97,6 @@ private fun SettingsScreen(
                 .fillMaxHeight(0.9f)
                 .verticalScroll(scrollState)
                 .clip(S.large)
-                //TODO change alpha to common value
                 .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween,
