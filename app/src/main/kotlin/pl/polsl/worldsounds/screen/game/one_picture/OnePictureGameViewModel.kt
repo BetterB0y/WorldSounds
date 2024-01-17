@@ -4,8 +4,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
+import pl.polsl.worldsounds.base.combine
 import pl.polsl.worldsounds.domain.usecases.GetCategoryUseCase
 import pl.polsl.worldsounds.domain.usecases.GetNumberOfRoundsUseCase
 import pl.polsl.worldsounds.domain.usecases.GetRoundsAssetsUseCase
@@ -37,7 +37,8 @@ class OnePictureGameViewModel @Inject constructor(
         currentRound,
         numberOfRounds,
         score,
-    ) { category, roundsAssets, currentRound, numberOfRounds, score ->
+        isFirstTry
+    ) { category, roundsAssets, currentRound, numberOfRounds, score, isFirstTry ->
         if (currentRound != state.value.currentRound) {
             saveAudio(null)
         }
@@ -46,7 +47,8 @@ class OnePictureGameViewModel @Inject constructor(
             roundsAssets,
             currentRound,
             numberOfRounds,
-            score
+            score,
+            isFirstTry
         )
     }
 
@@ -90,6 +92,7 @@ sealed class OnePictureGameScreenState : GameScreenState() {
         override val currentRound: Int = 1
         override val numberOfRounds: Int = 0
         override val score: Int = 0
+        override val isFirstTry: Boolean = true
         override val currentRoundData: RoundAssetsData.OnePicture
             get() = RoundAssetsData.OnePicture.default()
     }
@@ -100,6 +103,7 @@ sealed class OnePictureGameScreenState : GameScreenState() {
         override val currentRound: Int,
         override val numberOfRounds: Int,
         override val score: Int,
+        override val isFirstTry: Boolean,
     ) : OnePictureGameScreenState() {
         override val currentRoundData: RoundAssetsData.OnePicture
             get() = roundData.getOrElse(currentRound - 1) { RoundAssetsData.OnePicture.default() }
