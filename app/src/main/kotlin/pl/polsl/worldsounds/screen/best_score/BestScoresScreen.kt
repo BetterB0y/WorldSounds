@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,6 +34,7 @@ import pl.polsl.worldsounds.models.GameModeData
 import pl.polsl.worldsounds.ui.components.buttons.GlobalGoBackButton
 import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
 import pl.polsl.worldsounds.ui.resources.D
+import pl.polsl.worldsounds.ui.resources.S
 
 @Destination
 @Composable
@@ -87,8 +89,9 @@ private fun BestScoresScreen(
         }
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.4f)
+                .fillMaxWidth(0.45f)
                 .fillMaxHeight(0.9f)
+                .clip(S.large)
                 .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
         ) {
             if (state.scores.isEmpty()) {

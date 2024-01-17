@@ -28,8 +28,8 @@ fun RoundIndicator(
         for (index in 0 until maxRounds) {
             Box(
                 modifier = Modifier
-                    .padding(10.dp)
-                    .size(18.dp)
+                    .padding(5.dp)
+                    .size(15.dp)
                     .clip(CircleShape)
                     .background(if (index <= currentRoundIndex) MaterialTheme.colorScheme.tertiary else Color.Gray)
             )

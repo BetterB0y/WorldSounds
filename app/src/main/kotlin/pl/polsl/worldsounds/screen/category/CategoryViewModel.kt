@@ -43,6 +43,10 @@ class CategoryViewModel @Inject constructor(
             }
         )
     }
+
+    fun navigateBack() = launch {
+        sendEvent(Event.Navigation.NavigateBack)
+    }
 }
 
 sealed class CategoryEvent {

@@ -45,7 +45,7 @@ fun GameScreen(
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceAround,
     ) {
         content()
         GameNavButtons(
