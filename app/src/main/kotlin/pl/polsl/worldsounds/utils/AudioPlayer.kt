@@ -23,6 +23,7 @@ object AudioPlayer {
     }
 
     fun stopAudio() {
+        mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
