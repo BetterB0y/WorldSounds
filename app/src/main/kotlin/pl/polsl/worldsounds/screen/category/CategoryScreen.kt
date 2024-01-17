@@ -18,6 +18,7 @@ import pl.polsl.worldsounds.base.observeEvents
 import pl.polsl.worldsounds.base.observeState
 import pl.polsl.worldsounds.models.CategoryData
 import pl.polsl.worldsounds.ui.components.ImageCard
+import pl.polsl.worldsounds.ui.components.buttons.GlobalGoBackButton
 
 @Destination
 @Composable
@@ -35,7 +36,8 @@ fun CategoryScreen(
 
     CategoryScreen(
         state = state,
-        saveAndNavigate = viewModel::saveAndNavigate
+        saveAndNavigate = viewModel::saveAndNavigate,
+        navigateBack = viewModel::navigateBack
     )
 }
 
@@ -43,7 +45,9 @@ fun CategoryScreen(
 private fun CategoryScreen(
     state: CategoryScreenState,
     saveAndNavigate: (CategoryData) -> Unit,
+    navigateBack: () -> Unit,
 ) {
+
     LazyRow(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
@@ -61,4 +65,5 @@ private fun CategoryScreen(
             }
         }
     }
+    GlobalGoBackButton(navigateBack)
 }

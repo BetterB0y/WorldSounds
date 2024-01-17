@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 fun CustomSlider(
     value: Float,
     @StringRes text: Int,
+    modifier: Modifier = Modifier,
     textArgs: Array<Any> = emptyArray(),
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
@@ -24,7 +25,8 @@ fun CustomSlider(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
     ) {
         Text(stringResource(text, *textArgs))
         Slider(
@@ -43,6 +45,7 @@ fun CustomSlider(
     value: Float,
     @StringRes text: Int,
     textArg: Any,
+    modifier: Modifier = Modifier,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
     onValueChange: (Float) -> Unit,
@@ -56,5 +59,6 @@ fun CustomSlider(
         steps = steps,
         onValueChange = onValueChange,
         onValueChangeFinished = onValueChangeFinished,
+        modifier = modifier
     )
 }
