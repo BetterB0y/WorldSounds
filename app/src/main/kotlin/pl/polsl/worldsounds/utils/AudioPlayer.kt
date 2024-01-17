@@ -7,7 +7,13 @@ import android.net.Uri
 object AudioPlayer {
     private var mediaPlayer: MediaPlayer? = null
 
-    val isAudioPlaying: Boolean get() = mediaPlayer?.isPlaying ?: false
+    val isAudioPlaying: Boolean
+        get() =
+            try {
+                mediaPlayer?.isPlaying ?: false
+            } catch (e: Exception) {
+                false
+            }
 
     fun playAudio(context: Context, audio: Uri) {
         stopAudio()

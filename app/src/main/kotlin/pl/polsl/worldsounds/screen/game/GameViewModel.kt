@@ -73,6 +73,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     }
 
     private fun changeRound() {
+        AudioPlayer.stopAudio()
         currentRound.update { it + 1 }
     }
 
@@ -85,8 +86,8 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     }
 
 
-    fun saveAudio(audio: File) = launch {
-        _saveAudioToPlayUseCase(audio.toString())
+    fun saveAudio(audio: File?) = launch {
+        _saveAudioToPlayUseCase(audio?.toString() ?: "")
     }
 
     override fun onCleared() {
