@@ -38,6 +38,9 @@ class OnePictureGameViewModel @Inject constructor(
         numberOfRounds,
         score,
     ) { category, roundsAssets, currentRound, numberOfRounds, score ->
+        if (currentRound != state.value.currentRound) {
+            saveAudio(null)
+        }
         OnePictureGameScreenState.ReadyState(
             category,
             roundsAssets,
@@ -84,7 +87,7 @@ sealed class OnePictureGameScreenState : GameScreenState() {
     data object InitialState : OnePictureGameScreenState() {
         override val category: CategoryData = CategoryData.default()
         override val roundData: List<RoundAssetsData.OnePicture> = emptyList()
-        override val currentRound: Int = 0
+        override val currentRound: Int = 1
         override val numberOfRounds: Int = 0
         override val score: Int = 0
         override val currentRoundData: RoundAssetsData.OnePicture

@@ -39,7 +39,6 @@ class OneSoundGameViewModel @Inject constructor(
         score,
     ) { category, roundsAssets, currentRound, numberOfRounds, score ->
         if (currentRound != state.value.currentRound) {
-            //todo exception
             saveAudio(_roundsAssets.value[currentRound - 1].audio.file)
         }
         OneSoundGameScreenState.ReadyState(
@@ -68,6 +67,7 @@ class OneSoundGameViewModel @Inject constructor(
                     )
                 ).map { it.toData(categoryData.name) as RoundAssetsData.OneSound }
             }
+            saveAudio(_roundsAssets.value[currentRound.value - 1].audio.file)
         }
     }
 
@@ -88,7 +88,7 @@ sealed class OneSoundGameScreenState : GameScreenState() {
     data object InitialState : OneSoundGameScreenState() {
         override val category: CategoryData = CategoryData.default()
         override val roundData: List<RoundAssetsData.OneSound> = emptyList()
-        override val currentRound: Int = 0
+        override val currentRound: Int = 1
         override val numberOfRounds: Int = 0
         override val score: Int = 0
         override val currentRoundData: RoundAssetsData.OneSound
