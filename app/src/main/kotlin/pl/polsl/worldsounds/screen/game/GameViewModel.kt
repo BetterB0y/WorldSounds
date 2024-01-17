@@ -32,21 +32,26 @@ abstract class GameViewModel<out STATE : GameScreenState>(
     protected val numberOfRounds: MutableStateFlow<Int> =
         MutableStateFlow(1)
 
+    protected val isFirstTry: MutableStateFlow<Boolean> =
+        MutableStateFlow(true)
+
+
     protected abstract fun hideWrongAsset(answer: String)
 
-    fun processAnswer(answer: String, isFirstTry: Boolean, result: (Boolean) -> Unit) = launch {
+    fun processAnswer(answer: String, result: (Boolean) -> Unit) = launch {
         AudioPlayer.stopAudio()
         if (answer.isEmpty()) {
             result(false)
             return@launch
         }
         if (!state.value.isAnswerCorrect(answer)) {
+            isFirstTry.update { false }
             hideWrongAsset(answer)
             result(false)
             return@launch
         }
 
-        if (isFirstTry) {
+        if (state.value.isFirstTry) {
             updateScore()
         }
         if (state.value.isGameFinished) {
@@ -74,6 +79,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
 
     private fun changeRound() {
         AudioPlayer.stopAudio()
+        isFirstTry.update { true }
         currentRound.update { it + 1 }
     }
 
@@ -106,6 +112,7 @@ abstract class GameScreenState {
     abstract val currentRound: Int
     abstract val numberOfRounds: Int
     abstract val score: Int
+    abstract val isFirstTry: Boolean
 
     abstract val currentRoundData: RoundAssetsData
     val isGameFinished get() = numberOfRounds == currentRound

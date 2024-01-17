@@ -66,7 +66,7 @@ private fun OnePictureGameScreen(
     playAudio: (Context, File) -> Unit,
     saveAudio: (File) -> Unit,
     navigateToMainScreen: () -> Unit,
-    processAnswer: (String, Boolean, (Boolean) -> Unit) -> Unit,
+    processAnswer: (String, (Boolean) -> Unit) -> Unit,
 ) {
     val assets = state.currentRoundData
     var selectedAudioName by remember { mutableStateOf("") }
@@ -86,7 +86,6 @@ private fun OnePictureGameScreen(
             ImageCard(file = assets.image.file)
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-//                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 10.dp),
                 horizontalArrangement = Arrangement.SpaceAround,
                 modifier = Modifier.width(350.dp)
             ) {

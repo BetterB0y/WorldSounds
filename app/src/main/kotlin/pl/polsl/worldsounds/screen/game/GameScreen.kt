@@ -20,15 +20,9 @@ fun GameScreen(
     selectedName: String,
     resetSelectedName: () -> Unit,
     navigateToMainScreen: () -> Unit,
-    processAnswer: (String, Boolean, (Boolean) -> Unit) -> Unit,
+    processAnswer: (String, (Boolean) -> Unit) -> Unit,
     content: @Composable () -> Unit
 ) {
-    val isFirstTry = remember {
-        mutableMapOf<Int, Boolean>().apply {
-            (1..state.numberOfRounds).forEach { this[it] = true }
-        }
-    }
-
     var isExitDialogVisible: Boolean by remember {
         mutableStateOf(false)
     }
@@ -42,6 +36,7 @@ fun GameScreen(
         ExitGameDialog(onConfirm = { navigateToMainScreen() }, onDismiss = { isExitDialogVisible = false })
     }
 
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,8 +46,7 @@ fun GameScreen(
         GameNavButtons(
             onExit = { isExitDialogVisible = true },
             onNext = {
-                processAnswer(it, isFirstTry[state.currentRound]!!) { isCorrect ->
-                    isFirstTry[state.currentRound] = false
+                processAnswer(it) { isCorrect ->
                     if (isCorrect) resetSelectedName()
                 }
             },
