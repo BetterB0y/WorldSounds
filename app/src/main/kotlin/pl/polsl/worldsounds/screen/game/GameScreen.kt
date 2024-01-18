@@ -1,5 +1,6 @@
 package pl.polsl.worldsounds.screen.game
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import pl.polsl.worldsounds.ui.components.buttons.GameNavButtons
 import pl.polsl.worldsounds.ui.components.dialogs.ExitGameDialog
 
@@ -20,9 +22,10 @@ fun GameScreen(
     selectedName: String,
     resetSelectedName: () -> Unit,
     navigateToMainScreen: () -> Unit,
-    processAnswer: (String, (Boolean) -> Unit) -> Unit,
+    processAnswer: (Context, String, (Boolean) -> Unit) -> Unit,
     content: @Composable () -> Unit
 ) {
+    val context = LocalContext.current
     var isExitDialogVisible: Boolean by remember {
         mutableStateOf(false)
     }
@@ -46,7 +49,7 @@ fun GameScreen(
         GameNavButtons(
             onExit = { isExitDialogVisible = true },
             onNext = {
-                processAnswer(it) { isCorrect ->
+                processAnswer(context, it) { isCorrect ->
                     if (isCorrect) resetSelectedName()
                 }
             },

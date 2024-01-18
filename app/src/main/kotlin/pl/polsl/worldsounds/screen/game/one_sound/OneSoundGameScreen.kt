@@ -59,7 +59,7 @@ private fun OneSoundGameScreen(
     state: OneSoundGameScreenState,
     playAudio: (Context, File) -> Unit,
     navigateToMainScreen: () -> Unit,
-    processAnswer: (String, (Boolean) -> Unit) -> Unit,
+    processAnswer: (Context, String, (Boolean) -> Unit) -> Unit,
 ) {
     val assets = state.currentRoundData
     var selectedImageName by remember { mutableStateOf("") }
