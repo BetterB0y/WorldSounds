@@ -20,8 +20,6 @@ import pl.polsl.worldsounds.ui.resources.S
 
 @Composable
 fun BaseDialog(
-    @StringRes title: Int,
-    @StringRes description: Int,
     onDismiss: () -> Unit,
     dialogProperties: DialogProperties = DialogProperties(
         usePlatformDefaultWidth = false
@@ -43,20 +41,35 @@ fun BaseDialog(
                     .padding(D.Padding.Dialog.content),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = stringResource(title),
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.Bold,
-                    )
-                )
-                Text(
-                    text = stringResource(description),
-                    modifier = Modifier.padding(D.Padding.Dialog.description),
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center,
-                )
                 content()
             }
         }
+    }
+}
+
+@Composable
+fun BaseDialog(
+    @StringRes title: Int,
+    @StringRes description: Int,
+    onDismiss: () -> Unit,
+    dialogProperties: DialogProperties = DialogProperties(
+        usePlatformDefaultWidth = false
+    ),
+    content: @Composable () -> Unit,
+) {
+    BaseDialog(onDismiss = onDismiss, dialogProperties = dialogProperties) {
+        Text(
+            text = stringResource(title),
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.Bold,
+            )
+        )
+        Text(
+            text = stringResource(description),
+            modifier = Modifier.padding(D.Padding.Dialog.description),
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
+        )
+        content()
     }
 }
