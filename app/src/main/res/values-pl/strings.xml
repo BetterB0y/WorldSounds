@@ -5,8 +5,6 @@
     <string name="storageRationale">Dostęp do pamięci urządzenia jest potrzebny, aby dodawać własne kategorie. Nadaj potrzebne uprawnienia.</string>
     <string name="language">Język:</string>
     <string name="defaultUsername">Gracz</string>
-    <string name="riddleWrongAnswer">Zła odpowiedź. Spróbuj jeszcze raz!</string>
-    <string name="riddleEmptyAnswer">Pusta odpowiedź. Spróbuj jeszcze raz!</string>
     <string name="congratulations">Gratulacje</string>
     <string name="youScored">Zdobyłeś %1$s punktów</string>
     <string name="changeUsername">Zmień nazwę użytkownika</string>
@@ -17,8 +15,6 @@
     <string name="exitAppAreYouSure">Czy na pewno chcesz wyjść z aplikacji?</string>
     <string name="exitGame">Wyjdź z gry</string>
     <string name="exitGameAreYouSure">Czy na pewno chcesz wyjść z gry?</string>
-    <string name="solveRiddle">Rozwiąż zagadkę</string>
-    <string name="solveRiddleAnswer">Podaj wartość wyrażenia:</string>
     <string name="accelerometerSensitivity">Czułość akcelerometru: %1$s</string>
     <string name="roundNumber">Liczba rund: %1$s</string>
 

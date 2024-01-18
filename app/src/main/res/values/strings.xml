@@ -5,8 +5,6 @@
     <string name="storageRationale">Access to the storage is needed to add Your own categories. Give the necessary permissions.</string>
     <string name="language">Language:</string>
     <string name="defaultUsername">Player</string>
-    <string name="riddleWrongAnswer">Wrong answer. Try again!</string>
-    <string name="riddleEmptyAnswer">Empty answer. Try again!</string>
     <string name="congratulations">Congratulations</string>
     <string name="youScored">You scored %1$s points</string>
     <string name="changeUsername">Change username</string>
@@ -17,8 +15,6 @@
     <string name="exitAppAreYouSure">Are you sure you want to leave the application?</string>
     <string name="exitGame">Exit the game</string>
     <string name="exitGameAreYouSure">Are you sure you want to leave the game?</string>
-    <string name="solveRiddle">Solve the riddle</string>
-    <string name="solveRiddleAnswer">Give the value of the expression:</string>
     <string name="accelerometerSensitivity">Accelerometer sensitivity: %1$s</string>
     <string name="roundNumber">Number of rounds: %1$s</string>
 
