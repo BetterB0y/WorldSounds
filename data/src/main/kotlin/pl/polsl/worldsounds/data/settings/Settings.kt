@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import pl.polsl.worldsounds.domain.base.Config
 import pl.polsl.worldsounds.domain.models.GameModeModel
 import java.util.Locale
 
@@ -82,7 +83,7 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
     )
 
     override suspend fun getNumberOfRounds(): Int {
-        return _dataStore.get(NUMBER_OF_ROUNDS) ?: 1
+        return _dataStore.get(NUMBER_OF_ROUNDS) ?: Config.DefaultGameParameters.numberOfRounds
     }
 
     override suspend fun setAccelerometerThreshold(value: Float) = _dataStore.set(
@@ -91,7 +92,7 @@ internal class SettingsImpl(private val _dataStore: DataStore<Preferences>) : Se
     )
 
     override suspend fun getAccelerometerThreshold(): Float {
-        return _dataStore.get(ACCELEROMETER_THRESHOLD) ?: 10f
+        return _dataStore.get(ACCELEROMETER_THRESHOLD) ?: Config.DefaultGameParameters.accelerometerThreshold
     }
 
     override fun observeAccelerometerThreshold(): Flow<Float> =

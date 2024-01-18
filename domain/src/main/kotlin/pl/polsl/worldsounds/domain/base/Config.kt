@@ -13,4 +13,9 @@ object Config {
         const val minThreshold = 0f
         const val maxThreshold = 25f
     }
+
+    object DefaultGameParameters {
+        const val numberOfRounds = 5
+        const val accelerometerThreshold = 10f
+    }
 }
