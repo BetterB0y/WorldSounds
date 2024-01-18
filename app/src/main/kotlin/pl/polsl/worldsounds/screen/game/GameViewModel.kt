@@ -5,6 +5,7 @@ import androidx.core.net.toUri
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import pl.polsl.worldsounds.R
 import pl.polsl.worldsounds.base.BaseViewModel
 import pl.polsl.worldsounds.base.Event
 import pl.polsl.worldsounds.domain.usecases.SaveAudioToPlayUseCase
@@ -38,7 +39,7 @@ abstract class GameViewModel<out STATE : GameScreenState>(
 
     protected abstract fun hideWrongAsset(answer: String)
 
-    fun processAnswer(answer: String, result: (Boolean) -> Unit) = launch {
+    fun processAnswer(context: Context, answer: String, result: (Boolean) -> Unit) = launch {
         AudioPlayer.stopAudio()
         if (answer.isEmpty()) {
             result(false)
@@ -50,17 +51,17 @@ abstract class GameViewModel<out STATE : GameScreenState>(
             result(false)
             return@launch
         }
-
         if (state.value.isFirstTry) {
             updateScore()
         }
         if (state.value.isGameFinished) {
+            AudioPlayer.playAudio(context, R.raw.win)
             saveScore()
             sendEvent(GameEvent.OpenSummaryScreen(score.value))
             return@launch
         }
 
-        changeRound()
+        changeRound(context)
         result(true)
     }
 
@@ -77,8 +78,8 @@ abstract class GameViewModel<out STATE : GameScreenState>(
         )
     }
 
-    private fun changeRound() {
-        AudioPlayer.stopAudio()
+    private fun changeRound(context: Context) {
+        AudioPlayer.playAudio(context, R.raw.right_answer)
         isFirstTry.update { true }
         currentRound.update { it + 1 }
     }
