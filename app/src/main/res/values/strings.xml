@@ -17,6 +17,8 @@
     <string name="exitGameAreYouSure">Are you sure you want to leave the game?</string>
     <string name="accelerometerSensitivity">Accelerometer sensitivity: %1$s</string>
     <string name="roundNumber">Number of rounds: %1$s</string>
+    <string name="authors">Authors</string>
+    <string name="implementedFor">Project carried out as part of the course Designing Applications for Mobile Devices at the Silesian University of Technology in Gliwice</string>
 
     <!--Icon descriptions-->
     <string name="iconPlay">Play</string>
@@ -30,6 +32,7 @@
     <string name="iconConfirm">Confirm</string>
     <string name="iconNext">Next</string>
     <string name="iconBack">Back</string>
+    <string name="iconInfo">Information on authors</string>
     <string name="audioButton">Audio Button</string>
     <string name="languageEnglish">English</string>
     <string name="languagePolish">Polish</string>

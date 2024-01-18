@@ -17,6 +17,8 @@
     <string name="exitGameAreYouSure">Czy na pewno chcesz wyjść z gry?</string>
     <string name="accelerometerSensitivity">Czułość akcelerometru: %1$s</string>
     <string name="roundNumber">Liczba rund: %1$s</string>
+    <string name="authors">Autorzy</string>
+    <string name="implementedFor">Projekt realizowany w ramach przedmiotu Projektowanie Aplikacji dla Urządzeń Mobilnych na Politechnice Śląskiej w Gliwicach</string>
 
     <!--Icon descriptions-->
     <string name="iconPlay">Graj</string>
@@ -30,6 +32,7 @@
     <string name="iconConfirm">Zatwierdź</string>
     <string name="iconNext">Następne</string>
     <string name="iconBack">Cofnij</string>
+    <string name="iconInfo">Informacje o autorach</string>
     <string name="audioButton">Przycisk dźwięku</string>
     <string name="languageEnglish">English</string>
     <string name="languagePolish">Polish</string>

@@ -35,6 +35,7 @@ import pl.polsl.worldsounds.ui.components.RoundsSlider
 import pl.polsl.worldsounds.ui.components.buttons.GlobalGoBackButton
 import pl.polsl.worldsounds.ui.components.buttons.LanguageButton
 import pl.polsl.worldsounds.ui.components.buttons.PrimaryButton
+import pl.polsl.worldsounds.ui.components.dialogs.AuthorsDialog
 import pl.polsl.worldsounds.ui.components.dialogs.ChangeUsernameDialog
 import pl.polsl.worldsounds.ui.resources.D
 import pl.polsl.worldsounds.ui.resources.S
@@ -82,10 +83,21 @@ private fun SettingsScreen(
         mutableStateOf(false)
     }
 
+    var isAuthorsInfoDialogVisible: Boolean by remember {
+        mutableStateOf(false)
+    }
+
     val scrollState = rememberScrollState()
 
     GlobalGoBackButton(navigateBack)
-
+    AuthorButton {
+        isAuthorsInfoDialogVisible = true
+    }
+    if (isAuthorsInfoDialogVisible) {
+        AuthorsDialog(
+            onDismiss = { isAuthorsInfoDialogVisible = false },
+        )
+    }
     Box(
         modifier = Modifier
             .fillMaxSize(),
